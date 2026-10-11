@@ -146,6 +146,9 @@ def test_complete_skills_distribution_preserves_separate_contracts(tmp_path):
         )
         archive.extractall(extracted)
     assert len(list(extracted.rglob("SKILL.md"))) == 9
+    lifecycle = extracted / "workflow/docs/INSTANCE_RECOVERY.md"
+    assert lifecycle.is_file()
+    assert "rolevane-instance" in lifecycle.read_text(encoding="utf-8")
     creation = extracted / "creation"
     assert (
         json.loads((creation / "BUNDLE-MANIFEST.json").read_text())["profile"]

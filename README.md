@@ -74,8 +74,9 @@ the model and may incur usage charges.
 
 Share only selected text you are entitled to share. Your configured host/model provider processes
 it under your account's terms. Exclude credentials and confidential third-party details.
-Berufa does not connect to your career workspace, fetch postings, read ambient documents or
-send applications for you. Editable Markdown is the supported supplied-content file format.
+These nine Skills do not connect to your career workspace, fetch postings, read ambient
+documents or send applications for you. The separate local core can retrieve one exact
+Greenhouse posting after your local confirmation. Editable Markdown is the supported supplied-content file format.
 The pack supplies no privacy sandbox or provider-retention control.
 
 See [privacy](PRIVACY.md) and [the sharing profile](docs/SUPPLIED_CONTENT_PROFILE.md) for details.

@@ -16,7 +16,7 @@ public-contract/fictional-demo boundary; they do not inherit permission to proce
 
 ## Install The Complete Set
 
-Use the getting-started guide at https://github.com/K0enna/berufa/blob/main/docs/GET_STARTED.md
+Use the versioned [Get Started guide](https://github.com/K0enna/berufa/blob/v0.1.2/docs/GET_STARTED.md)
 for all-nine source installation. At the approved Berufa.com launch step, the complete release
 ZIP can instead be extracted into a new `YOUR_PROJECT/.agents/skills/berufa/` directory.
 Keep `creation/` and `workflow/` intact. Inside `creation/`, keep its Skills, references,

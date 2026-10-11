@@ -103,6 +103,7 @@ WORKFLOW_SKILLS = (
 )
 WORKFLOW_MEMBERS = (
     ("public_repo/skills/manifest.toml", "workflow/skills/manifest.toml"),
+    ("public_repo/docs/INSTANCE_RECOVERY.md", "workflow/docs/INSTANCE_RECOVERY.md"),
     *(
         (f"public_repo/skills/{name}/{file}", f"workflow/skills/{name}/{file}")
         for name in WORKFLOW_SKILLS

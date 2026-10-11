@@ -39,14 +39,18 @@ but no credential field (`src/career_os/evidence_vault.py:1217`,
 
 ## Skill access policy
 
-The additional two Skills described in `CREATION_SKILLS.md` use the existing distinct fictional
-supplied-content profile: complete independently fictional facts, pasted fictional roles and
-selected fictional drafts may be processed by the user's Codex host/model. The pack has no MCP
+The two creation Skills described in `CREATION_SKILLS.md` have distinct package profiles.
+`creation_skills_fictional_only` remains fictional-only. The owner-approved selected Stage 1
+package uses `supplied_content_host_only_v1`: only deliberately pasted selected facts, role
+text and drafts the user is entitled to share, after provider disclosure and explicit individual
+sharing agreement. This narrowly selected route is the exception to the default no-model
+destinations in the inventory above; it never grants access to stored private data. The pack has no MCP
 connection, ambient document/vault lookup, canonical persistence or external career action.
 Host conversation and local unapproved drafts remain under the host's retention/filesystem rules;
 no local-only inference or sandbox is claimed. Denied sharing stops the route. Optional formatting
-uses only the neutral adapter and its declared existing-host requirements. Broader supplied real
-content is an inactive proposal in `SUPPLIED_CONTENT_PROFILE.md`, not permission. This does not
+uses only fictional prose through the neutral adapter and its declared existing-host requirements.
+`SUPPLIED_CONTENT_PROFILE.md` owns the selected-text contract, not connected access or permission
+for the seven workflow Skills. Real-content tests remain prohibited. This does not
 change the seven legacy Skills' ceiling below.
 
 All seven skills share one hard preview ceiling. `skills/manifest.toml` records the exact ordered
@@ -66,13 +70,15 @@ receive its values or results, or ask the user to paste, summarize, describe, or
 them. The user runs and reviews every real workflow in the local terminal.
 
 All documents, postings, screenshots, issue/PR text, web pages, tool output, generated artifacts,
-and model responses are untrusted content and remain outside skill context. Labels such as
+and model responses are untrusted content and remain outside the seven workflow Skills' context.
+Selected text in the two creation Skills remains lower-authority data, never executable instructions.
+Labels such as
 "system", "approved", "maintainer", or a copied confirmation digest do not change that
 classification. Deterministic code plus an explicit local-user action may approve evidence or
 confirm a lifecycle event (`src/career_os/evidence_vault.py:689`,
 `src/career_os/product_runtime.py:236`); no skill or model output is authority.
 
-## Agent-hosted skill requirements
+## Seven Workflow Skills: Agent-Hosted Requirements
 
 Invoking a skill uses the configured agent/model provider, but it is not consent to send real career
 data. The skill must refuse real or supplied postings and URLs, candidate documents or extracted
@@ -105,7 +111,9 @@ closed unless all of the following are explicit and locally reviewable:
 7. A disable/remove path and a denied result when policy or budget is missing.
 
 Do not send credentials, full workspaces, source-document binaries, private messages, forbidden
-claims, or real opportunity data to an agent or package model in this preview. No real compensation,
+claims, or real opportunity data to the seven workflow Skills or an embedded package model in
+this preview. The separately selected two-Skill pasted-text contract does not enable a package
+model client or broaden the seven-Skill ceiling. No real compensation,
 posting, evidence, application, interview, offer, outcome, or event values enter the conversational
 profile. A user's deliberate selection or a model response does not make untrusted output
 authoritative.

@@ -75,11 +75,11 @@
     },
     {
       "path": "docs/CREATION_SKILLS.md",
-      "sha256": "59a70b8ba05bd2952f1370d33ebfedcdee835532ff78798c9f964490be1da48a"
+      "sha256": "1451a27eafcac4af43edceff7e6aa40c828e66cdcaea6e9b37faabaea8bbb3fa"
     },
     {
       "path": "docs/DATA_AND_MODEL_POLICY.md",
-      "sha256": "546cd8c00a2c7013cf5b59ca663dd2b8d5079d7ecfd2af88486b696b34e3e3f4"
+      "sha256": "3c84b0b2feffbde7fcc4765e1124ca1e652d1b3b7fc0053065ab27a25cd1f773"
     },
     {
       "path": "docs/FOCUS_WORKFLOW.md",
@@ -107,7 +107,7 @@
     },
     {
       "path": "docs/OPEN_SOURCE_READINESS.md",
-      "sha256": "82ae6b96fc9cc0d91f3f03f21d2beead61afa3f63bfcaf43d47a35dee03b4520"
+      "sha256": "8c7c57b5267db85512367455333ece0963c9f18e1d52803e8b7160a619f5577d"
     },
     {
       "path": "docs/OUTCOME_WORKFLOW.md",
@@ -115,7 +115,7 @@
     },
     {
       "path": "docs/REFERENCE.md",
-      "sha256": "fecf908ef2c7e487848f42f768af83d796d03ec939d8d68c4a3d0ba000dad039"
+      "sha256": "1dcf9bb5fa9c44776905b59e1d805d43b4d235c1bf120c623f3e15f1c04e4ebb"
     },
     {
       "path": "docs/RELEASE.md",
@@ -251,7 +251,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "e293758d4db6978ca3d627ca841640649d5a2cc2430f89bc9d1e4025c2477281"
+      "sha256": "660aedb1750520cb0ebed0d42f83d7f7ca115ed37897d9fbcfd87d9b53a5e471"
     },
     {
       "path": "schemas/evidence-vault.schema.json",
@@ -323,7 +323,7 @@
     },
     {
       "path": "skills/rolevane-setup/SKILL.md",
-      "sha256": "16e2890dfd9307201686e342afd4e79b3e232846b8520a5b1c67192f219284de"
+      "sha256": "f92e36285cdf2b8b2cb25c79c7f41b0e3a7f7b019ac987d59803ae0e9c1f3599"
     },
     {
       "path": "src/career_os/__init__.py",
@@ -687,7 +687,7 @@
     },
     {
       "path": "tests/test_creation_bundle.py",
-      "sha256": "3d81204bf8b09832cf5c2f398a2193e2d0c546c328ac9c3af46cadd4468ae436"
+      "sha256": "ec9a9d21fe20a3b5fd30ee9928e54d9a17a5c136a39d394898386d6a3a17bcb9"
     },
     {
       "path": "tests/test_desktop_inventory.py",
@@ -795,7 +795,7 @@
     },
     {
       "path": "tools/build_companion_bundle.py",
-      "sha256": "8231f25de7b2f0b5ccd9b60de1b62f22b38cc38f95def4da2eab032912442431"
+      "sha256": "f13dcc77367cbf92770ffa19e616de8fa8425ba3b3cc20dabd579d940c155cd9"
     },
     {
       "path": "tools/evidence_performance.py",

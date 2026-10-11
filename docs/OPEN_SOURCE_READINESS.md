@@ -28,13 +28,14 @@ establish professional trademark clearance, provider permission, or legal compli
 
 ## Release decision summary
 
-Current Stage 1 preparation adds the two existing advice/creation Skills through an explicit
-Skills-only export. The prepared `supplied_content_host_only_v1` candidate permits selected
-pasted text after host/provider disclosure and explicit agreement; its owner activation decision
-is pending. The older `creation_skills_fictional_only` profile remains fictional-only.
+At the historical pre-approval preparation step, the two advice/creation Skills were added
+through an explicit Skills-only export. Owner activation of the prepared selected-text candidate
+was pending then. The current release position above supersedes that pending state for the
+owner-approved `supplied_content_host_only_v1` package; individual sharing agreement remains required.
+The older `creation_skills_fictional_only` profile remains fictional-only.
 Ordinary editable Markdown needs only the Codex host model. See
 [CREATION_SKILLS.md](CREATION_SKILLS.md) for installation and
-[SUPPLIED_CONTENT_PROFILE.md](SUPPLIED_CONTENT_PROFILE.md) for the exact inactive candidate
+[SUPPLIED_CONTENT_PROFILE.md](SUPPLIED_CONTENT_PROFILE.md) for the exact selected-text
 contract. Connected access stays disabled; the seven-Skill row retains its legacy boundary.
 Neither historical acceptance nor fresh discovery completes the general-use/publication gate.
 

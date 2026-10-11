@@ -69,6 +69,6 @@ hashes, fingerprints, confirmations, and terminal output there; the agent never 
 
 The public validator compares the manifest with the installed package version. A fictional demo uses
 a separate new `DEMO_PATH`; do not pre-initialize it with `rolevane-instance`. The real local
-workspace lifecycle is documented in `docs/INSTANCE_RECOVERY.md` and remains a deterministic
+workspace lifecycle is documented in [workspace lifecycle](../../docs/INSTANCE_RECOVERY.md) and remains a deterministic
 user-operated route. Stop when the public explanation, fictional demo, or content-free validation
 is complete, or when any real value would need agent handling.

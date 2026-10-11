@@ -61,7 +61,22 @@ remains release-blocked.
 
 ## Primary synthetic quick-start
 
-After installing the package in a Python 3.11+ environment, run:
+The local core is optional and separate from the Skills. To run its commands, use a FULL
+reviewed Berufa source checkout, not the selected Skills-source ZIP. On Windows with Python
+3.11 or newer, run from that checkout:
+
+```powershell
+python -m venv C:\Berufa-Core-Demo-env
+if ($LASTEXITCODE -ne 0) { throw 'Environment creation failed.' }
+C:\Berufa-Core-Demo-env\Scripts\python.exe -m pip install .
+if ($LASTEXITCODE -ne 0) { throw 'Core installation failed.' }
+C:\Berufa-Core-Demo-env\Scripts\rolevane-product-smoke.exe
+```
+
+Choose a new environment directory; do not overwrite an existing environment. Installation
+downloads the declared dependencies unless they are already available in a local package cache.
+It does not install a model client or connect a career workspace. Keep private data outside the
+checkout and environment. After activating that environment, the equivalent smoke command is:
 
 ```bash
 rolevane-product-smoke
@@ -69,7 +84,7 @@ rolevane-product-smoke
 
 This creates two isolated fictional product runtimes in temporary local storage and reports
 bounded proof metadata. It makes no model calls, network requests, uploads, submissions, messages,
-or other external actions. Use the [README](../README.md) for installation and the
+or other external actions. Use the installation steps above and the
 [skill-pack synthetic demonstration](SKILL_PACK.md#synthetic-demonstration) for the optional
 interactive demo. Keep that demo separate from a real initialized workspace.
 
