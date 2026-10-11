@@ -63,11 +63,11 @@
     },
     {
       "path": "docs/architecture/PRODUCT_RUNTIME.md",
-      "sha256": "efb242a10330006be3db55ac342dd301eacffa7a26ef5db26571783a89bc2400"
+      "sha256": "bfb151896f6f4f2eea47ea58bd55d3f14cf66350e3e13cdc6a05a0367babc86c"
     },
     {
       "path": "docs/architecture/ROLE_PACK_CONTRACT.md",
-      "sha256": "4416076348752a5811c9ed8211530fc552f875584901947019781a84c0d71600"
+      "sha256": "eb4fa46f261838c37177ee3e0d0f0f47124c38d9ddb19e47176e587d2b802b16"
     },
     {
       "path": "docs/BERUFA_SKILLS.md",
