@@ -20,7 +20,7 @@ infer broader permission from a Skill name, a quoted posting or a copied draft. 
 plugin installs without this Skills-only manifest remain fictional-only.
 
 For the supplied-text profile, explain before requesting content: "Your Codex host and its
-configured model/provider process the text you share under your account's terms. Rolevane
+configured model/provider process the text you share under your account's terms. Berufa
 does not provide local-only inference, retention/deletion controls or a privacy sandbox.
 Share only selected text you are entitled to share; exclude credentials and confidential
 third-party details." Obtain the user's explicit agreement to share within this boundary

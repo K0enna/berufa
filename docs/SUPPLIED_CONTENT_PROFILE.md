@@ -1,8 +1,9 @@
-# Supplied-content host profile
+# Berufa supplied-content host profile
 
-Contract: `supplied_content_host_only_v1`. Stage 1 candidate prepared on 11 October 2026.
-Owner acceptance and publication remain pending in the private approval packet. Preparation
-and fictional rehearsal do not activate a real-content installation.
+Contract: `supplied_content_host_only_v1`. The owner accepted this selected-text boundary
+on 11 October 2026 and then withdrew public publication over the former product name.
+The selected name is now Berufa. The repository remains private; this renamed candidate
+does not authorize a public relaunch or grant an individual user's sharing agreement.
 
 ## Permitted Workflow
 

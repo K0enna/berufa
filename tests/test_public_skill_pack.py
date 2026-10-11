@@ -38,7 +38,7 @@ PREVIEW_MODEL_DATA_CLASSES = [
 ]
 PUBLIC_PREVIEW_BOUNDARY = (
     "This experimental manual-local-data preview uses a no-untrusted-source conversational profile. "
-    "The skill may receive only `reviewed_package_source` from the exact reviewed Rolevane "
+    "The skill may receive only `reviewed_package_source` from the exact reviewed Berufa "
     "package/repository revision, wholly fictional bundled fixtures/demos, or content-free "
     "validation. It must never receive or process arbitrary public-source, web, issue, PR, tool, "
     "or model content or output; real candidate documents or extracted spans; real or supplied "

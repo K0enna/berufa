@@ -3,7 +3,7 @@
 ## Initialize And Check
 
 Use Python 3.11 or newer on Windows or Linux, in the same environment used to install
-Rolevane and its declared dependencies. Other platforms are not supported by these lifecycle
+Berufa and its declared dependencies. Other platforms are not supported by these lifecycle
 commands. Current local and CI proofs cover Windows and Linux; the wider release matrix remains
 a release-engineering gate. No account, hosted service or model is required.
 
@@ -24,11 +24,11 @@ processing consent, import files, propose evidence or seed synthetic facts. On W
 a parent with private ACLs; `.gitignore` is not an OS access control.
 
 Doctor returns fixed check names/statuses and `ready`, not paths, filenames, candidate content,
-hashes or raw exception text. It checks the runtime, installed package version, Rolevane's
+hashes or raw exception text. It checks the runtime, installed package version, Berufa's
 declared dependency health using local-only `python -I -m pip check`, initialized layout, and
 the bounded complete workspace inventory/default evidence database. It makes no model calls,
 uploads or Internet requests. Dependency output is not returned, and failures from unrelated
-packages in a shared environment do not make Rolevane unhealthy. A deliberately `--no-deps`
+packages in a shared environment do not make Berufa unhealthy. A deliberately `--no-deps`
 installation can run some commands but correctly fails the dependency check.
 
 Stop writers before diagnostics that inspect the database. `invalid_or_busy` includes locked,
@@ -96,7 +96,7 @@ until the restored workflow is verified. Unknown/newer schemas are never silentl
 
 `rolevane-instance` also inventories, backs up, verifies and restores a private workspace.
 This is an **offline directory snapshot**, not a live backup, encrypted archive, user-data
-export, synchronizer or repair tool. Stop every Rolevane command, agent, listener, editor and
+export, synchronizer or repair tool. Stop every Berufa command, agent, listener, editor and
 sync process that could write to either workspace or backup before using it. `--offline`
 records your acknowledgement of this prerequisite; it does not stop those processes for you.
 
@@ -180,7 +180,7 @@ Limits are 10,000 total entries, 512 MiB per file, 2 GiB of file content and a 4
 Recovery checks for twice the content size plus 16 MiB of free disk space before creating a
 destination; a later disk-full or I/O error can still interrupt the operation. Files use private
 creation modes on POSIX. Windows permissions inherit the destination parent's ACL; choose a
-private parent and use OS access controls/encryption as appropriate. Rolevane provides no
+private parent and use OS access controls/encryption as appropriate. Berufa provides no
 encryption or protection against a malicious process running as your user.
 
 The source SQLite database is checked and held in an exclusive, non-writing transaction during
@@ -279,7 +279,7 @@ touched. Files inside the selected workspace, including excluded inbox/configura
 content, are removed because the preview covers the whole selected root. This is logical deletion,
 not guaranteed erasure of disk sectors, filesystem snapshots, cloud-sync copies or independent
 backups. Uninstalling the Python package still does not delete private workspaces, and deleting a
-workspace does not uninstall Rolevane.
+workspace does not uninstall Berufa.
 
 The typed `InstanceDataService` is exported from `career_os.public_api`; compose it with
 `career_os.infrastructure.instance_data.create_instance_data_service(instance_root)`. Export and
@@ -367,7 +367,7 @@ command syntax. Failures do not print source content or exception paths. Check t
 destination existence, SQLite state, inventory limits and free space locally.
 
 An interrupted initialization/backup/restore is retained with `.career-os-recovery-incomplete`; do not use or
-run Rolevane against it. Verification refuses incomplete backups. Recovery does not overwrite
+run Berufa against it. Verification refuses incomplete backups. Recovery does not overwrite
 or recursively clean up that directory: inspect it locally and choose a new destination for
 the next attempt. If the initial marker cannot be written, recovery attempts to remove only its
 new empty directory; it never removes files introduced before that failure. If the filesystem

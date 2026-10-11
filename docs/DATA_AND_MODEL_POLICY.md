@@ -1,6 +1,6 @@
 # Data And Model Policy
 
-Rolevane is local-first, not "always offline." The installed Python commands make no embedded
+Berufa is local-first, not "always offline." The installed Python commands make no embedded
 model call or telemetry request. Exact Greenhouse lookup is a separate, per-request user-confirmed
 network transfer; no network request occurs during import, evidence review, source preview, or the
 synthetic demo. The seven conversational skills run inside the user's chosen agent environment, but
@@ -55,7 +55,7 @@ not consent or authority.
 
 | Skill context | Allowed | Explicitly outside skill context |
 | --- | --- | --- |
-| Reviewed package contract | Text/config shipped in the exact reviewed Rolevane package/repository revision | Arbitrary public-source, web, issue, PR, tool, or model content, including output |
+| Reviewed package contract | Text/config shipped in the exact reviewed Berufa package/repository revision | Arbitrary public-source, web, issue, PR, tool, or model content, including output |
 | Fictional demonstration | Wholly fictional bundled fixtures and demos | Real candidate documents, extracted spans, postings, URLs, evidence, applications, interviews, offers, outcomes, or user-derived summaries |
 | Validation | Content-free package/skill validation status | Private paths, request JSON, hashes/fingerprints, confirmations, terminal output, or any workflow values/results |
 
@@ -147,7 +147,7 @@ prohibited.
 - Put each private instance outside the public source checkout and do not initialize it in a public
   Git repository.
 - Use an OS account and disk/backup encryption appropriate for the sensitivity of career data.
-  Rolevane does not add application-level encryption or manage filesystem ACLs.
+  Berufa does not add application-level encryption or manage filesystem ACLs.
 - Stop the local app before copying a backup. Back up the complete instance, restore it to a new
   private path, and run the local smoke/health checks before relying on it.
 - Reset deletes only the validated instance root. Delete separate exports, browser downloads,
