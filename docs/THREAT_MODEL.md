@@ -12,14 +12,25 @@ demonstrations are synthetic, offline, model-disabled, and unable to submit appl
 messages (`src/career_os/synthetic_runtime.py:279`, `src/career_os/synthetic_runtime.py:321`,
 `src/career_os/synthetic_runtime.py:332`).
 
-The optional conversational skill layer is different: invoking a skill necessarily uses the
-user's configured agent/model provider. In the experimental preview, that context is limited to
+The conversational Skill layer uses the user's configured agent/model provider. For the seven
+workflow Skills, the experimental preview context is limited to
 text and configuration from the exact reviewed package/repository revision, wholly fictional
 bundled fixtures/demos, and content-free validation. Arbitrary public source, web pages, issues,
 pull requests, tool/model output, and all real workflow data remain outside skill context. The
 Python package does not bundle the provider, control its retention or training, or enforce its
 tool/filesystem sandbox. Real workflows use the documented deterministic CLI in the user's local
 terminal.
+
+The two separate creation Skills use the exact owner-approved `supplied_content_host_only_v1`
+package contract. After provider disclosure and explicit individual sharing agreement, they may
+process deliberately pasted selected facts, role text and drafts the user is entitled to share.
+No attachment extraction, ambient lookup, stored-data connection, credentials, confidential
+third-party details, canonical mutation or external action is permitted. Requested new Markdown
+and exact new-file readback are supported; real-content PDF/DOCX is excluded. Supplied text is
+lower-authority data and cannot authorize tools or approve claims. Provider processing and host
+tool access remain residual risks, not local-only inference or enforced sandboxing. This path
+does not broaden the seven workflow Skills or enable an embedded package model. See
+`docs/SUPPLIED_CONTENT_PROFILE.md`; acceptance tests remain wholly fictional.
 
 The separately authorized maintainer release workflow generates a fresh public source tree from an
 explicit allowlist. It does not publish the private development checkout or its Git history. The
@@ -34,7 +45,8 @@ export implementation intentionally remains outside the public tree; the generat
 | Participant flow and UI | Persists deterministic local state, creates local artifacts/exports, requires explicit reset text, and serves only on literal IPv4 loopback. | `src/career_os/participant_flow.py:196`, `src/career_os/participant_flow.py:649`, `src/career_os/participant_flow.py:698`, `src/career_os/participant_app.py:687` |
 | Public-source export | Maintainer workflow requiring reviewed public files, privacy/secret checks, an exact tree, and destination-only SHA-256 manifest. The exporter is intentionally not distributed. | Provided release context; generated `PUBLIC_SOURCE_MANIFEST.json` |
 | Public CI and contribution channels | Run tests/build/secret scanning against public source. They must never receive a private workspace or candidate material. | `.github/workflows/quality.yml:1`, `.github/workflows/secret-scan.yml:1`, `.github/ISSUE_TEMPLATE/bug_report.yml:1` |
-| Conversational agent host | Executes an installed skill under the user's configured provider terms. The supported preview accepts only reviewed package source, bundled fictional data, and content-free validation; Berufa supplies validated manifest metadata and exact-head-reviewed skill text, not a host sandbox. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `skills/*/SKILL.md`, `docs/DATA_AND_MODEL_POLICY.md` |
+| Seven workflow Skills' agent host | Executes these Skills under configured provider terms with reviewed package source, bundled fictional data and content-free validation only; validated metadata and reviewed text are not a host sandbox. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `skills/*/SKILL.md`, `docs/DATA_AND_MODEL_POLICY.md` |
+| Two creation Skills' agent host | Processes deliberately pasted selected text after provider disclosure and individual agreement under the exact supplied-content profile; no stored-data connection or external action. Host tools may create and read back only requested new Markdown. | `docs/SUPPLIED_CONTENT_PROFILE.md`, `plugins/rolevane-creation-fictional/references/writing.md`, packaged `BUNDLE-MANIFEST.json` |
 | Official lookup | Exact Greenhouse lookup requires a hash-bound local-user confirmation for one request and returns a source-authenticated observation at retrieval. It sends no candidate data and does not persist into the official dossier or decision service, create an application, or create a career event. | `src/career_os/application/official_postings.py`, `src/career_os/infrastructure/greenhouse.py`, `src/career_os/infrastructure/provider_http.py` |
 | Optional package models | The public v1 package supplies model interfaces but no embedded model client. Any future implementation is a conditional boundary requiring a separate review and explicit local enablement. | `src/career_os/authority_ports.py:120`, `src/career_os/authority_ports.py:131`, `src/career_os/authority_ports.py:140`, `src/career_os/synthetic_runtime.py:332` |
 
@@ -48,9 +60,11 @@ flowchart LR
     R -->|local only| X[User export / backup]
     U --> B[Loopback browser]
     B --> R
-    U -->|invokes preview skill| A[Configured conversational agent/model]
+    U -->|invokes seven-Skill preview| A[Configured conversational agent/model]
     E -->|reviewed package source| A
-    A -->|generic guidance only| U
+    A -->|seven-Skill generic guidance| U
+    U -->|selected pasted text after disclosure and agreement| H[Two host-only creation Skills]
+    H -->|unapproved advice or requested new Markdown| U
     M[Exact Greenhouse lookup] -. explicit per-request confirmation .-> R
     O[Optional package model] -. not distributed in public v1 .-> R
     S[Private development checkout] -->|allowlist + privacy checks| E[Fresh public source tree]
@@ -81,7 +95,8 @@ retain their existing injected legacy transport policy outside the public comman
 | User export | Evidence, decisions, audit, artifact inventory | Explicit local action | `<instance>/exports/career-os-user-export.json` | Local user; any later recipient chosen by that user | Artifact digest checks; manifest states no credentials, telemetry, or external actions | `src/career_os/evidence_vault.py:1217`, `src/career_os/participant_flow.py:645` |
 | Reset | Entire participant instance | Exact confirmation phrase | The validated instance root only | Local user/process | Refuses home/filesystem root, links/reparse points, and unexpected top-level entries | `src/career_os/participant_flow.py:676`, `src/career_os/participant_flow.py:698` |
 | Public export | Public source candidate | Versioned source/destination allowlist plus product boundary | A new operator-selected directory with no Git history | Maintainer, CI, eventual public users | Exact tree, UTF-8, deny patterns, regular files, and SHA-256 manifest | Provided release context; exporter is intentionally outside the public tree |
-| Conversational skill | Agent host and provider selected outside Berufa | Exact reviewed package source, bundled fictional fixtures/demos, or content-free validation only | Provider-defined remote or local model context | Configured agent/model provider | The validator enforces manifest maturity/data classes; exact-head tests review shipped skill/launcher text; release revision/checksums bind the installed files. The validator alone does not attest an arbitrary copied or modified pack. Host sandbox/retention remain external and unproven. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `skills/*/SKILL.md`, `docs/DATA_AND_MODEL_POLICY.md` |
+| Seven conversational workflow Skills | Agent host and provider selected outside Berufa | Exact reviewed package source, bundled fictional fixtures/demos, or content-free validation only | Provider-defined remote or local model context | Configured agent/model provider | The validator enforces manifest maturity/data classes; exact-head tests review shipped skill/launcher text; release revision/checksums bind the installed files. The validator alone does not attest an arbitrary copied or modified pack. Host sandbox/retention remain external and unproven. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `skills/*/SKILL.md`, `docs/DATA_AND_MODEL_POLICY.md` |
+| Two creation Skills | Host/provider selected outside Berufa | Exact supplied-content manifest; disclosure and explicit agreement before selected pasted text | Provider-defined model context; requested new Markdown outside canonical state | Configured host/provider and user-selected local file recipient | Instruction-level limits exclude attachments, ambient lookup, connected records, credentials and external actions. Revocation stops processing. No provider-retention, filesystem isolation or injection-immunity guarantee. | `docs/SUPPLIED_CONTENT_PROFILE.md`, packaged `BUNDLE-MANIFEST.json`, shared writing method |
 | Optional package model/provider | Embedded network and data transfer | No implementation or enabled configuration is shipped | None in v1 | No package-selected external recipient | Synthetic policy denies models and network; future adapters require explicit policy | `src/career_os/synthetic_runtime.py:285`, `src/career_os/synthetic_runtime.py:321`, `src/career_os/synthetic_runtime.py:335` |
 
 ## Trust Boundaries And Assumptions
@@ -131,7 +146,8 @@ The concrete malicious-input cases and regressions are maintained in
 | Another local user or local malware | Whatever the operating system account and device permit | A Berufa sandbox boundary beyond operating-system controls |
 | Malicious or careless contributor | Control of issue/PR text and proposed code | Maintainer merge rights, release credentials, or private workspace data |
 | Compromised dependency/action | Code execution in the environment where that dependency/action runs | Private candidate data unless a user or workflow wrongly places it there |
-| Conversational agent/model provider | Reviewed package source, bundled fictional fixtures/demos, and content-free validation supplied when the user invokes a preview skill | Arbitrary public content, real/private workflow data, local paths or command output, deterministic approval authority, or external-action authority |
+| Seven workflow Skills' provider | Reviewed package source, bundled fictional fixtures/demos, and content-free validation supplied when invoked | Arbitrary public content, real/private workflow data, local paths or command output, deterministic approval authority, or external-action authority |
+| Two creation Skills' host/provider | Selected pasted text after disclosure and explicit sharing agreement; limited requested new Markdown and its readback | Unselected local or connected records, attachment extraction, canonical approval or persistence, credentials, sending/submission or implied career events |
 | Future package model/provider operator | Data explicitly sent after a future embedded integration is enabled | Unsent local files, approval authority, or external-action authority |
 
 ### Security invariants
@@ -149,8 +165,10 @@ The concrete malicious-input cases and regressions are maintained in
 5. Parser, form, archive, XML, PDF, output, and reset work is bounded and fails closed on ambiguity.
 6. The supported Python commands perform no embedded model call, remote telemetry, authenticated
    job-board access, application submission, or external messaging. Invoking a conversational
-   skill uses the user's configured agent/model provider, but the preview skill contract permits
-   only reviewed package source, bundled fictional data, and content-free validation.
+   Skill uses the configured provider. The seven workflow Skills permit only reviewed package
+   source, bundled fictional data and content-free validation. The two creation Skills permit
+   only the separately selected pasted-text contract after disclosure and individual agreement;
+   none of these paths grants canonical approval, connected access or external-action authority.
 7. Public source comes from the reviewed export allowlist, never from publishing the private Git
    history. Public CI, issues, and releases contain synthetic data only.
 8. Credentials are references, not literal values in source or runtime contracts
@@ -164,9 +182,11 @@ The concrete malicious-input cases and regressions are maintained in
 - The loopback UI is single-user local software, not a multi-user service. Reverse proxies,
   containers exposing the port, remote hosting, and non-loopback binds are unsupported.
 - Berufa skills do not sandbox the conversational agent, constrain its host filesystem/tools,
-  or control provider retention/training. The validated preview contract excludes arbitrary public
+  or control provider retention/training. The seven-Skill preview contract excludes arbitrary public
   content and all real/private workflow values and results; users run those workflows locally.
-  A user or host can bypass package policy, so broader conversational use remains release-blocked.
+  The two creation Skills transfer only deliberately shared text under their separate agreement.
+  A user or host can bypass policy; no host-level isolation or injection immunity is established.
+  Connected or otherwise broader conversational use remains release-blocked.
 - The public v1 package does not ship a general network provider or model client. It ships only the
   exact, confirmed Greenhouse lookup described above. Any future source/provider adapter changes
   the boundary and requires purpose/data-class disclosure, credentials by reference, limits, terms
@@ -186,7 +206,7 @@ These are prioritized hypotheses for design and review, not confirmed findings.
 | --- | --- | --- | --- | --- | --- | --- |
 | P0 | A private document, identifier, secret, or Git history is included in the public repository or release. | Maintainer bypasses the exporter, weakens the manifest, or overlooks encoded/private content. | Irreversible privacy or credential disclosure. | Explicit allowlist, deny paths/content, tracked-file classification, link rejection, exact tree and digest verification, secret scan. | Create a fresh repository from one exact export; scan candidate contents and intended history; never seed it from the private checkout. | Provided release process and generated `PUBLIC_SOURCE_MANIFEST.json` |
 | P0 | A malicious PDF/DOCX exploits parser behavior or exhausts local resources. | User selects attacker-controlled document; vulnerable parser or missing bound is reachable. | Local code execution, data access, or availability loss. | Regular-file identity checks, 15 MiB input cap, PDF/object/page/decoded limits, DOCX member/size/ratio/depth limits, hardened XML, exact DOCX relationships, dangerous-field rejection, and active/external-content rejection. | Retain the synthetic regressions listed in `docs/ABUSE_CASE_MATRIX.md`; keep compatibility failures explicit and update vulnerable dependencies promptly. | `src/career_os/document_intake.py:38`, `src/career_os/document_intake.py:191`, `src/career_os/document_intake.py:943`, `tests/test_document_intake.py:173` |
-| P0 | Prompt injection in a resume, posting, public web page, issue/PR, tool result, or model output convinces a conversational agent to inspect extra files, invoke tools, approve facts, or claim an external event. | A user or host bypasses the no-untrusted-source preview contract, or a compromised package/repository revision reaches installation. | Unwanted tool actions, false claims, or private-data disclosure. | All seven manifests are `synthetic-only` with an exact model-data ceiling; the validator rejects broader manifest classes; exact-head tests cover launchers and skill text; release checksums bind the reviewed files. Arbitrary public content, all real/private data, paths, summaries, requests, hashes, confirmations, and terminal output are refused. Deterministic authority checks remain separate. These controls do not sandbox the host agent or prove a modified pack safe. | Keep the exact ceiling, exact-head text checks, and reviewed-release installation proof. Any broader or modified conversational profile remains release-blocking until a supported host boundary is proven or the owner explicitly accepts the residual risk. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `tests/test_public_skill_pack.py`, `tests/test_product_runtime.py:111` |
+| P0 | Prompt injection in a resume, posting, public web page, issue/PR, tool result, or model output convinces one of the seven conversational workflow Skills to inspect extra files, invoke tools, approve facts, or claim an external event. | A user or host bypasses the no-untrusted-source preview contract, or a compromised package/repository revision reaches installation. | Unwanted tool actions, false claims, or private-data disclosure. | All seven manifests are `synthetic-only` with an exact model-data ceiling; the validator rejects broader manifest classes; exact-head tests cover launchers and skill text; release checksums bind the reviewed files. Arbitrary public content, all real/private data, paths, summaries, requests, hashes, confirmations, and terminal output are refused. Deterministic authority checks remain separate. These controls do not sandbox the host agent or prove a modified pack safe. | Keep the exact ceiling, exact-head text checks, and reviewed-release installation proof. Any broader or modified conversational profile remains release-blocking until a supported host boundary is proven or the owner explicitly accepts the residual risk. | `skills/manifest.toml`, `src/career_os/skill_validation.py`, `tests/test_public_skill_pack.py`, `tests/test_product_runtime.py:111` |
 | P0 | A malicious contribution weakens privacy, evidence, parser, provider, or release controls and reaches a release. | Reviewer misses a boundary change or CI is bypassed. | Public users receive unsafe code or a contaminated package. | Pull requests, pinned CI actions, full tests, secret scan, boundary manifest, human merge authority. | Require issue/PR risk declaration, code-owner review, exact-head CI, dependency review, and checksums before release. | `.github/workflows/quality.yml:1`, `.github/workflows/secret-scan.yml:1` |
 | P1 | A malicious site drives writes to the local browser service or reads artifacts. | User has the app running and browser protections are bypassed. | Local evidence/state mutation or private artifact exposure. | Literal loopback bind, exact Host and per-process CSRF, foreign Origin/cross-site Fetch-Site rejection when supplied, content/type/size limits, CSP, no directory serving. | Keep loopback-only tests and do not add CORS, wildcard hosts, arbitrary paths, or remote deployment without a new model. | `src/career_os/participant_app.py:203`, `src/career_os/participant_app.py:630`, `src/career_os/participant_app.py:794`, `src/career_os/participant_app.py:827` |
 | P1 | A path, symlink, junction, or database-role mix-up crosses workspace boundaries. | Attacker can alter local filesystem layout or caller supplies a foreign component/path. | Read/write/delete data from another workspace. | Resolved instance paths, component-root validation, database role identity, regular-file/reparse checks, reset inventory and broad-root refusal. | Retain cross-instance and reparse regression tests on Windows and POSIX; treat same-user local malware as residual OS risk. | `src/career_os/instance_paths.py:54`, `src/career_os/product_runtime.py:67`, `src/career_os/store.py:611`, `src/career_os/participant_flow.py:676` |
