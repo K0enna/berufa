@@ -14,25 +14,22 @@ The [workflow guide](SKILL_PACK.md) makes that distinction explicit.
 
 The public ZIP will be made available at the approved step of the Berufa.com launch sequence.
 Until then, a reviewed source checkout supports the following complete installation. These steps
-build the existing two-Skill creation component and copy all seven workflow Skills alongside it;
+build the complete nine-Skill distribution, including its bundled workflow reference;
 they do not install a plugin, core application, model client or connected workspace.
 
 On the tested Windows host, use Python 3.11 or newer and a new clean project directory:
 
 ```powershell
 # Run from the reviewed Berufa source checkout.
-$sourceRoot = (Get-Location).Path
 $projectRoot = 'C:\Berufa-Demo'
 $installRoot = Join-Path $projectRoot '.agents\skills\berufa'
-$creationZip = Join-Path $projectRoot 'berufa-creation-component.zip'
+$skillsZip = Join-Path $projectRoot 'berufa-skills.zip'
 if (Test-Path -LiteralPath $installRoot) { throw 'Choose a new installation directory.' }
-if (Test-Path -LiteralPath $creationZip) { throw 'Choose a new component ZIP path.' }
+if (Test-Path -LiteralPath $skillsZip) { throw 'Choose a new Skills ZIP path.' }
 New-Item -ItemType Directory -Path $projectRoot -Force | Out-Null
-python tools/build_companion_bundle.py $creationZip --profile supplied_content_host_only_v1
-if ($LASTEXITCODE -ne 0) { throw 'Creation component build failed.' }
-Expand-Archive -LiteralPath $creationZip -DestinationPath (Join-Path $installRoot 'creation')
-New-Item -ItemType Directory -Path (Join-Path $installRoot 'workflow') -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $sourceRoot 'skills') -Destination (Join-Path $installRoot 'workflow\skills') -Recurse
+python tools/build_companion_bundle.py $skillsZip --profile supplied_content_host_only_v1 --include-workflow-skills
+if ($LASTEXITCODE -ne 0) { throw 'Skills build failed.' }
+Expand-Archive -LiteralPath $skillsZip -DestinationPath $installRoot
 ```
 
 Keep each full directory, including manifests, shared references and examples. Open the new
