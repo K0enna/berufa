@@ -1,0 +1,7 @@
+{
+  "interface": {
+    "display_name": "Career Evidence Onboarding",
+    "short_description": "Explain the reviewed public package contract and fictional demo",
+    "default_prompt": "Use $career-evidence-onboarding for reviewed public package contract explanation, a fictional bundled demo, or content-free validation."
+  }
+}

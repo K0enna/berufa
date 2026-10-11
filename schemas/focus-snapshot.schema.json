@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://career-os.local/schemas/focus-snapshot.schema.json",
+  "title": "Career OS Decision Inbox Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "as_of",
+    "read_only",
+    "external_actions",
+    "pipeline_changed",
+    "scoring_changed",
+    "partial",
+    "total_items",
+    "returned_items",
+    "omitted_items",
+    "items"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "as_of": { "type": "string", "format": "date" },
+    "read_only": { "const": true },
+    "external_actions": { "const": false },
+    "pipeline_changed": { "const": false },
+    "scoring_changed": { "const": false },
+    "partial": { "type": "boolean" },
+    "total_items": { "type": "integer", "minimum": 0 },
+    "returned_items": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "omitted_items": { "type": "integer", "minimum": 0 },
+    "items": {
+      "type": "array",
+      "maxItems": 100,
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "opportunity_id",
+        "company",
+        "role",
+        "stage",
+        "urgency",
+        "due_at",
+        "reason",
+        "source",
+        "action_route",
+        "requires_user_confirmation",
+        "identity_status",
+        "blocked",
+        "priority"
+      ],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "opportunity_id": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "company": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "role": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "stage": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "urgency": {
+          "enum": ["blocked", "overdue", "today", "soon", "high", "normal", "upcoming"]
+        },
+        "due_at": {
+          "oneOf": [
+            { "type": "string", "minLength": 1, "maxLength": 100 },
+            { "type": "null" }
+          ]
+        },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 4000 },
+        "source": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "action_route": { "type": "string", "pattern": "^/(?!/)", "maxLength": 1000 },
+        "requires_user_confirmation": { "type": "boolean" },
+        "identity_status": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "blocked": { "type": "boolean" },
+        "priority": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

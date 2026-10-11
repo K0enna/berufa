@@ -1,0 +1,32 @@
+version = 1
+
+deny_prefixes = [
+  "applications/",
+  "archive/",
+  "context/",
+  "data/runtime/",
+  "data/snapshots/",
+  "docs/redesign/",
+  "pipeline/",
+  "private/",
+  "source-documents/",
+  "tmp/",
+  "tools/cv/",
+]
+
+deny_paths = [
+  "AGENTS.md",
+  "config/api_usage_limits.local.yml",
+  "config/scoring.yml",
+  "config/sources.local.yml",
+  "config/target_market.yml",
+  "docs/operations/90_DAY_CAMPAIGN.md",
+]
+
+deny_content_patterns = [
+  '(?s)\A(?!(?:Copyright 2026 D[a]vid S[t]erz)\s*\Z)(?i:.*D[a]vid\s+S[t]erz)',
+  '(?i)Head\s+of\s+Customer\s+Excellence',
+  '(?i)Koenna(?:)Openclaw',
+  '(?i)theirstack(?:)-paid-2026',
+  '(?i)\b(?:Team(?:)Viewer|Iva(?:)nti|Dyna(?:)trace|Hornet(?:)security|Paess(?:)ler|Rapid(?:)7|Lean(?:)IX)\b',
+]

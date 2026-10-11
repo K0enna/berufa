@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "comparison_id": "example_offer",
+  "offer_label": "Fictional Example Company / Example role",
+  "currency": "EUR",
+  "period": "annual",
+  "value_basis": "Synthetic gross annual estimates; benefits and costs are supplied comparable valuations",
+  "offer": {
+    "base": 100000,
+    "target_variable": 20000,
+    "variable_achievability": 0.75,
+    "car_or_mobility": 4000,
+    "benefits": 1000,
+    "equity_face_value_annual": 20000,
+    "equity_probability": 0.25,
+    "annual_office_travel_cost": 3000
+  },
+  "baseline": {
+    "current_total_value": 100000,
+    "current_benefits_value": 10000,
+    "progression_benchmark": 120000
+  },
+  "sources": {
+    "offer.base": "Invented offer, base clause",
+    "offer.target_variable": "Invented offer, target incentive clause",
+    "offer.variable_achievability": "Synthetic user assumption, not a payout guarantee",
+    "offer.car_or_mobility": "Synthetic user valuation of mobility benefit",
+    "offer.benefits": "Synthetic user valuation of other benefits",
+    "offer.equity_face_value_annual": "Synthetic annualized equity assumption",
+    "offer.equity_probability": "Synthetic user uncertainty assumption",
+    "offer.annual_office_travel_cost": "Synthetic user estimate of recurring costs",
+    "baseline.current_total_value": "Invented comparable annual cash baseline, excluding benefits",
+    "baseline.current_benefits_value": "Synthetic valuation of existing benefits",
+    "baseline.progression_benchmark": "Synthetic user-selected comparison threshold"
+  },
+  "assumed_fields": [
+    "offer.variable_achievability",
+    "offer.car_or_mobility",
+    "offer.benefits",
+    "offer.equity_face_value_annual",
+    "offer.equity_probability",
+    "offer.annual_office_travel_cost",
+    "baseline.current_benefits_value",
+    "baseline.progression_benchmark"
+  ]
+}

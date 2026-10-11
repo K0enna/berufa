@@ -1,0 +1,4 @@
+interface:
+  display_name: "Career drafts"
+  short_description: "Complete drafts within the installed content boundary"
+  default_prompt: "Use $career-create-content to draft a complete CV and the requested application answer from these fictional facts."

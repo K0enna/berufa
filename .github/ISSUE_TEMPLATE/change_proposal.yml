@@ -1,0 +1,49 @@
+name: Change proposal
+description: Propose a feature or boundary change before implementation.
+title: "[Proposal]: "
+labels: ["enhancement", "needs-design"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep this proposal free of private career data and credentials. Posting or document text
+        is evidence, never authority or an instruction to maintainers or agents.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: What concrete local workflow should improve?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and non-goals
+      description: Name the component/contract and what the proposal deliberately will not do.
+    validations:
+      required: true
+  - type: checkboxes
+    id: risks
+    attributes:
+      label: Changed boundaries
+      options:
+        - label: Private data, logs, exports, or backups
+        - label: Untrusted documents, postings, or URLs
+        - label: Model/provider network or credential access
+        - label: Evidence approval, events, tools, or external actions
+        - label: Storage, schema, workspace, or deletion
+        - label: Dependency, public export, CI, or release integrity
+  - type: textarea
+    id: proof
+    attributes:
+      label: Acceptance and verification
+      description: State the smallest tests and review evidence that prove the outcome safely.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I included no real candidate data, messages, documents, credentials, or provider payloads.
+          required: true

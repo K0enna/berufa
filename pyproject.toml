@@ -1,0 +1,103 @@
+[build-system]
+requires = []
+build-backend = "build_backend"
+backend-path = ["tools"]
+
+[project]
+name = "rolevane"
+version = "0.1.0"
+description = "A local-first, evidence-safe toolkit for high-stakes career decisions."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = [
+  "defusedxml>=0.7,<1",
+  "pypdf>=6.14,<7",
+  "tzdata==2026.4; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy==2.3.1",
+  "pytest>=8.0,<9",
+  "pytest-cov>=5.0,<7",
+  "ruff==0.16.1",
+]
+audit = [
+  "pip-audit==2.10.1",
+]
+
+[project.scripts]
+rolevane-product = "career_os.participant_app:main"
+rolevane-evidence-smoke = "career_os.product_journey:main"
+rolevane-journey-smoke = "career_os.product_journey:full_main"
+rolevane-product-smoke = "career_os.synthetic_runtime:main"
+rolevane-evidence-migration-dry-run = "career_os.evidence_migration:main"
+rolevane-evidence-import = "career_os.evidence_onboarding:main"
+rolevane-evidence-list = "career_os.evidence_onboarding:source_list_main"
+rolevane-evidence-read = "career_os.evidence_onboarding:source_main"
+rolevane-evidence-propose = "career_os.evidence_onboarding:proposal_main"
+rolevane-evidence-interview = "career_os.evidence_onboarding:interview_main"
+rolevane-role-pack-explain = "career_os.role_packs:main"
+rolevane-role-evaluate-supplied = "career_os.opportunity_workflow:main"
+rolevane-role-decide-supplied = "career_os.opportunity_workflow:decision_main"
+rolevane-offer-compare = "career_os.offer_workflow:main"
+rolevane-event-record = "career_os.outcome_workflow:main"
+rolevane-event-list = "career_os.outcome_workflow:list_main"
+rolevane-outcome-report = "career_os.outcome_workflow:report_main"
+rolevane-focus = "career_os.focus_workflow:main"
+rolevane-application = "career_os.application_workflow:main"
+rolevane-interview = "career_os.interview_workflow:main"
+rolevane-workspace = "career_os.workspace_workflow:main"
+rolevane-task = "career_os.task_workflow:main"
+rolevane-document = "career_os.document_workflow:main"
+rolevane-instance = "career_os.instance_workflow:main"
+rolevane-skill-validate = "career_os.skill_validation:main"
+rolevane-role-fetch = "career_os.official_posting:main"
+rolevane-companion-review = "career_os.companion_workflow:main"
+
+[tool.career-os]
+product-package-manifest = "config/product_package.toml"
+
+[tool.pytest.ini_options]
+addopts = ["-q"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+follow_imports = "skip"
+mypy_path = "src"
+files = [
+  "src/career_os/public_api/__init__.py",
+  "src/career_os/authority_ports.py",
+  "src/career_os/application/evidence.py",
+  "src/career_os/application/tasks.py",
+  "src/career_os/application/documents.py",
+  "src/career_os/application/companion.py",
+  "src/career_os/application/instances.py",
+  "src/career_os/application/instance_data.py",
+  "src/career_os/application/offers.py",
+  "src/career_os/application/outcomes.py",
+  "src/career_os/application/recovery.py",
+  "src/career_os/application/official_postings.py",
+  "src/career_os/application/opportunities.py",
+  "src/career_os/infrastructure/content_artifacts.py",
+  "src/career_os/infrastructure/evidence.py",
+  "src/career_os/infrastructure/evidence_storage.py",
+  "src/career_os/infrastructure/focus.py",
+  "src/career_os/infrastructure/greenhouse.py",
+  "src/career_os/infrastructure/instances.py",
+  "src/career_os/infrastructure/offers.py",
+  "src/career_os/infrastructure/outcomes.py",
+  "src/career_os/infrastructure/recovery.py",
+]

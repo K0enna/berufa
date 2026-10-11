@@ -1,0 +1,805 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "sha256": "54b640e32753183d27664294049bfbd7c60ba60d26cb8d0821ab8a8837032171"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/change_proposal.yml",
+      "sha256": "976d80b5d5ff5f1dd7f122f0d8bf7ce158518ca70825e5abea6abfe7b7fe22b6"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "sha256": "d6d81427cbfd6fb2c87462698c241fd6c31e47025c137498e50b8a01b228cb95"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "99b6992a7c75fb958b9219db5ea23c7611383e4ebeef0a0d5f362cfef3f0c951"
+    },
+    {
+      "path": ".github/workflows/quality.yml",
+      "sha256": "a61d4f6e92c7a13225a829e498cd17bdcd48a398a119f8a75bd8b2a2c604c3c9"
+    },
+    {
+      "path": ".github/workflows/release-candidate.yml",
+      "sha256": "e1050c01d36a4bb7f6fa2c8667373d009b2166479704ae6e39a02c001f9fe2ca"
+    },
+    {
+      "path": ".github/workflows/secret-scan.yml",
+      "sha256": "62d2d2755331c2e4c4e7dede5eced7778bd30cc11cb00ec05285598d74672ddc"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "3bba78b07935621d7cd4ee73b426beca8cd1d0aa575cf4f0f84687bacea1dc05"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "2548bb535dcadcc669ea64088e845934cdcf1ebc9e5f1e4486f5c7887398ae42"
+    },
+    {
+      "path": "GOVERNANCE.md",
+      "sha256": "15da9efd55189f3ec42cc9257fb2314410694fc468f067667e0171914064ecef"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "755c4f1a8147704c7bf442fa1986e49fbe94c6f85ddbbcd3c76cc714957bc24b"
+    },
+    {
+      "path": "PRIVACY.md",
+      "sha256": "3cb1afc0231881dbf5c0a8a3732afb2817362ec18dee1de685f49ef538350c38"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f3e2c41ec70af8b653bea0e68a37ae2dfde711b480f82c7824cdd28c000da9ef"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "0a9c40f670026d276757d6d587a00d34fc8f5cb9cac03d6e00166bbd740a197a"
+    },
+    {
+      "path": "config/product_package.toml",
+      "sha256": "ae8da4c139fecd9b7f210e5632da8fb5b8223041d2b4c152712d07a53b8cb4e8"
+    },
+    {
+      "path": "config/public_source_hygiene.toml",
+      "sha256": "7619840c1fea0948c94bfe881982ef08b21fa27daaf4086921ecc97a233daac3"
+    },
+    {
+      "path": "docs/ABUSE_CASE_MATRIX.md",
+      "sha256": "bd3f4c607fd977e417c2587a60d9ce1e9614471372ef6a729a05e09bf59166f8"
+    },
+    {
+      "path": "docs/APPLICATION_PREPARATION.md",
+      "sha256": "a6e5db99d037d72497811a9b50ae54eeac977586b0869f0fc19871897370e1e1"
+    },
+    {
+      "path": "docs/CREATION_SKILLS.md",
+      "sha256": "e4e96224bdfa8a5e327e2ccedfdfb88583e76a94dd9be2f5a3517d54625211bc"
+    },
+    {
+      "path": "docs/DATA_AND_MODEL_POLICY.md",
+      "sha256": "ff50c70e100afd63a315751dddda33566cafe975ab2c6df7a7b0ca172ee83785"
+    },
+    {
+      "path": "docs/FOCUS_WORKFLOW.md",
+      "sha256": "9ce9f49a6ae7ef533ddd4c1a6ee97f8a32c29d9ba08b58067f108e56a3d3179e"
+    },
+    {
+      "path": "docs/INCIDENT_RESPONSE.md",
+      "sha256": "ebd99ff5b7d5ea6fb2298a7b71b487b9dd119f93940de386666be7f26154396d"
+    },
+    {
+      "path": "docs/INSTANCE_RECOVERY.md",
+      "sha256": "b6bfcfb06e4694c0cdc02ba8cb0c4e1cc9a3b55268a177845ae164108ee3a7ba"
+    },
+    {
+      "path": "docs/INTERVIEW_PREPARATION.md",
+      "sha256": "b334b1128ab7b63a75aba5efab958373fd1096a807d81f0831d898157df68b87"
+    },
+    {
+      "path": "docs/OFFER_COMPARISON.md",
+      "sha256": "cf23eef64c1fcfda480e8da43694552a761971f58cec6f3ae7e96ae581a9a9ad"
+    },
+    {
+      "path": "docs/OPEN_SOURCE_READINESS.md",
+      "sha256": "a29995449d8e9eef07a723c5371f441a6c1339aa18df4bcc9a8c97055a9a8a91"
+    },
+    {
+      "path": "docs/OUTCOME_WORKFLOW.md",
+      "sha256": "0189c56ffb4b73548124f05e0b0d8b3705601515dd498a21e88fddbce1a4de72"
+    },
+    {
+      "path": "docs/REFERENCE.md",
+      "sha256": "4056590304a57b5cc13547f53b0c2b01130969b94d99afb794b9ed243187d05a"
+    },
+    {
+      "path": "docs/RELEASE.md",
+      "sha256": "93c144bb434b888f0eaaf16876b97fec1e419ddc6457696b6d38dffb6e333aaa"
+    },
+    {
+      "path": "docs/SKILL_PACK.md",
+      "sha256": "d209d5ed08aa35486b34390087da1044a40a559c3069b02f3a53a7b4ddec5f26"
+    },
+    {
+      "path": "docs/SUPPLIED_CONTENT_PROFILE.md",
+      "sha256": "3a0b63640035331d6bbb57866a0d0e9b288076af2e2e01569abcf5e1f5f55da5"
+    },
+    {
+      "path": "docs/TEST_ARCHITECTURE.md",
+      "sha256": "c09be80404347d17e34a38796d10d72e3e42319eeac4f9e8f1189d41c5aa19dc"
+    },
+    {
+      "path": "docs/THREAT_MODEL.md",
+      "sha256": "e8ab505a1c815680a22b5565ca2492b23baa9051b7fbf006f712103cdeb16375"
+    },
+    {
+      "path": "docs/WORKSPACE_ARTIFACTS.md",
+      "sha256": "40dca5975482d8e07222d39cd5bd8621d502f59128391867fef4afefec3124e4"
+    },
+    {
+      "path": "docs/architecture/EVIDENCE_VAULT_CONTRACT.md",
+      "sha256": "12d0ba49957e546e7d093c0010bf7dda106b93f4dc91efbdc46147c5ead39fbb"
+    },
+    {
+      "path": "docs/architecture/PARTICIPANT_EVIDENCE_JOURNEY.md",
+      "sha256": "552d70b6ee6c7c701d6b0af1eb31184be86ce20d8ee4dbd43156558a85362f99"
+    },
+    {
+      "path": "docs/architecture/PRODUCT_RUNTIME.md",
+      "sha256": "efb242a10330006be3db55ac342dd301eacffa7a26ef5db26571783a89bc2400"
+    },
+    {
+      "path": "docs/architecture/ROLE_PACK_CONTRACT.md",
+      "sha256": "4416076348752a5811c9ed8211530fc552f875584901947019781a84c0d71600"
+    },
+    {
+      "path": "examples/offer-comparison.json",
+      "sha256": "0e9388fa4bab2c8f26732c5caa3791db08449e6b151334e07a569cb4d845e7e1"
+    },
+    {
+      "path": "examples/submission-event.json",
+      "sha256": "60dbf73aecec2943cd6f7ee712d9fb8d349fb0ddd4169e6b2a94829c17a4d1d4"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/advice.md",
+      "sha256": "e8e8a2cabe9d5431636182ed629722f11b0b672164b58ca89dd524f1495484d8"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/application-answer-de-v1.md",
+      "sha256": "b0c0b14a5d7bf1075fe98afd9326f060f82470454cb7f6296c5c300c609e025c"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/application-answer-de-v2.md",
+      "sha256": "cf327b15b29c8560c552fdf2c1ae59cf2f5d49ddf95ecce6d1acf0293e8a8b47"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/application-answer-en-v1.md",
+      "sha256": "33340684885f6150e7589f1a962aef191376f94d09898b3b1dd075ceb888a22d"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/application-answer-en-v2.md",
+      "sha256": "01fc71c881e0a1f862aafccba9957a1e8d629c6a160744b0e526f39016f5963a"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/correction-and-basis-notes.md",
+      "sha256": "708f0225d0c7d2f01044be637473ad4063ed82c5dbc53ab4c97e3736ce7c971d"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/cv-en-v1.md",
+      "sha256": "5d1f845549b4a0b5540dcc651f63fc53e181a22c9b238b413b63e8ee2da91eb0"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/cv-en-v2.md",
+      "sha256": "9e247304bec5d5411311137be5be729580f94c8add12c95084e21a07925578b2"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/fictional-input.md",
+      "sha256": "20b126199330b21124f6dc005fccebb0b7f61fe6e8a1fd3e403f7a7d6e4b8628"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/interview-v1.md",
+      "sha256": "12b52f1ae30567b26d6474d6e949d47a6e1c2d75d5a28027ae946d53e840311f"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/interview-v2.md",
+      "sha256": "9600a8457afda39fdcf825f86b01b073f282ab2b7ecc406262ca5ecf2d27efba"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/recruiter-inquiry.md",
+      "sha256": "5374aa7b620b8cf39600e72829caf1f3d751c060b777c33c302068f618ebad70"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/examples/standalone-edit-and-critique.md",
+      "sha256": "94db00585c375fb429da773ecf96cf405cc9f7d3e5e867164903ac961959be02"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/references/documents.md",
+      "sha256": "b08b98911afe8740b7367d459f75d15068f715946c3613bd6fee884a0198b652"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/references/writing.md",
+      "sha256": "ec3871d5b0d09650c55336d9579a31fd56f84e28ad4e000a3bf13cab74903295"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/scripts/render_documents.py",
+      "sha256": "9f37ff1b4f9020ebc6bdfd914f966cdb092332019c2246625ecd06ebe287681a"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/skills/career-advice/SKILL.md",
+      "sha256": "eaac3102fd69bf25f0760b0f04e507ae1038b5ddfcd00e03527c6b78da3c306e"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/skills/career-advice/agents/openai.yaml",
+      "sha256": "8f7de135647e36cf6aacb3168a93826a9f393c7c8661a60fa524e3127c0d98e8"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/skills/career-create-content/SKILL.md",
+      "sha256": "ad84ecce8a0cde8e9384524d978676060486ea072d10bc61768e2f3fd601618f"
+    },
+    {
+      "path": "plugins/rolevane-creation-fictional/skills/career-create-content/agents/openai.yaml",
+      "sha256": "e85e602e13a0096afc5b730d060bf7fecfc4f5a5ad1c577db30d25d24a5f8cf3"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ab72f2c3d7f6e0b910f8ae506f246cf541fbc74e19331dc9cf048b9900ab317a"
+    },
+    {
+      "path": "schemas/evidence-vault.schema.json",
+      "sha256": "fc4a3321f21184319408ca1ee9ee4f755f1ec2f8473fb700442142b1698c0a9c"
+    },
+    {
+      "path": "schemas/focus-snapshot.schema.json",
+      "sha256": "52ce932e7dc2cb041815c2bfb21a4cfe6210db63c22dddd0a1afbeb711e51fad"
+    },
+    {
+      "path": "skills/career-application-preparation/SKILL.md",
+      "sha256": "3718f40766f62534ac604c524ef27281d5f1b37a8e83c9568d13afbf10097df4"
+    },
+    {
+      "path": "skills/career-application-preparation/agents/openai.yaml",
+      "sha256": "a5d9333bec8b0a7c2344a60bbe1ee0744f7924d884274d6602a2ffee8745cc8b"
+    },
+    {
+      "path": "skills/career-evidence-onboarding/SKILL.md",
+      "sha256": "f74c029520318150ca72eb34542c37b588f44d154d3afc9f8da3fc8110d91bb7"
+    },
+    {
+      "path": "skills/career-evidence-onboarding/agents/openai.yaml",
+      "sha256": "292a9ea48205d602ab74ac9ccd1887f62044857d875b78af250b7430e36e83a9"
+    },
+    {
+      "path": "skills/career-interview-preparation/SKILL.md",
+      "sha256": "a3dad3bfe62db776cf731b823355c84581816d24e0463269bb3cd69c02f57418"
+    },
+    {
+      "path": "skills/career-interview-preparation/agents/openai.yaml",
+      "sha256": "9e546b355e492c92ccdcbad0e5384e4aff27d7b655cf91f62ebe29a56a40c23d"
+    },
+    {
+      "path": "skills/career-offer-comparison/SKILL.md",
+      "sha256": "e63b064cdb70e5aee2312e1de1e5be3723bee57d5dbc97b36c7d54a5d306c8ca"
+    },
+    {
+      "path": "skills/career-offer-comparison/agents/openai.yaml",
+      "sha256": "7dd67b686f538c86ef7143943884d78b5b69961cd625e361d7f17a50b8c35839"
+    },
+    {
+      "path": "skills/career-outcome-review/SKILL.md",
+      "sha256": "1477b6498b73b74b774bf9a0abc67538372a972c255cb5041ee28d2248fe29f7"
+    },
+    {
+      "path": "skills/career-outcome-review/agents/openai.yaml",
+      "sha256": "772dd9f2ba0d027878c60a646ae3954435edbabe1f53d8cb0cff3d64648512ba"
+    },
+    {
+      "path": "skills/career-role-evaluation/SKILL.md",
+      "sha256": "e4db94952f52d1c1d968d3b86b3085386408ceed5e05edc9414479fc816be364"
+    },
+    {
+      "path": "skills/career-role-evaluation/agents/openai.yaml",
+      "sha256": "ad2ae63388db0795046725f5f46edbb1de4a6bb5201d768531f5c9eac9a0d678"
+    },
+    {
+      "path": "skills/manifest.toml",
+      "sha256": "26ca34565a688dfc36b64871e7972a5d01680757963cb09aacbf88a129a24166"
+    },
+    {
+      "path": "skills/rolevane-setup/SKILL.md",
+      "sha256": "1a6615f80cba9496bc9aa530df420715cee363301e38f4e7afd0e4f1f52ab909"
+    },
+    {
+      "path": "skills/rolevane-setup/agents/openai.yaml",
+      "sha256": "d27523ac9de14743c13e401f645ad35e9ca89008d09b4acf282c6a853a535fbe"
+    },
+    {
+      "path": "src/career_os/__init__.py",
+      "sha256": "1db8ad72810198e9945ebf0a8300105c495b7c2f4a3d58e42431f5128d833894"
+    },
+    {
+      "path": "src/career_os/application/__init__.py",
+      "sha256": "c93cd5dd67882213f2e22dcc08322a9dd59ff791c97f459c63eaa37089f20850"
+    },
+    {
+      "path": "src/career_os/application/applications.py",
+      "sha256": "59515138d7fb134ce66660afbfc8edd77f229f70ecdc34845b7c71ae1cef515b"
+    },
+    {
+      "path": "src/career_os/application/companion.py",
+      "sha256": "e3d875448a9ce21e8074feb44fe42c60c9f3ceefb3fdfa9c3916eaa8256633a3"
+    },
+    {
+      "path": "src/career_os/application/documents.py",
+      "sha256": "57a861ce3fe32f549e57f72245e20290c90a6738fd47408d0395ee879d0a86d0"
+    },
+    {
+      "path": "src/career_os/application/evidence.py",
+      "sha256": "bb297e3e96e3fbe793f2f063101afaaf1908e80b2ba5ed4fa3fd3fb6b2459c62"
+    },
+    {
+      "path": "src/career_os/application/focus.py",
+      "sha256": "92edee59e94dd7d3d4e6db63d75aa17fddc8ed6093b6dbdeaa601821475b36f3"
+    },
+    {
+      "path": "src/career_os/application/instance_data.py",
+      "sha256": "78d6613484242652a8b88a39f5ae4375d89b84dfccf294753f0c54b6f6571db8"
+    },
+    {
+      "path": "src/career_os/application/instances.py",
+      "sha256": "b8dcb412a3d7b4ccccd0b5a3eb0e1642a19a7536fdc2c2066a8ce2747b614cba"
+    },
+    {
+      "path": "src/career_os/application/interviews.py",
+      "sha256": "c0af7d4a5da4ebefbca79501104c6d5fe3895ecd12d27b9deb405fde419874e3"
+    },
+    {
+      "path": "src/career_os/application/inventory.py",
+      "sha256": "2cd15ab4acaca85de75fb065a7891c04fa280a2bb6a46a80614ef86ae955a002"
+    },
+    {
+      "path": "src/career_os/application/offers.py",
+      "sha256": "1a5429227a4f789ec5876b0413a6a4ae2bf058b051c44eb50e08388b5c24d7af"
+    },
+    {
+      "path": "src/career_os/application/official_postings.py",
+      "sha256": "b87119b73a57a201a581f6479b547096a6a1f21b5f82a55c0b4ad85d22424815"
+    },
+    {
+      "path": "src/career_os/application/opportunities.py",
+      "sha256": "4b71831190f0ccb70603f8a3abb7c29114f9d744fb2a64399d73012eecd3004e"
+    },
+    {
+      "path": "src/career_os/application/outcomes.py",
+      "sha256": "3132febd0a8d01165dadc97587de7728172a784f01d0d7b41fe582f4b73b47cd"
+    },
+    {
+      "path": "src/career_os/application/recovery.py",
+      "sha256": "48ff4d8d50f4d0ae48dd89afb1f9d28b9491eee83f43ca501a2315f0cfbeec14"
+    },
+    {
+      "path": "src/career_os/application/tasks.py",
+      "sha256": "f37835f965207056b62ec7c5f773fb3a762ff5a8e9f820e17d2def2f37103a35"
+    },
+    {
+      "path": "src/career_os/application/workspaces.py",
+      "sha256": "e6142a0e0c29a17897cc2419b02ad25f6483b60accba3a903c581a104061e4ee"
+    },
+    {
+      "path": "src/career_os/application_records.py",
+      "sha256": "9ae47f17a2c97da93319db2269c83d0f5e681b73f7a3de7410dc053cad3bba1d"
+    },
+    {
+      "path": "src/career_os/application_workflow.py",
+      "sha256": "d8ede4b0cbbba215809953fbd7ef19a8d67a2a4276062b20b4e1e417f4aa9c9f"
+    },
+    {
+      "path": "src/career_os/ats_urls.py",
+      "sha256": "15040792c0fe71eed6fe824bc54df89e421b7412ee6263091926ce86aca23984"
+    },
+    {
+      "path": "src/career_os/authority_ports.py",
+      "sha256": "65fa4ebe34e30a131d6594da46dd72588ac2ba4ff6c3651f78dabe5b40a4c5eb"
+    },
+    {
+      "path": "src/career_os/companion_workflow.py",
+      "sha256": "aadc5866a22c9f7340033f0e0f67b4a8cdc2a39f29f99786f32fdbaddfe09889"
+    },
+    {
+      "path": "src/career_os/document_intake.py",
+      "sha256": "5aadbd5e0aa30eb92fc33e63e8f612c96ead2ea47d2060b35830ca72e69ffd46"
+    },
+    {
+      "path": "src/career_os/document_workflow.py",
+      "sha256": "275cad94c3fd60680d0b181b040f3043c662b5e03905ddd6f3bedb711888bc3f"
+    },
+    {
+      "path": "src/career_os/evidence_contract.py",
+      "sha256": "d256658a302fd6d287a45560e342a671982c0f67e73c38a7e3ae41a852e4e661"
+    },
+    {
+      "path": "src/career_os/evidence_migration.py",
+      "sha256": "e77e7472b61a44e1842424cc76d7853f1b1f77b770f90e87400c3ad7c8477abc"
+    },
+    {
+      "path": "src/career_os/evidence_onboarding.py",
+      "sha256": "ed8ad6548698aa1db15d977b65896308e4971e1b12ef45714ebdcfdcb0462573"
+    },
+    {
+      "path": "src/career_os/evidence_records.py",
+      "sha256": "51a68f7844f50dde3914001f7aa7ecc6591eea2123a638fbb1f40d191a69f7ae"
+    },
+    {
+      "path": "src/career_os/evidence_vault.py",
+      "sha256": "c45a6d4d641ed4729bf7be01a3aab31fd7a024a07a3cdce30a462dc0530012f5"
+    },
+    {
+      "path": "src/career_os/file_transactions.py",
+      "sha256": "2a763ad85d9b3d80f7f86fda34a27a9aae9cd05fe8c86e80db871cb3fff40221"
+    },
+    {
+      "path": "src/career_os/focus.py",
+      "sha256": "31dfe962292f68d3e202d7a4f24c032c386114eb6a1182d359a0f6fc6be9b4fd"
+    },
+    {
+      "path": "src/career_os/focus_workflow.py",
+      "sha256": "40528214f1242b4c3271c2d708c4deb0a385620d1a682a82f93899a03f0ac09e"
+    },
+    {
+      "path": "src/career_os/infrastructure/__init__.py",
+      "sha256": "002d19aa01fd58bd9e8f1277f94aa8e957b830c66e3868280e44fff2a1f68087"
+    },
+    {
+      "path": "src/career_os/infrastructure/applications.py",
+      "sha256": "a21af1cd397da50e079a35cf89e74dbcd4cd0afe2f9cd03d686ef1bb676b9583"
+    },
+    {
+      "path": "src/career_os/infrastructure/companion.py",
+      "sha256": "34e91a22aebfde5192fa82c65bbb0368971995709ac186dad79c480de59e152d"
+    },
+    {
+      "path": "src/career_os/infrastructure/content_artifacts.py",
+      "sha256": "0a699c1023932f5494be17ac90010039c26af740000f19ba5f26450bbd81aaef"
+    },
+    {
+      "path": "src/career_os/infrastructure/documents.py",
+      "sha256": "5a08d81e495edb402fe20d4640e0ac2835dafcb5acbb1b12a3ca9c2502043b20"
+    },
+    {
+      "path": "src/career_os/infrastructure/evidence.py",
+      "sha256": "9bad70f2bf0906386da15a2b2692e07c3d4623f78451802f3f32206a3ed33b1d"
+    },
+    {
+      "path": "src/career_os/infrastructure/evidence_storage.py",
+      "sha256": "567d2a3ade5915630e1807be5e80fc6e14a18615fa6023751611c9ead9adb615"
+    },
+    {
+      "path": "src/career_os/infrastructure/focus.py",
+      "sha256": "86cf3ea52f3d7e05cc68c82abb94f2f2980c9ca7bcf6ef4e4c00d406d2830969"
+    },
+    {
+      "path": "src/career_os/infrastructure/greenhouse.py",
+      "sha256": "2979a4dde3f7bfc9f2bc77735736b5fe756de7cd42704b750c7a9496e3249a39"
+    },
+    {
+      "path": "src/career_os/infrastructure/instance_data.py",
+      "sha256": "5cab613d348c53c3c8a053c978a7a3baa1deac616d32672e5a633bfaa642f2c5"
+    },
+    {
+      "path": "src/career_os/infrastructure/instances.py",
+      "sha256": "e7b9a27a3a1707a56e90fc559a5a93d5a93d2223be24a19df586ae45d63a2bd0"
+    },
+    {
+      "path": "src/career_os/infrastructure/interviews.py",
+      "sha256": "430c5f88fe85a003c7be4915892ebf3c360ddbf924674561da326a31a0448f31"
+    },
+    {
+      "path": "src/career_os/infrastructure/offers.py",
+      "sha256": "e19995ac751730e9fb08f6d05fdbfb1fb42471d8371e859ed57a4d34353c56e4"
+    },
+    {
+      "path": "src/career_os/infrastructure/opportunities.py",
+      "sha256": "9a97c65e4daf8b5570aeec5ab4e8e0f96bf938b880c0fe1457c75c576e6e7a00"
+    },
+    {
+      "path": "src/career_os/infrastructure/outcomes.py",
+      "sha256": "20844e959ed16a0838ca9f20a5da4cdec89eb046466d27c1aed3ceda810ceeeb"
+    },
+    {
+      "path": "src/career_os/infrastructure/provider_http.py",
+      "sha256": "59fc547e1e8e1260831deb0dd09d44af1bf9ba98c6f247945117a0c40db329fa"
+    },
+    {
+      "path": "src/career_os/infrastructure/recovery.py",
+      "sha256": "d12177ddc1e6eb96f96c3fb3c2f18608f09aa3eaea4f7248a98ce46fb7b65fee"
+    },
+    {
+      "path": "src/career_os/infrastructure/tasks.py",
+      "sha256": "40fb1d8e1c572f4ed53e6d367ea5f447b437e4acf6e9b3a1a7978497c235d50c"
+    },
+    {
+      "path": "src/career_os/infrastructure/workspaces.py",
+      "sha256": "3e83c4eaf2c7d4cc483518bd5fbf0c599e0a429a33c328e4e1892f14e973f967"
+    },
+    {
+      "path": "src/career_os/instance_paths.py",
+      "sha256": "ca92f6fac1f6b797a498cc5895a48987e31ad52df9351675696a1e7871e09b99"
+    },
+    {
+      "path": "src/career_os/instance_workflow.py",
+      "sha256": "5445a84ea16e829f416ca5ce0ff9cc329c10cd6bc31cb63c2a93bf4c536f61e1"
+    },
+    {
+      "path": "src/career_os/interview_records.py",
+      "sha256": "89537b54365086b4c408ac1fd2bf21cceeefef093b949648fe51c4097b8179eb"
+    },
+    {
+      "path": "src/career_os/interview_workflow.py",
+      "sha256": "74d3b493f926792a243a725d62234c3246ec2ac540e1d7dbf1da8e7b1a9db72e"
+    },
+    {
+      "path": "src/career_os/models.py",
+      "sha256": "8365421439ce4c5fc77460c1d408a1ff1105195c601b7cc9ac924603e4d9bd13"
+    },
+    {
+      "path": "src/career_os/offer_economics.py",
+      "sha256": "355728e0130a082bfc046f5993621e6fa58b4bebf0bacef7ebd7a4c594dea145"
+    },
+    {
+      "path": "src/career_os/offer_workflow.py",
+      "sha256": "4ccef6e7022ebb45ae464d532ad0b0cfa1b02f3a2341cde6b8a1828310812c2f"
+    },
+    {
+      "path": "src/career_os/official_posting.py",
+      "sha256": "5ef31e032de861c208f9fc916df42ed2b4407f27c06a7f06de49ef2248ed292c"
+    },
+    {
+      "path": "src/career_os/opportunity_identity.py",
+      "sha256": "d9bd34abc2e02ffd4b46f78a2e72ee1a981275f9452825176c72966d9bcbb06d"
+    },
+    {
+      "path": "src/career_os/opportunity_ids.py",
+      "sha256": "0f6611c825ef3762f209c0fec24fbdb242d57df9e568e81d52a63a00933650a1"
+    },
+    {
+      "path": "src/career_os/opportunity_workflow.py",
+      "sha256": "a5b3381ebaefec21cf625a2862fdf5442ba00559f96bb428b09915766846c5a2"
+    },
+    {
+      "path": "src/career_os/outcome_records.py",
+      "sha256": "23befe3a739ddc9d6eda0f5137ebb80395cf15ea32c9c1767a70e83b0938db24"
+    },
+    {
+      "path": "src/career_os/outcome_values.py",
+      "sha256": "1700375924348a4fa3cfdf5ed3984911f7cfc8bfd458c3a99940790c25749f47"
+    },
+    {
+      "path": "src/career_os/outcome_workflow.py",
+      "sha256": "58f322463794082c84e673585abe3edebdcd6f2647919aa34a2a2eb8ca4480dd"
+    },
+    {
+      "path": "src/career_os/participant_app.py",
+      "sha256": "efbde6d2386abf2ae630fbea2e1b13c957b004f7582ab6fe1fcb9721d195ffbc"
+    },
+    {
+      "path": "src/career_os/participant_flow.py",
+      "sha256": "85cea901c7ccaa03d078efaf1feddbb601bbafbb20fbc667429007bb10dc2197"
+    },
+    {
+      "path": "src/career_os/process_control.py",
+      "sha256": "dcd8cee924a6861280f399298599bdf2c38b7d6add8f91f333f0cf54c97d96ce"
+    },
+    {
+      "path": "src/career_os/product_journey.py",
+      "sha256": "6a312db7619905e60b27c21fbe6b98e72c69b9feed5481c68c096f959ad1eb1e"
+    },
+    {
+      "path": "src/career_os/product_runtime.py",
+      "sha256": "5e7e76f690b8935b149de7be10ff5775235d6b7a7897411fea8b91dca38b706d"
+    },
+    {
+      "path": "src/career_os/public_api/__init__.py",
+      "sha256": "4af00eed6f44605917c73ad0b5a8fbc13af0c7076b6477422ac061e8f967d795"
+    },
+    {
+      "path": "src/career_os/role_pack_data/__init__.py",
+      "sha256": "27566dd8093ef9adef7413f46ecf7b11b84550d8368281fb3568c917e635ae64"
+    },
+    {
+      "path": "src/career_os/role_pack_data/commercial_leadership.v1.json",
+      "sha256": "86947a21040599815e80f042ed40e0ad2f29932d0cb2a12ee130f1083c0ed520"
+    },
+    {
+      "path": "src/career_os/role_pack_data/customer_post_sales_leadership.v1.json",
+      "sha256": "134600c34830291896ddd016a2578ab42c51c00d8a4fda4d74a6cd1651458a92"
+    },
+    {
+      "path": "src/career_os/role_pack_data/generic_fallback.v1.json",
+      "sha256": "9921b390fbfd148d8b3bfd71806222b68451e8064cedb429c921c8060cf82c3f"
+    },
+    {
+      "path": "src/career_os/role_pack_data/product_leadership.v1.json",
+      "sha256": "de7bdd92e770857cf311e6dee9b338c1855c080b7b1c4e50bd55f1aa7eccb90b"
+    },
+    {
+      "path": "src/career_os/role_pack_data/role-pack.schema.json",
+      "sha256": "e3dd7687cf315fe464194623fdfa456e5aa20ca6f88f47507ed8bf17e3357298"
+    },
+    {
+      "path": "src/career_os/role_pack_data/senior_expert_ic.v1.json",
+      "sha256": "a4a77838256a79bf93cef9e2004d04a81790b66991da5b312c4a25946700275d"
+    },
+    {
+      "path": "src/career_os/role_pack_data/services_solutions_leadership.v1.json",
+      "sha256": "b0f68b2233a7fc803450863a7cd7d235e6efd2a8bbaba802ff11acad5bc60022"
+    },
+    {
+      "path": "src/career_os/role_packs.py",
+      "sha256": "32d183110d9f004a5011df9d696869daf7b70a65a1a5bd8ed603575faca5050a"
+    },
+    {
+      "path": "src/career_os/skill_validation.py",
+      "sha256": "db1c5566d33c63fb35a5bb6f6226ce1395da70e0bcb0cb22f998411a95385b91"
+    },
+    {
+      "path": "src/career_os/store.py",
+      "sha256": "156ca9d4f98d864b8c333bd35380395fafa048e4f95e2169a124a2c0bc1d89e2"
+    },
+    {
+      "path": "src/career_os/synthetic_evidence.py",
+      "sha256": "c3d4e4ae8e310530ce0da3f0585fed36e5ad12580b0390a3747db2eb38b077cd"
+    },
+    {
+      "path": "src/career_os/synthetic_role_pack_fixtures.py",
+      "sha256": "9a45baebdf8d86cb2da8d609d5531eeb2f077075580f81581690dc77728dd67e"
+    },
+    {
+      "path": "src/career_os/synthetic_runtime.py",
+      "sha256": "d09241363947018521fe6626061c683ae24d56513f8247afc45665f3785c6c5d"
+    },
+    {
+      "path": "src/career_os/task_workflow.py",
+      "sha256": "bec8266f9eb76305f6914a02707d32de56458ee68b35d285671ef1c682091b14"
+    },
+    {
+      "path": "src/career_os/workspace_workflow.py",
+      "sha256": "359956c936f1525b821e0713f0574df516ecc993e54ffd67c13e7fef03a840fe"
+    },
+    {
+      "path": "tests/test_application_workflow.py",
+      "sha256": "1107b391a10662a311ded5fe0b7aebcdcb5f0db22b9a7d09808731f5f9ee63e0"
+    },
+    {
+      "path": "tests/test_companion_m1.py",
+      "sha256": "49b25af9d9015635be62d620fbac60a494db9edfc3312ab4de250401420b7f41"
+    },
+    {
+      "path": "tests/test_creation_bundle.py",
+      "sha256": "f69373b154f41c8e244ed53f08e745d530993df04bebc58bd319b9c2da24bb59"
+    },
+    {
+      "path": "tests/test_desktop_inventory.py",
+      "sha256": "a1c30f644d305823c294c2eac0ccb6b1a688dbaff1431394a1a1880d39c1e971"
+    },
+    {
+      "path": "tests/test_document_intake.py",
+      "sha256": "07b987835b24ad318c73a13fbdaf230145e7e27d018890b279265c051cd54514"
+    },
+    {
+      "path": "tests/test_document_workflow.py",
+      "sha256": "3c97c725d450657642f67820e696c1210ce11b2325b6f9b45eec7ae5ec690d39"
+    },
+    {
+      "path": "tests/test_documents.py",
+      "sha256": "7ba697140f3558687682c2501783e28c05ef8e7e43738e0f99e509c67b43e5a4"
+    },
+    {
+      "path": "tests/test_evidence_contract_v2.py",
+      "sha256": "ca36364b74471a4c99e126f65f9392573a6c631068b2bf3549b258623a2466c1"
+    },
+    {
+      "path": "tests/test_evidence_migration.py",
+      "sha256": "b6c007de4d6ff1e9085dfe59e0d5cd9a7581d393b6d5ec7648c59652e5c83de2"
+    },
+    {
+      "path": "tests/test_evidence_onboarding.py",
+      "sha256": "d83ca53ab924f122c2fd133ff315a8aea49efc638e15ad7cc30da74ed025c716"
+    },
+    {
+      "path": "tests/test_evidence_vault.py",
+      "sha256": "e9fb287f23e0f1094bd2cdea207e6137b622a23b9d811b291f2e2bdfb6e7c3ea"
+    },
+    {
+      "path": "tests/test_file_transactions.py",
+      "sha256": "ee822d31efafbfaf1ca76ac4dc4c63d34f58b453d0c28956eaf6d231900a79c6"
+    },
+    {
+      "path": "tests/test_focus.py",
+      "sha256": "82164fdd99d9b376776f51574c32d05b6fdbd822fd9b59fa267a88e8dfad43b8"
+    },
+    {
+      "path": "tests/test_focus_workflow.py",
+      "sha256": "edcd5081ed7f83aef7f147be98d19b8458aad40d63914a62aa4c693981aadaef"
+    },
+    {
+      "path": "tests/test_instance_recovery.py",
+      "sha256": "a2696bd00099cdfffb1f13c7c1eddf0a06a74c37a7e9f1a8d04d551ceb9ffc19"
+    },
+    {
+      "path": "tests/test_offer_workflow.py",
+      "sha256": "a8510baab0e4f319b825b811d084b7a98f2e02f51ae164449f4585410cded5e7"
+    },
+    {
+      "path": "tests/test_official_posting.py",
+      "sha256": "ea706e90c00c99f8608af63ca3a94af3b79c58afc3f877e03d81b642a8cf0544"
+    },
+    {
+      "path": "tests/test_outcome_workflow.py",
+      "sha256": "0c7e705cfb5fcc330c3f9cdbef918d5417dc733d38e5b794ee5b4aa4d0fff6df"
+    },
+    {
+      "path": "tests/test_participant_app.py",
+      "sha256": "23f8047ac3506f42e997d9746c08d39df1abdac0c6c8e39e69ae1e6468ac7d2b"
+    },
+    {
+      "path": "tests/test_participant_flow.py",
+      "sha256": "d72a9e911507694bb7309320f68dce65836c4fb077b9f95ed4c0c4d739321147"
+    },
+    {
+      "path": "tests/test_product_journey.py",
+      "sha256": "20a64513aae4f0e8f87598e19c00c698fdcd7c5c8f102c7339c4880eb380bff9"
+    },
+    {
+      "path": "tests/test_product_package.py",
+      "sha256": "0186fe7e08c03d0b4df7af1ffb7010ce09b71de651598754f67c06a7cacb29e4"
+    },
+    {
+      "path": "tests/test_product_runtime.py",
+      "sha256": "b0ff9fde2e6b3e865a892bcf021c81248dcf691c1a35c753897d988a01fb6093"
+    },
+    {
+      "path": "tests/test_public_role_packs.py",
+      "sha256": "51e4d424ae58ab378680b34768331c151b5247dc4894f9af1d6011894196e2cc"
+    },
+    {
+      "path": "tests/test_public_skill_pack.py",
+      "sha256": "fdd615f1bdb7088d95865cd04395ab43b995490199c81487950426665f7cfd1a"
+    },
+    {
+      "path": "tests/test_public_source_hygiene.py",
+      "sha256": "ffd56eae113ac61d655d647bcc088f6ccdbafdf03cf4610526679fc419470f0d"
+    },
+    {
+      "path": "tests/test_task_workflow.py",
+      "sha256": "d32daf2a83e11129338fe6c0aaadfba033e1cece231eefc482641a998a6ab7ac"
+    },
+    {
+      "path": "tests/test_tasks.py",
+      "sha256": "4ec0c5f2fb02940ec820fa1f2f47ae7b4931fb426a5207803bd02070665086dd"
+    },
+    {
+      "path": "tools/build_backend.py",
+      "sha256": "7e6908dac60b9830fd42907d6fcd89a44206339f05e95f8cfb1cd29d3e6962e2"
+    },
+    {
+      "path": "tools/build_companion_bundle.py",
+      "sha256": "ed1de9f95e29dcc09be2772693b4e38c1b4091f5962ccc4358dcba64a61a96ab"
+    },
+    {
+      "path": "tools/evidence_performance.py",
+      "sha256": "6a3c2a0850dce3239e14149b95d726084f4cbe4a543661e2481e53950bc3e0fd"
+    },
+    {
+      "path": "tools/product_package.py",
+      "sha256": "9d5471b347425f9b089d081bff3b872a56073709f67f7516b694ba876a72bbb4"
+    },
+    {
+      "path": "tools/release_artifacts.py",
+      "sha256": "1e8ea6d5e8d0bc38696fddcab97ef749ab8b018d88ae6d099df4d1631299ea26"
+    }
+  ]
+}

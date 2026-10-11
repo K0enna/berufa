@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "pack_id": "generic_fallback",
+  "version": "1.1.0",
+  "label": "Conservative generic fallback",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-30",
+    "source": "Issue 34 Gate B walking-skeleton tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": ["generic_fallback@1.0.0"]
+  },
+  "fallback": true,
+  "confidence_cap": 0.45,
+  "application_readiness_allowed": false,
+  "structural_meaning": "Preserves exact posting requirements without claiming specialized mandate interpretation. It cannot infer a profession, relax a structural gate, or authorize application readiness.",
+  "taxonomy": {
+    "role_family": "generic_fallback",
+    "title_patterns": [],
+    "mandate_archetypes": [],
+    "adjacent_archetypes": []
+  },
+  "selection": {
+    "required_signals": [],
+    "supporting_signals": [],
+    "disqualifying_signals": []
+  },
+  "requirements": [],
+  "misleading_patterns": [
+    {
+      "pattern": "Any unsupported occupational interpretation",
+      "caution": "Keep the posting wording, mark structural meaning unsupported, and route to human review."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation and practical constraints remain unknown?"
+  ],
+  "diligence_prompts": [
+    "Which reviewed role pack, if any, should govern this mandate?"
+  ],
+  "application_archetypes": [],
+  "dimension_weights": {},
+  "bounded_adjustments": []
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "pack_id": "product_leadership",
+  "version": "1.0.0",
+  "label": "Product leadership",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-31",
+    "source": "Issue 34 Gate D founding-cohort tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": []
+  },
+  "fallback": false,
+  "confidence_cap": 0.9,
+  "application_readiness_allowed": true,
+  "structural_meaning": "Leads a current product team and owns product-strategy decisions. Roadmap administration, project delivery, product operations, domain expertise, served vertical, buyer environment, customer discovery, and management layers remain independently assessed.",
+  "taxonomy": {
+    "role_family": "product_leadership",
+    "title_patterns": [
+      "Head or Director of Product",
+      "Vice President of Product",
+      "Group Product Manager with current reports",
+      "Product Operations leader with product decision authority"
+    ],
+    "mandate_archetypes": [
+      "product_strategy_leadership",
+      "product_portfolio_leadership"
+    ],
+    "adjacent_archetypes": [
+      {
+        "id": "product_operations_leadership",
+        "label": "Product operations leadership",
+        "trigger_signals": ["product_operations_ownership"],
+        "explanation": "Product operating-system ownership may support the mandate but does not prove product strategy or roadmap decision authority."
+      },
+      {
+        "id": "product_discovery_leadership",
+        "label": "Product discovery leadership",
+        "trigger_signals": ["product_discovery_ownership"],
+        "explanation": "Customer and market discovery ownership remains distinct from final product investment and portfolio decisions."
+      }
+    ]
+  },
+  "selection": {
+    "required_signals": ["people_leadership_current", "product_leadership_scope"],
+    "supporting_signals": [
+      "product_discovery_ownership",
+      "product_operations_ownership",
+      "product_strategy_ownership"
+    ],
+    "disqualifying_signals": [
+      "individual_contributor_primary_mandate",
+      "no_current_people_leadership"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "product_people_leadership",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Lead a current product team with explicit hiring, coaching, performance, and operating responsibility.",
+      "evidence_question": "What current direct-report, hiring, coaching, performance, and team-operating evidence is verified?"
+    },
+    {
+      "id": "product_strategy_decision_authority",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Own material product-strategy and investment decisions.",
+      "evidence_question": "Which problem-space, portfolio, investment, sequencing, or product-positioning decisions are directly owned?"
+    },
+    {
+      "id": "roadmap_portfolio_ownership",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Own roadmap and portfolio tradeoffs across outcomes, capacity, and sequencing.",
+      "evidence_question": "Is roadmap authority strategic and outcome-bound, or primarily administration and project coordination?"
+    },
+    {
+      "id": "product_discovery_user_evidence",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Use customer, market, product, and commercial evidence to guide product decisions.",
+      "evidence_question": "Which discovery methods, buyer inputs, product signals, and decision consequences are verified?"
+    },
+    {
+      "id": "product_outcome_accountability",
+      "level": "preferred",
+      "impact": "stretch",
+      "statement": "Own measurable product, adoption, customer, or commercial outcomes rather than output volume alone.",
+      "evidence_question": "Which outcomes are directly attributable to product decisions and which are shared with adjacent teams?"
+    },
+    {
+      "id": "product_management_layers",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Lead product managers through one or more explicit management layers.",
+      "evidence_question": "Does the role manage managers, direct product ICs, project contributors, or a team-adjacent matrix?"
+    }
+  ],
+  "misleading_patterns": [
+    {
+      "pattern": "Product lead, owner, or principal title without current reports",
+      "caution": "Product ownership, senior influence, or a title does not prove current people leadership."
+    },
+    {
+      "pattern": "Own the roadmap",
+      "caution": "Roadmap administration or delivery coordination does not by itself prove product strategy or investment authority."
+    },
+    {
+      "pattern": "Deep industry network required",
+      "caution": "Product domain, served vertical, buyer environment, and required customer network must be assessed separately."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation components are fixed, variable, equity, benefits, or one-time?",
+    "How do company stage, product maturity, portfolio scope, and outcome accountability affect role economics and downside risk?"
+  ],
+  "diligence_prompts": [
+    "What is the current product-team composition, reporting line, budget authority, and management layer?",
+    "Which product decisions are owned versus recommended to engineering, commercial, executive, or founder stakeholders?",
+    "Are product domain, served vertical, buyer environment, and required customer network independently evidenced?"
+  ],
+  "application_archetypes": [
+    "product_strategy_leader",
+    "product_portfolio_leader"
+  ],
+  "dimension_weights": {
+    "mandate_fit": 0.25,
+    "product_decision_authority": 0.25,
+    "people_leadership": 0.2,
+    "outcome_evidence": 0.15,
+    "economics_feasibility": 0.15
+  },
+  "bounded_adjustments": [
+    {
+      "id": "roadmap_authority_ambiguity",
+      "minimum": -0.12,
+      "maximum": 0.0,
+      "reason": "Ambiguous roadmap language reduces confidence without turning coordination into product authority."
+    },
+    {
+      "id": "verified_product_outcome",
+      "minimum": 0.0,
+      "maximum": 0.05,
+      "reason": "A source-bound product outcome may strengthen evidence within the confidence cap."
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+version = 1
+name = "rolevane"
+dependencies = [
+  "defusedxml>=0.7,<1",
+  "pypdf>=6.14,<7",
+  "tzdata==2026.4; sys_platform == 'win32'",
+]
+
+files = [
+  "src/career_os/__init__.py",
+  "src/career_os/models.py",
+  "src/career_os/instance_paths.py",
+  "src/career_os/store.py",
+  "src/career_os/opportunity_identity.py",
+  "src/career_os/authority_ports.py",
+  "src/career_os/product_runtime.py",
+  "src/career_os/synthetic_runtime.py",
+  "src/career_os/evidence_contract.py",
+  "src/career_os/evidence_records.py",
+  "src/career_os/application/__init__.py",
+  "src/career_os/application/evidence.py",
+  "src/career_os/application/inventory.py",
+  "src/career_os/application/official_postings.py",
+  "src/career_os/application/opportunities.py",
+  "src/career_os/application/companion.py",
+  "src/career_os/application/offers.py",
+  "src/career_os/offer_economics.py",
+  "src/career_os/application/outcomes.py",
+  "src/career_os/outcome_records.py",
+  "src/career_os/outcome_values.py",
+  "src/career_os/opportunity_ids.py",
+  "src/career_os/infrastructure/outcomes.py",
+  "src/career_os/outcome_workflow.py",
+  "src/career_os/focus.py",
+  "src/career_os/application/focus.py",
+  "src/career_os/infrastructure/focus.py",
+  "src/career_os/focus_workflow.py",
+  "src/career_os/application_records.py",
+  "src/career_os/application/applications.py",
+  "src/career_os/infrastructure/applications.py",
+  "src/career_os/application_workflow.py",
+  "src/career_os/interview_records.py",
+  "src/career_os/application/interviews.py",
+  "src/career_os/infrastructure/interviews.py",
+  "src/career_os/infrastructure/content_artifacts.py",
+  "src/career_os/interview_workflow.py",
+  "src/career_os/application/workspaces.py",
+  "src/career_os/application/tasks.py",
+  "src/career_os/application/documents.py",
+  "src/career_os/infrastructure/workspaces.py",
+  "src/career_os/infrastructure/tasks.py",
+  "src/career_os/infrastructure/documents.py",
+  "src/career_os/workspace_workflow.py",
+  "src/career_os/task_workflow.py",
+  "src/career_os/document_workflow.py",
+  "src/career_os/application/recovery.py",
+  "src/career_os/infrastructure/recovery.py",
+  "src/career_os/application/instances.py",
+  "src/career_os/infrastructure/instances.py",
+  "src/career_os/application/instance_data.py",
+  "src/career_os/infrastructure/instance_data.py",
+  "src/career_os/instance_workflow.py",
+  "src/career_os/companion_workflow.py",
+  "src/career_os/file_transactions.py",
+  "src/career_os/process_control.py",
+  "src/career_os/infrastructure/__init__.py",
+  "src/career_os/infrastructure/evidence.py",
+  "src/career_os/infrastructure/evidence_storage.py",
+  "src/career_os/infrastructure/opportunities.py",
+  "src/career_os/infrastructure/companion.py",
+  "src/career_os/infrastructure/offers.py",
+  "src/career_os/infrastructure/provider_http.py",
+  "src/career_os/infrastructure/greenhouse.py",
+  "src/career_os/ats_urls.py",
+  "src/career_os/official_posting.py",
+  "src/career_os/public_api/__init__.py",
+  "src/career_os/evidence_vault.py",
+  "src/career_os/evidence_migration.py",
+  "src/career_os/evidence_onboarding.py",
+  "src/career_os/synthetic_evidence.py",
+  "src/career_os/document_intake.py",
+  "src/career_os/role_packs.py",
+  "src/career_os/opportunity_workflow.py",
+  "src/career_os/offer_workflow.py",
+  "src/career_os/skill_validation.py",
+  "src/career_os/role_pack_data/__init__.py",
+  "src/career_os/synthetic_role_pack_fixtures.py",
+  "src/career_os/participant_flow.py",
+  "src/career_os/product_journey.py",
+  "src/career_os/participant_app.py",
+]
+
+resources = [
+  "src/career_os/role_pack_data/commercial_leadership.v1.json",
+  "src/career_os/role_pack_data/customer_post_sales_leadership.v1.json",
+  "src/career_os/role_pack_data/generic_fallback.v1.json",
+  "src/career_os/role_pack_data/product_leadership.v1.json",
+  "src/career_os/role_pack_data/role-pack.schema.json",
+  "src/career_os/role_pack_data/senior_expert_ic.v1.json",
+  "src/career_os/role_pack_data/services_solutions_leadership.v1.json",
+]
+
+[scripts]
+rolevane-product = "career_os.participant_app:main"
+rolevane-evidence-smoke = "career_os.product_journey:main"
+rolevane-journey-smoke = "career_os.product_journey:full_main"
+rolevane-product-smoke = "career_os.synthetic_runtime:main"
+rolevane-evidence-migration-dry-run = "career_os.evidence_migration:main"
+rolevane-evidence-import = "career_os.evidence_onboarding:main"
+rolevane-evidence-list = "career_os.evidence_onboarding:source_list_main"
+rolevane-evidence-read = "career_os.evidence_onboarding:source_main"
+rolevane-evidence-propose = "career_os.evidence_onboarding:proposal_main"
+rolevane-evidence-interview = "career_os.evidence_onboarding:interview_main"
+rolevane-role-pack-explain = "career_os.role_packs:main"
+rolevane-role-evaluate-supplied = "career_os.opportunity_workflow:main"
+rolevane-role-decide-supplied = "career_os.opportunity_workflow:decision_main"
+rolevane-offer-compare = "career_os.offer_workflow:main"
+rolevane-event-record = "career_os.outcome_workflow:main"
+rolevane-event-list = "career_os.outcome_workflow:list_main"
+rolevane-outcome-report = "career_os.outcome_workflow:report_main"
+rolevane-focus = "career_os.focus_workflow:main"
+rolevane-application = "career_os.application_workflow:main"
+rolevane-interview = "career_os.interview_workflow:main"
+rolevane-workspace = "career_os.workspace_workflow:main"
+rolevane-instance = "career_os.instance_workflow:main"
+rolevane-skill-validate = "career_os.skill_validation:main"
+rolevane-role-fetch = "career_os.official_posting:main"
+
+rolevane-companion-review = "career_os.companion_workflow:main"
+
+rolevane-task = "career_os.task_workflow:main"
+
+rolevane-document = "career_os.document_workflow:main"

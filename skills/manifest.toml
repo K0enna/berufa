@@ -1,0 +1,120 @@
+version = 1
+
+[[skills]]
+name = "rolevane-setup"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public setup contract", "Run or inspect the bundled fictional setup demonstration", "Inspect content-free installation and validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled demo state or content-free validation result", "Generic PATH placeholders only; real workspace paths and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public manifest and package metadata", "Bundled fictional demonstration contract"]
+commands = ["rolevane-skill-validate skills", "rolevane-product-smoke", "rolevane-evidence-smoke", "rolevane-journey-smoke", "rolevane-product --instance-root DEMO_PATH", "rolevane-instance --instance-root PATH init", "rolevane-instance --instance-root PATH doctor", "rolevane-instance --instance-root PATH upgrade --backup-destination NEW_BACKUP_PATH", "rolevane-instance --instance-root PATH upgrade --backup-destination NEW_BACKUP_PATH --confirm-upgrade PREVIEW_SHA256 --offline", "rolevane-instance --instance-root PATH backup --destination BACKUP_PATH --offline", "rolevane-instance --instance-root PATH verify --backup BACKUP_PATH", "rolevane-instance --instance-root RESTORE_PATH restore --backup BACKUP_PATH", "rolevane-instance --instance-root RESTORE_PATH restore --backup BACKUP_PATH --confirm-restore PREVIEW_SHA256 --offline", "rolevane-instance --instance-root PATH export --destination EXPORT_PATH --offline", "rolevane-instance --instance-root PATH delete", "rolevane-instance --instance-root PATH delete --confirm-delete PREVIEW_SHA256 --offline"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public setup contract explanation", "Fictional setup demonstration", "Content-free installation and validation guidance"]
+confirmations = ["The user runs any real workspace command in the local terminal; paths, inventories, hashes, fingerprints, confirmations and output never enter skill context", "The user accepts the fictional boundary before a bundled demo is run"]
+external_action_prohibitions = ["No real workspace inspection through the skill, account creation, provider activation, network research, submission, or messaging"]
+failure_recovery = ["Stop on failed public validation or fictional smoke output; report only public or content-free status", "Do not request private command output or invent a replacement value"]
+stop_conditions = ["The public contract, fictional demo, or content-free validation is complete", "Any real path, document, inventory, fingerprint, confirmation, or terminal output would be needed"]
+
+[[skills]]
+name = "career-evidence-onboarding"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public onboarding contract", "Run or inspect the bundled fictional evidence demonstration", "Inspect content-free validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled fixture or content-free validation result", "Generic PATH, FILE and ID placeholders only; real documents and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public evidence contract", "Bundled fictional evidence demonstration"]
+commands = ["rolevane-product --instance-root PATH", "rolevane-evidence-import --instance-root PATH --document FILE", "rolevane-evidence-import --instance-root PATH --document FILE --accept-local-processing", "rolevane-evidence-list --instance-root PATH", "rolevane-evidence-read --instance-root PATH --source-id ID --start-line N --end-line N", "rolevane-evidence-propose --instance-root PATH --proposal FILE", "rolevane-evidence-interview --instance-root PATH", "rolevane-evidence-interview --instance-root PATH --answer FILE", "rolevane-evidence-smoke"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public onboarding contract explanation", "Fictional evidence demonstration", "Content-free validation guidance"]
+confirmations = ["The user runs any real import, read, proposal, answer, or review command in the local terminal; documents, spans, paths, JSON, hashes, confirmations and output never enter skill context", "Only the local user reviews fictional demonstration state"]
+external_action_prohibitions = ["No real document, extracted span, evidence, proposal, answer, or private path processing through the skill; no approval, upload, or disclosure"]
+failure_recovery = ["Stop on failed public validation or fictional fixture failure; report only public or content-free status", "Do not request real source content, command output, or a replacement identity"]
+stop_conditions = ["The public contract, fictional demonstration, or content-free validation is complete", "Any real document, span, evidence item, path, JSON, hash, confirmation, or terminal output would be needed"]
+
+[[skills]]
+name = "career-role-evaluation"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public role contract", "Run or inspect the bundled fictional role demonstration", "Explain deterministic candidate-free role-pack selection"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled role fixture or content-free validation result", "Generic URL, PATH, SIGNALS and fingerprint placeholders only; real postings and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public role-pack contract", "Bundled fictional role demonstration"]
+commands = ["rolevane-product --instance-root PATH", "rolevane-role-pack-explain --signals SIGNALS", "rolevane-role-fetch --url URL", "rolevane-role-fetch --url URL --confirm-network PREVIEW_SHA256", "rolevane-role-evaluate-supplied --instance-root PATH --request FILE", "rolevane-role-evaluate-supplied --instance-root PATH --request FILE --confirm-mapping EVALUATION_SHA256", "rolevane-role-decide-supplied --instance-root PATH --decision FILE", "rolevane-role-decide-supplied --instance-root PATH --decision FILE --confirm-decision INPUT_SHA256"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public role-contract explanation", "Fictional role preview", "Candidate-free role-pack explanation"]
+confirmations = ["The user runs any real URL, request, mapping, or decision command in the local terminal; postings, evidence, paths, JSON, hashes, fingerprints, confirmations and output never enter skill context", "The local user reviews and confirms any fictional state change directly"]
+external_action_prohibitions = ["No real posting, URL, evidence, or decision processing through the skill; no unconfirmed network request, pipeline mutation, application, or outreach"]
+failure_recovery = ["Stop on failed public validation or fictional fixture failure; report only public or content-free status", "Do not request real posting text, evidence, command output, or a replacement value"]
+stop_conditions = ["The public contract, fictional preview, or candidate-free pack explanation is complete", "Any real posting, URL, evidence, path, fingerprint, confirmation, or terminal output would be needed"]
+
+[[skills]]
+name = "career-application-preparation"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public application contract", "Run or inspect the bundled fictional application-brief demonstration", "Inspect content-free validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled application fixture or content-free validation result", "Generic PATH, ID and fingerprint placeholders only; real posting, evidence and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public application-preparation contract", "Bundled fictional application demonstration"]
+commands = ["rolevane-application --instance-root PATH plan --request FILE", "rolevane-application --instance-root PATH prepare --request FILE --confirm-plan PREVIEW_SHA256", "rolevane-application --instance-root PATH validate --opportunity-id ID --fingerprint PREVIEW_SHA256"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public application-contract explanation", "Fictional application-brief demonstration", "Content-free validation guidance"]
+confirmations = ["The user runs any real preparation or validation command in the local terminal; postings, evidence, paths, JSON, hashes, fingerprints, confirmations and output never enter skill context", "Final document approval and submission remain separate local decisions"]
+external_action_prohibitions = ["No real posting, application, resume, evidence, or dossier processing through the skill; no claim invention, upload, submission, browser autofill, or recruiter message"]
+failure_recovery = ["Stop locally on failed public validation or fictional fixture failure; report only public or content-free status", "Preserve local artifacts and do not request private output or invent a replacement value"]
+stop_conditions = ["The public contract, fictional brief, or content-free validation is complete", "Any real dossier, evidence item, path, command output, fingerprint, or confirmation would be needed"]
+
+[[skills]]
+name = "career-interview-preparation"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public interview contract", "Run or inspect the bundled fictional interview-brief demonstration", "Inspect content-free validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled interview fixture or content-free validation result", "Generic PATH, ID, ROUND_ID and fingerprint placeholders only; real role, story and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public interview-preparation contract", "Bundled fictional interview demonstration"]
+commands = ["rolevane-interview --instance-root PATH plan --request FILE", "rolevane-interview --instance-root PATH prepare --request FILE --confirm-plan PREVIEW_SHA256", "rolevane-interview --instance-root PATH validate --opportunity-id ID --round-id ROUND_ID --fingerprint PREVIEW_SHA256"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public interview-contract explanation", "Fictional interview brief and call-sheet demonstration", "Content-free validation guidance"]
+confirmations = ["The user runs any real preparation or validation command in the local terminal; role, round, evidence, paths, JSON, hashes, fingerprints, confirmations and output never enter skill context", "Scheduling and debrief facts remain separate local decisions"]
+external_action_prohibitions = ["No real role, posting, interview, story, or evidence processing through the skill; no scheduling, employer contact, invented stakeholder or event"]
+failure_recovery = ["Stop locally on failed public validation or fictional fixture failure; report only public or content-free status", "Preserve local versions and do not request private output or invent a replacement value"]
+stop_conditions = ["The public contract, fictional brief, or content-free validation is complete", "Any real role, story, path, command output, fingerprint, or confirmation would be needed"]
+
+[[skills]]
+name = "career-offer-comparison"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public comparison contract", "Run or inspect the bundled fictional comparison demonstration", "Inspect content-free validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled comparison fixture or content-free validation result", "Generic PATH and fingerprint placeholders only; real offer terms and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public comparison contract", "Bundled fictional comparison demonstration"]
+commands = ["rolevane-offer-compare --instance-root PATH --request FILE", "rolevane-offer-compare --instance-root PATH --request FILE --confirm-comparison PREVIEW_SHA256"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public comparison-contract explanation", "Fictional expected/downside comparison demonstration", "Content-free validation guidance"]
+confirmations = ["The user runs any real comparison command in the local terminal; offer terms, compensation, sources, paths, JSON, hashes, fingerprints, confirmations and output never enter skill context", "The local user reviews all fictional facts and assumptions directly before a fictional save"]
+external_action_prohibitions = ["No real offer, compensation, or baseline processing through the skill; no legal/tax/financial advice, acceptance, rejection, negotiation, or employer contact"]
+failure_recovery = ["Stop locally on failed public validation or fictional fixture failure; report only public or content-free status", "Preserve local records and do not request private output or invent a replacement value"]
+stop_conditions = ["The public contract, fictional comparison, or content-free validation is complete", "Any real offer, path, command output, fingerprint, or confirmation would be needed"]
+
+[[skills]]
+name = "career-outcome-review"
+contract_version = 1
+package_compatibility = ">=0.1,<0.2"
+maturity = "synthetic-only"
+supported_intents = ["Explain the reviewed public outcome-review contract", "Run or inspect the bundled fictional outcome demonstration", "Inspect content-free report and validation routes"]
+required_inputs = ["Reviewed public package/repository checkout", "Fictional bundled event/report fixture or content-free validation result", "Generic PATH and report-placeholder values only; real outcomes and command results stay in the user's local terminal"]
+authorities = ["Exact reviewed package/repository revision", "Public event and outcome contracts", "Bundled fictional outcome demonstration"]
+commands = ["rolevane-event-record --instance-root PATH --request FILE", "rolevane-event-record --instance-root PATH --request FILE --confirm-event PREVIEW_SHA256", "rolevane-event-list --instance-root PATH", "rolevane-outcome-report --instance-root PATH", "rolevane-outcome-report --instance-root PATH --as-of EXACT_REPORT_AS_OF --maturity-business-days EXACT_REPORT_MATURITY_BUSINESS_DAYS --review-interval EXACT_REPORT_REVIEW_INTERVAL --acknowledge-report REPORT_BASIS_SHA256 --ledger-fingerprint REPORT_LEDGER_SHA256 --review-scope both"]
+model_data_classes = ["reviewed_package_source", "synthetic_demo", "content_free_validation"]
+no_model_fallback = true
+outputs = ["Reviewed public outcome-contract explanation", "Fictional event/report demonstration", "Content-free report and validation guidance"]
+confirmations = ["The user runs any real event, list, or report command in the local terminal; applications, interviews, offers, outcomes, paths, JSON, hashes, reports, fingerprints, confirmations and output never enter skill context", "Only the local user may confirm a fictional event or report acknowledgment"]
+external_action_prohibitions = ["No real event or outcome processing through the skill; no inference or execution of applications/interviews/offers, scoring change, employer contact, or source activation"]
+failure_recovery = ["Stop locally on failed public validation or fictional fixture failure; report only public or content-free status", "Never invent an event, outcome, hash, score, report value, or missing snapshot"]
+stop_conditions = ["The public contract, fictional report, or content-free validation is complete", "Any real event, outcome, path, command output, fingerprint, confirmation, or terminal result would be needed"]

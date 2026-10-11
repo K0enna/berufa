@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "pack_id": "customer_post_sales_leadership",
+  "version": "1.1.0",
+  "label": "Customer and post-sales leadership",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-30",
+    "source": "Issue 34 Gate B walking-skeleton tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": ["customer_post_sales_leadership@1.0.0"]
+  },
+  "fallback": false,
+  "confidence_cap": 0.95,
+  "application_readiness_allowed": true,
+  "structural_meaning": "Leads post-sale customer delivery, adoption, operations, and team performance. Existing-customer growth, direct new-logo ownership, pricing, project leadership, budget ownership, and management of managers remain independently assessed.",
+  "taxonomy": {
+    "role_family": "customer_post_sales_leadership",
+    "title_patterns": [
+      "Head or Director of Customer Success",
+      "Head or Director of Customer Operations",
+      "Head or Director of Account Management",
+      "Head or Director of Post-Sales"
+    ],
+    "mandate_archetypes": [
+      "customer_success_leadership",
+      "post_sales_leadership"
+    ],
+    "adjacent_archetypes": [
+      {
+        "id": "customer_operations_leadership",
+        "label": "Customer operations leadership",
+        "trigger_signals": ["customer_operations_ownership"],
+        "explanation": "Operational-cadence evidence may support this adjacent archetype, but it does not prove direct commercial or people-management scope."
+      }
+    ]
+  },
+  "selection": {
+    "required_signals": ["post_sales_scope", "people_leadership_current"],
+    "supporting_signals": [
+      "customer_delivery_ownership",
+      "customer_operations_ownership",
+      "retention_expansion_scope"
+    ],
+    "disqualifying_signals": ["no_current_people_leadership"]
+  },
+  "requirements": [
+    {
+      "id": "post_sales_team_leadership",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Lead a current post-sales team and its operating cadence.",
+      "evidence_question": "What current team, direct-report, hiring, coaching, performance, and operating-cadence evidence is verified?"
+    },
+    {
+      "id": "service_operating_reviews",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Own customer-service operating reviews and delivery performance.",
+      "evidence_question": "Which decisions and outcomes prove ownership of service operating reviews or customer-delivery performance?"
+    },
+    {
+      "id": "onboarding_improvement",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Improve customer onboarding, adoption, or time to value.",
+      "evidence_question": "Which bounded outcome proves a customer-journey improvement and whose outcome was it?"
+    },
+    {
+      "id": "new_logo_ae_leadership",
+      "level": "preferred",
+      "impact": "stretch",
+      "statement": "Directly lead quota-carrying new-logo Account Executives.",
+      "evidence_question": "Is direct leadership of quota-carrying new-logo sellers verified, transferable, a genuine gap, or unknown?"
+    },
+    {
+      "id": "completed_degree",
+      "level": "optional",
+      "impact": "evidence",
+      "statement": "Hold a completed degree or explicitly accepted equivalent experience.",
+      "evidence_question": "What exact completion status and equivalency wording are supported without upgrading coursework into a degree?"
+    },
+    {
+      "id": "budget_ownership",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Own a departmental budget.",
+      "evidence_question": "Is direct budget decision authority proven, merely team-adjacent, or unknown?"
+    }
+  ],
+  "misleading_patterns": [
+    {
+      "pattern": "Head, Director, Lead, or owner language without a current team",
+      "caution": "A senior title, influence, project leadership, or a future hiring plan is not current people leadership."
+    },
+    {
+      "pattern": "Partner with Sales or support revenue growth",
+      "caution": "Collaboration does not prove direct ownership of pricing, new-logo quota, renewals, or expansion."
+    },
+    {
+      "pattern": "Lead leaders or scale the function",
+      "caution": "Management of managers must be explicit and remains distinct from direct IC leadership."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation components are fixed, variable, equity, benefits, or one-time?",
+    "What quota, ramp, team attainment, travel, and office obligations affect total economics?"
+  ],
+  "diligence_prompts": [
+    "What is the current team composition, direct-report count, reporting line, and decision authority?",
+    "Which customer lifecycle stages and commercial motions belong to the role versus adjacent teams?",
+    "Are product domain, served vertical, buyer environment, and required customer network each independently supported?"
+  ],
+  "application_archetypes": [
+    "operating_model_leader",
+    "customer_outcomes_leader"
+  ],
+  "dimension_weights": {
+    "mandate_fit": 0.3,
+    "scope_seniority": 0.2,
+    "customer_outcomes": 0.2,
+    "people_leadership": 0.2,
+    "economics_feasibility": 0.1
+  },
+  "bounded_adjustments": [
+    {
+      "id": "management_layer_uncertainty",
+      "minimum": -0.1,
+      "maximum": 0.0,
+      "reason": "Management-layer ambiguity may reduce confidence but cannot manufacture or erase a hard gate."
+    },
+    {
+      "id": "verified_customer_outcome",
+      "minimum": 0.0,
+      "maximum": 0.05,
+      "reason": "A source-bound customer outcome may improve evidence strength within the confidence cap."
+    }
+  ]
+}

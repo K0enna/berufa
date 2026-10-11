@@ -1,0 +1,564 @@
+{
+  "$defs": {
+    "audit": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "proposed",
+            "approved",
+            "verified",
+            "rejected",
+            "deferred",
+            "revoked",
+            "superseded"
+          ]
+        },
+        "actor": {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "event_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        },
+        "evidence_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revision": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "event_id",
+        "evidence_id",
+        "revision",
+        "action",
+        "actor",
+        "occurred_at",
+        "content_hash",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "deletion_inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "database": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "tables": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "count": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "identifiers": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "count",
+              "identifiers"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "database",
+        "exists",
+        "tables"
+      ],
+      "type": "object"
+    },
+    "evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "approximation": {
+          "enum": [
+            "approximate",
+            "directional",
+            "exact",
+            "unknown"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "approximate",
+            "directional",
+            "disputed",
+            "exact",
+            "superseded",
+            "unknown"
+          ]
+        },
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxProperties": 32,
+          "minProperties": 1,
+          "type": "object"
+        },
+        "evidence_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "achievement",
+            "candidate_profile",
+            "career_objective",
+            "compensation_constraint",
+            "correction_note",
+            "development_priority",
+            "education",
+            "forbidden_claim",
+            "gap",
+            "interview_story",
+            "leadership_team",
+            "metric",
+            "responsibility",
+            "role_timeline",
+            "skill_domain",
+            "stakeholder_seniority"
+          ]
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "ownership": {
+          "enum": [
+            "company",
+            "personal",
+            "team",
+            "unknown"
+          ]
+        },
+        "publication_boundary": {
+          "enum": [
+            "application",
+            "application_and_interview",
+            "interview",
+            "private",
+            "public"
+          ]
+        },
+        "revision": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "source_end_line": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "source_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        },
+        "source_start_line": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "statement": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "deferred",
+            "rejected",
+            "revoked",
+            "superseded",
+            "unapproved"
+          ]
+        },
+        "supersedes_revision": {
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "extracted_hash": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "revision",
+        "kind",
+        "statement",
+        "details",
+        "source_id",
+        "source_hash",
+        "source_start_line",
+        "source_end_line",
+        "ownership",
+        "confidence",
+        "approximation",
+        "publication_boundary",
+        "status",
+        "content_hash",
+        "created_at",
+        "supersedes_revision",
+        "metadata",
+        "extracted_hash"
+      ],
+      "type": "object"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "correction_note": {
+          "maxLength": 2000,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "intended_channels": {
+          "items": {
+            "enum": [
+              "application",
+              "internal",
+              "interview",
+              "public"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "mutually_exclusive_timeline": {
+          "type": "boolean"
+        },
+        "origin_ownership": {
+          "enum": [
+            "company",
+            "personal",
+            "team",
+            "unknown"
+          ]
+        },
+        "permitted_formulations": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 24,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "prohibited_formulations": {
+          "items": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 24,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "relationships": {
+          "items": {
+            "$ref": "#/$defs/relationship"
+          },
+          "maxItems": 64,
+          "type": "array"
+        },
+        "retention_policy": {
+          "enum": [
+            "session_only",
+            "until_superseded_and_exported",
+            "until_user_deletion"
+          ]
+        },
+        "role_family_relevance": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "timeline_group": {
+          "maxLength": 160,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uncertainty_note": {
+          "maxLength": 2000,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "origin_ownership",
+        "permitted_formulations",
+        "prohibited_formulations",
+        "role_family_relevance",
+        "intended_channels",
+        "relationships",
+        "uncertainty_note",
+        "correction_note",
+        "retention_policy",
+        "timeline_group",
+        "mutually_exclusive_timeline"
+      ],
+      "type": "object"
+    },
+    "relationship": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "clarifies",
+            "conflicts_with",
+            "corrects",
+            "derived_from",
+            "supports"
+          ]
+        },
+        "target_evidence_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_evidence_id",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        "extracted_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "imported_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "input_format": {
+          "enum": [
+            "text",
+            "markdown",
+            "pdf",
+            "docx"
+          ]
+        },
+        "line_count": {
+          "maximum": 50000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "locations": {
+          "items": {
+            "$ref": "#/$defs/source_location"
+          },
+          "maxItems": 50000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "managed_copy": {
+          "const": true
+        },
+        "media_type": {
+          "enum": [
+            "text/plain",
+            "text/markdown",
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ]
+        },
+        "page_count": {
+          "maximum": 50,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "size_bytes": {
+          "maximum": 15728640,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "source_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{1,199}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "display_name",
+        "media_type",
+        "source_hash",
+        "extracted_hash",
+        "size_bytes",
+        "line_count",
+        "input_format",
+        "locations",
+        "page_count",
+        "managed_copy",
+        "imported_at"
+      ],
+      "type": "object"
+    },
+    "source_location": {
+      "additionalProperties": false,
+      "properties": {
+        "end_line": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "line",
+            "page",
+            "paragraph"
+          ]
+        },
+        "ordinal": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "part": {
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_line": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "ordinal",
+        "start_line",
+        "end_line",
+        "part"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://career-os.local/schemas/evidence-vault.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "audit_events": {
+      "items": {
+        "$ref": "#/$defs/audit"
+      },
+      "type": "array"
+    },
+    "boundary_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "credentials_included": {
+      "const": false
+    },
+    "deletion_inventory": {
+      "$ref": "#/$defs/deletion_inventory"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "type": "array"
+    },
+    "remote_telemetry": {
+      "const": false
+    },
+    "schema_version": {
+      "const": 3
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "boundary_version",
+    "sources",
+    "evidence",
+    "audit_events",
+    "deletion_inventory",
+    "credentials_included",
+    "remote_telemetry"
+  ],
+  "title": "Rolevane generic evidence vault contract",
+  "type": "object",
+  "x-career-os-contract-version": 3
+}

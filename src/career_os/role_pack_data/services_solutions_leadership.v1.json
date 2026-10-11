@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "pack_id": "services_solutions_leadership",
+  "version": "1.0.0",
+  "label": "Professional services, implementation, and solutions leadership",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-31",
+    "source": "Issue 34 Gate D founding-cohort tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": []
+  },
+  "fallback": false,
+  "confidence_cap": 0.9,
+  "application_readiness_allowed": true,
+  "structural_meaning": "Leads a current professional-services, implementation, solutions, or technical-customer team and owns delivery or solution decisions. Project leadership, individual solution expertise, post-sales commercial ownership, margin, budget, and management layers remain independently assessed.",
+  "taxonomy": {
+    "role_family": "services_solutions_leadership",
+    "title_patterns": [
+      "Head or Director of Professional Services",
+      "Head or Director of Implementation",
+      "Head or Director of Solutions Consulting",
+      "Technical Customer or Service Delivery leader"
+    ],
+    "mandate_archetypes": [
+      "professional_services_leadership",
+      "solutions_and_implementation_leadership"
+    ],
+    "adjacent_archetypes": [
+      {
+        "id": "implementation_leadership",
+        "label": "Implementation leadership",
+        "trigger_signals": ["implementation_delivery_ownership"],
+        "explanation": "Implementation portfolio evidence supports this route but does not by itself prove current people leadership or solution authority."
+      },
+      {
+        "id": "solutions_consulting_leadership",
+        "label": "Solutions consulting leadership",
+        "trigger_signals": ["solution_consulting_ownership"],
+        "explanation": "Pre-sales or solution-consulting ownership remains distinct from implementation delivery, support, and post-sales commercial ownership."
+      }
+    ]
+  },
+  "selection": {
+    "required_signals": ["people_leadership_current", "services_solutions_leadership_scope"],
+    "supporting_signals": [
+      "implementation_delivery_ownership",
+      "solution_consulting_ownership",
+      "technical_customer_leadership"
+    ],
+    "disqualifying_signals": [
+      "individual_contributor_primary_mandate",
+      "no_current_people_leadership"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "services_people_leadership",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Lead a current services, implementation, solutions, or technical-customer team.",
+      "evidence_question": "What current direct-report, hiring, coaching, performance, and team-operating evidence is verified?"
+    },
+    {
+      "id": "delivery_solution_decision_authority",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Own material delivery-model or customer-solution decisions.",
+      "evidence_question": "Which delivery, implementation, solution design, staffing, quality, escalation, or acceptance decisions belong to the role?"
+    },
+    {
+      "id": "implementation_portfolio_ownership",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Own a portfolio of implementations, programs, or customer-delivery commitments.",
+      "evidence_question": "Is portfolio ownership direct, project-bound, advisory, or shared with another delivery authority?"
+    },
+    {
+      "id": "technical_solution_authority",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Provide accountable technical or solution authority for complex customer outcomes.",
+      "evidence_question": "Which architecture, solution, feasibility, risk, or acceptance decisions are directly owned?"
+    },
+    {
+      "id": "services_commercial_ownership",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Own services bookings, statements of work, utilization, expansion, or another explicit commercial motion.",
+      "evidence_question": "Is commercial ownership direct, shared, influenced, or absent, and is it new or existing business?"
+    },
+    {
+      "id": "services_margin_budget_ownership",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Own services margin, utilization, capacity, or departmental budget decisions.",
+      "evidence_question": "Which margin, utilization, staffing, capacity, and budget decisions are verified?"
+    }
+  ],
+  "misleading_patterns": [
+    {
+      "pattern": "Lead implementations or solutions without current reports",
+      "caution": "Project, program, or technical leadership is not current people leadership."
+    },
+    {
+      "pattern": "Own customer outcomes",
+      "caution": "Customer-outcome language does not identify implementation, support, solution, commercial, or product decision authority."
+    },
+    {
+      "pattern": "Technical leadership",
+      "caution": "Deep individual expertise and accountable team leadership must remain distinct."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation components are fixed, variable, equity, benefits, utilization-linked, or one-time?",
+    "How do travel, billability, margin, staffing, escalation, and delivery-risk obligations affect total economics?"
+  ],
+  "diligence_prompts": [
+    "What is the current team composition, reporting line, delivery portfolio, and decision authority?",
+    "Is the mandate primarily pre-sales solutions, implementation, professional services, support, or a reviewed combination?",
+    "Who owns commercial terms, staffing, architecture, delivery acceptance, escalations, margin, and customer outcomes?"
+  ],
+  "application_archetypes": [
+    "services_operating_leader",
+    "customer_solution_leader"
+  ],
+  "dimension_weights": {
+    "mandate_fit": 0.25,
+    "delivery_solution_authority": 0.25,
+    "people_leadership": 0.2,
+    "customer_outcomes": 0.15,
+    "economics_feasibility": 0.15
+  },
+  "bounded_adjustments": [
+    {
+      "id": "project_people_boundary_ambiguity",
+      "minimum": -0.12,
+      "maximum": 0.0,
+      "reason": "Ambiguous lead language reduces confidence without converting project leadership into people leadership."
+    },
+    {
+      "id": "verified_delivery_outcome",
+      "minimum": 0.0,
+      "maximum": 0.05,
+      "reason": "A source-bound delivery or solution outcome may strengthen evidence within the confidence cap."
+    }
+  ]
+}

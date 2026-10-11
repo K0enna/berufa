@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Rolevane workspaces contain private candidate material and stay local.
+.career-os/
+workspace/
+workspaces/
+candidate-data/
+applications/
+exports/
+*.db
+*.sqlite*
+
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

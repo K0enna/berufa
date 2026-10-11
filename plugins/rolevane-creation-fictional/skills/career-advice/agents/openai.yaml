@@ -1,0 +1,4 @@
+interface:
+  display_name: "Career advice"
+  short_description: "Reasoned advice within the installed content boundary"
+  default_prompt: "Use $career-advice to assess this fictional role against the supplied profile and explain the next decision."

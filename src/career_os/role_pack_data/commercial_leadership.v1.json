@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "pack_id": "commercial_leadership",
+  "version": "1.0.0",
+  "label": "Commercial and consultative sales leadership",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-31",
+    "source": "Issue 34 Gate D founding-cohort tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": []
+  },
+  "fallback": false,
+  "confidence_cap": 0.92,
+  "application_readiness_allowed": true,
+  "structural_meaning": "Leads a current commercial team and owns an explicit revenue operating system. Existing-customer growth, direct new-logo acquisition, personal versus team quota, pricing, forecasting, pipeline generation, and management layers remain independently assessed.",
+  "taxonomy": {
+    "role_family": "commercial_leadership",
+    "title_patterns": [
+      "Head or Director of Sales and Account Management",
+      "Commercial Director",
+      "Revenue Director",
+      "Regional or Country commercial leader"
+    ],
+    "mandate_archetypes": [
+      "consultative_commercial_leadership",
+      "sales_and_account_management_leadership"
+    ],
+    "adjacent_archetypes": [
+      {
+        "id": "existing_customer_commercial_leadership",
+        "label": "Existing-customer commercial leadership",
+        "trigger_signals": ["existing_customer_growth_ownership"],
+        "explanation": "Retention, renewal, or expansion ownership is explicit, but it does not prove new-logo acquisition ownership or people leadership by itself."
+      },
+      {
+        "id": "new_logo_sales_leadership",
+        "label": "New-logo sales leadership",
+        "trigger_signals": ["new_logo_sales_ownership"],
+        "explanation": "Direct acquisition ownership is explicit and remains distinct from existing-customer growth, pipeline support, or a personal quota."
+      }
+    ]
+  },
+  "selection": {
+    "required_signals": ["commercial_leadership_scope", "people_leadership_current"],
+    "supporting_signals": [
+      "existing_customer_growth_ownership",
+      "new_logo_sales_ownership",
+      "revenue_operating_ownership"
+    ],
+    "disqualifying_signals": [
+      "individual_contributor_primary_mandate",
+      "no_current_people_leadership"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "commercial_people_leadership",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Lead a current commercial team with explicit hiring, coaching, performance, and operating responsibility.",
+      "evidence_question": "What current direct-report, hiring, coaching, performance, and team-operating evidence is verified?"
+    },
+    {
+      "id": "revenue_motion_decision_authority",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Own material decisions for at least one explicit revenue motion.",
+      "evidence_question": "Which acquisition, retention, renewal, expansion, pricing, territory, or route-to-market decisions belong to the role?"
+    },
+    {
+      "id": "existing_customer_growth_ownership",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Own retention, renewal, expansion, or account-growth outcomes for existing customers.",
+      "evidence_question": "Is existing-customer commercial ownership direct, shared, advisory, or absent?"
+    },
+    {
+      "id": "new_logo_sales_ownership",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Own new-logo acquisition through a defined sales motion.",
+      "evidence_question": "Is new-logo ownership direct team leadership, a personal quota, collaboration, or an explicit unknown?"
+    },
+    {
+      "id": "quota_pipeline_forecast_system",
+      "level": "preferred",
+      "impact": "stretch",
+      "statement": "Own quota allocation, pipeline inspection, forecasting, and performance cadence.",
+      "evidence_question": "Which quota, pipeline, forecasting, attainment, and inspection decisions are verified?"
+    },
+    {
+      "id": "commercial_management_layers",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Lead managers as a distinct layer rather than only individual contributors.",
+      "evidence_question": "Does the role explicitly manage managers, direct individual contributors, or a team-adjacent matrix?"
+    }
+  ],
+  "misleading_patterns": [
+    {
+      "pattern": "Commercial owner, market lead, or director title without a current team",
+      "caution": "A title, territory, personal quota, or possible future hiring plan is not current people leadership."
+    },
+    {
+      "pattern": "Partner with Customer Success or support expansion",
+      "caution": "Collaboration does not prove ownership of renewals, retention, expansion, or existing-customer quota."
+    },
+    {
+      "pattern": "Own growth",
+      "caution": "Growth language must be resolved into new-logo, existing-customer, pricing, partner, product-led, or another explicit motion."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation components are fixed, variable, equity, benefits, draw, or one-time?",
+    "What quota type, attainment history, ramp, pipeline source, territory maturity, and travel obligation affect the economics?"
+  ],
+  "diligence_prompts": [
+    "What is the current team composition, management layer, reporting line, and decision authority?",
+    "What share of the mandate is new-logo acquisition versus retention, renewal, expansion, and account growth?",
+    "Who owns pipeline generation, pricing, discounting, forecasting, and revenue operations?"
+  ],
+  "application_archetypes": [
+    "commercial_operating_leader",
+    "consultative_revenue_leader"
+  ],
+  "dimension_weights": {
+    "mandate_fit": 0.25,
+    "revenue_ownership": 0.25,
+    "people_leadership": 0.2,
+    "operating_system": 0.15,
+    "economics_feasibility": 0.15
+  },
+  "bounded_adjustments": [
+    {
+      "id": "motion_ownership_ambiguity",
+      "minimum": -0.12,
+      "maximum": 0.0,
+      "reason": "Ambiguous revenue-motion ownership reduces confidence without converting collaboration into authority."
+    },
+    {
+      "id": "verified_revenue_operating_system",
+      "minimum": 0.0,
+      "maximum": 0.05,
+      "reason": "Source-bound quota, pipeline, and forecasting authority may strengthen evidence within the confidence cap."
+    }
+  ]
+}

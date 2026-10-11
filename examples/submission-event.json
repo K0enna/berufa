@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "event_type": "submission_confirmed",
+  "opportunity_id": "example-role-001",
+  "occurred_at": "2026-07-01T10:00:00+00:00",
+  "details": {
+    "job_key": "example:role-001",
+    "company": "Fictional Example Company",
+    "title": "Example Service Lead",
+    "discovery_source": "user_supplied",
+    "application_channel": "employer_ats",
+    "confirmation_method": "candidate_confirmed_sent",
+    "job_content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "fit_score": 72,
+    "scorecard_version": "fictional-example-v1",
+    "artifact_hashes": {},
+    "canonical_job_url": "https://example.com/jobs/role-001"
+  }
+}

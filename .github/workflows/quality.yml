@@ -1,0 +1,79 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python-version: "3.11"
+          - os: ubuntu-latest
+            python-version: "3.12"
+          - os: windows-latest
+            python-version: "3.12"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install project
+        run: python -m pip install --disable-pip-version-check -e ".[dev]"
+      - name: Test
+        if: ${{ matrix.os != 'ubuntu-latest' || matrix.python-version != '3.12' }}
+        run: python -m pytest
+      - name: Ruff
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
+        run: |
+          python -m ruff format --check .
+          python -m ruff check .
+      - name: Type check
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
+        run: python -m mypy
+      - name: Branch coverage
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
+        run: python -m pytest --cov=career_os --cov-branch --cov-fail-under=70
+      - name: Build and verify release artifacts
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
+        run: |
+          python -m tools.release_artifacts dist
+          python -m tools.release_artifacts dist --verify-only
+      - name: Clean installed synthetic smoke
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' }}
+        run: |
+          python -m venv .ci-clean
+          wheel="$(python -c 'import json; from pathlib import Path; data=json.loads(Path("dist/RELEASE-MANIFEST.json").read_text()); print(Path("dist") / next(item["filename"] for item in data["artifacts"] if item["kind"] == "wheel"))')"
+          .ci-clean/bin/python -m pip install --disable-pip-version-check --no-index --no-deps "$wheel"
+          .ci-clean/bin/rolevane-product-smoke
+
+  dependency-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: python -m pip install --disable-pip-version-check -e ".[audit]"
+      - name: Audit dependencies
+        run: python -m pip_audit --progress-spinner off .

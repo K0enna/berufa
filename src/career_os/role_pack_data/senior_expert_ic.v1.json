@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "pack_id": "senior_expert_ic",
+  "version": "1.0.0",
+  "label": "Senior expert and principal individual contributor",
+  "provenance": {
+    "owner": "Rolevane product governance",
+    "reviewed_on": "2026-08-31",
+    "source": "Issue 34 Gate D founding-cohort tranche"
+  },
+  "compatibility": {
+    "engine_contract": 1,
+    "replaces": []
+  },
+  "fallback": false,
+  "confidence_cap": 0.88,
+  "application_readiness_allowed": true,
+  "structural_meaning": "Operates as a senior or principal individual contributor with explicit functional authority and depth. Project leadership, mentoring, organizational influence, customer authority, personal commercial ownership, future team plans, and current people management remain independently assessed.",
+  "taxonomy": {
+    "role_family": "senior_expert_ic",
+    "title_patterns": [
+      "Principal or Staff specialist",
+      "Senior individual-contributor director",
+      "Strategic advisor or client partner",
+      "Enterprise or strategic account individual contributor"
+    ],
+    "mandate_archetypes": [
+      "principal_functional_expert",
+      "strategic_individual_contributor"
+    ],
+    "adjacent_archetypes": [
+      {
+        "id": "principal_advisor",
+        "label": "Principal advisor",
+        "trigger_signals": ["principal_advisory_authority"],
+        "explanation": "Advisory authority can support principal scope but does not prove decision rights, delivery ownership, or people management."
+      },
+      {
+        "id": "staff_program_leadership",
+        "label": "Staff-level program leadership",
+        "trigger_signals": ["cross_functional_program_leadership"],
+        "explanation": "Cross-functional program leadership remains distinct from direct-report management and management of managers."
+      }
+    ]
+  },
+  "selection": {
+    "required_signals": ["individual_contributor_current", "senior_expert_scope"],
+    "supporting_signals": [
+      "cross_functional_program_leadership",
+      "functional_authority",
+      "principal_advisory_authority"
+    ],
+    "disqualifying_signals": [
+      "people_leadership_primary_mandate",
+      "people_management_required"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "principal_functional_authority",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Exercise explicit senior functional authority without relying on a people-manager title.",
+      "evidence_question": "Which decisions, standards, recommendations, or outcomes establish principal-level authority?"
+    },
+    {
+      "id": "expert_depth",
+      "level": "mandatory",
+      "impact": "hard_gate",
+      "statement": "Bring deep, current expertise in the role's defined function or problem space.",
+      "evidence_question": "Which approved evidence proves depth in the exact function, while keeping product domain, vertical, buyer environment, and network separate?"
+    },
+    {
+      "id": "cross_functional_influence",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Influence material decisions across functions through expertise and evidence.",
+      "evidence_question": "Which stakeholders, decisions, and adopted recommendations prove cross-functional influence?"
+    },
+    {
+      "id": "project_leadership_without_line_management",
+      "level": "preferred",
+      "impact": "evidence",
+      "statement": "Lead complex projects or programs without implying direct-report authority.",
+      "evidence_question": "What project scope, decision rights, contributors, and outcomes are verified, and who retained people-management authority?"
+    },
+    {
+      "id": "external_customer_authority",
+      "level": "optional",
+      "impact": "stretch",
+      "statement": "Operate as a trusted expert with customers, partners, or external stakeholders.",
+      "evidence_question": "Which stakeholder level, advisory scope, decisions, and outcomes are verified without inflating relationship ownership?"
+    },
+    {
+      "id": "role_specific_network",
+      "level": "optional",
+      "impact": "evidence",
+      "statement": "Bring an explicitly required network in a defined market, buyer, or specialist community.",
+      "evidence_question": "Is the required network distinct from product-domain, served-vertical, buyer-environment, and functional experience evidence?"
+    }
+  ],
+  "misleading_patterns": [
+    {
+      "pattern": "Director, lead, or head title used for an individual contributor",
+      "caution": "Title level does not prove current direct reports or make people management a requirement."
+    },
+    {
+      "pattern": "Lead teams, mentor colleagues, or drive alignment",
+      "caution": "Project leadership, mentoring, and influence remain distinct from formal people-management authority."
+    },
+    {
+      "pattern": "Build a team in the future",
+      "caution": "A possible future team does not change the current role from individual contributor to people leader."
+    }
+  ],
+  "economics_questions": [
+    "Which compensation components are fixed, variable, equity, benefits, commission, or one-time?",
+    "How do personal quota, utilization, travel, intellectual-property, publication, and non-compete obligations affect the economics?"
+  ],
+  "diligence_prompts": [
+    "Which decisions and outcomes distinguish this role from a senior executor or coordinator?",
+    "Is the mandate a true individual-contributor path, a temporary player-coach role, or an uncommitted future management plan?",
+    "Which functional depth, domain, vertical, buyer, network, and customer-authority requirements are independently mandatory?"
+  ],
+  "application_archetypes": [
+    "principal_functional_expert",
+    "strategic_advisor"
+  ],
+  "dimension_weights": {
+    "mandate_fit": 0.25,
+    "functional_depth": 0.25,
+    "decision_influence": 0.2,
+    "outcome_evidence": 0.15,
+    "economics_feasibility": 0.15
+  },
+  "bounded_adjustments": [
+    {
+      "id": "title_scope_ambiguity",
+      "minimum": -0.12,
+      "maximum": 0.0,
+      "reason": "Ambiguous title or lead language reduces confidence without inventing management authority."
+    },
+    {
+      "id": "verified_principal_decision_impact",
+      "minimum": 0.0,
+      "maximum": 0.05,
+      "reason": "Source-bound principal-level decision impact may strengthen evidence within the confidence cap."
+    }
+  ]
+}
