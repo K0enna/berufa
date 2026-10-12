@@ -1,7 +1,7 @@
 {
   "interface": {
-    "display_name": "Career Outcome Review",
-    "short_description": "Explain the reviewed public package contract and fictional demo",
+    "display_name": "Berufa Outcome Review",
+    "short_description": "Understand campaign review through fictional examples",
     "default_prompt": "Use $career-outcome-review for reviewed public package contract explanation, a fictional bundled demo, or content-free validation."
   }
 }

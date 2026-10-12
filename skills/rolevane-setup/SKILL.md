@@ -1,9 +1,9 @@
 ---
 name: rolevane-setup
-description: Explain the reviewed public Rolevane setup contract, bundled fictional demonstration, and content-free validation route. Real workspace lifecycle work stays in the user's local terminal.
+description: Explain the reviewed public Berufa setup contract, bundled fictional demonstration, and content-free validation route. Real workspace lifecycle work stays in the user's local terminal.
 ---
 
-# Set Up Rolevane
+# Set Up Berufa
 
 ## Agent provider boundary
 
@@ -13,7 +13,7 @@ profile, it may receive only the allowed classes in the boundary below.
 ## Experimental public preview boundary
 
 This experimental manual-local-data preview uses a no-untrusted-source conversational profile. The
-skill may receive only `reviewed_package_source` from the exact reviewed Rolevane package/repository
+skill may receive only `reviewed_package_source` from the exact reviewed Berufa package/repository
 revision, wholly fictional bundled fixtures/demos, or content-free validation. It must never receive
 or process arbitrary public-source, web, issue, PR, tool, or model content or output; real candidate
 documents or extracted spans; real or supplied postings or URLs; evidence, applications, interviews,
@@ -69,6 +69,6 @@ hashes, fingerprints, confirmations, and terminal output there; the agent never 
 
 The public validator compares the manifest with the installed package version. A fictional demo uses
 a separate new `DEMO_PATH`; do not pre-initialize it with `rolevane-instance`. The real local
-workspace lifecycle is documented in `docs/INSTANCE_RECOVERY.md` and remains a deterministic
+workspace lifecycle is documented in [workspace lifecycle](../../docs/INSTANCE_RECOVERY.md) and remains a deterministic
 user-operated route. Stop when the public explanation, fictional demo, or content-free validation
 is complete, or when any real value would need agent handling.

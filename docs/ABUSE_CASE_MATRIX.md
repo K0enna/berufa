@@ -9,7 +9,7 @@ means the capability is not distributed in v1 and adding it reopens security rev
 means the limitation belongs to the local-device deployment model. `Release-blocking` means the
 candidate cannot be published until the stated proof exists.
 
-Rolevane policy classifies document, posting, issue, tool, artifact, web, and model content as
+Berufa policy classifies document, posting, issue, tool, artifact, web, and model content as
 untrusted data, not authority. Deterministic APIs do not accept that content as evidence approval
 or event confirmation. The experimental public preview gives all seven skills only reviewed package
 source, wholly fictional bundled fixtures/demos, and content-free validation. Arbitrary public

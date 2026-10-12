@@ -11,7 +11,7 @@ Before 1.0, only the latest published minor release receives security fixes.
 
 ## Security boundary
 
-Rolevane is local-first, single-user software. The supported core runs on the
+Berufa is local-first, single-user software. The supported core runs on the
 user's device, binds its optional browser UI to literal IPv4 loopback, and
 ships with no model client, telemetry, application submission, or external messaging.
 The optional exact Greenhouse lookup requires per-request confirmation. Its public
@@ -61,7 +61,7 @@ Unsupported reverse proxies, non-loopback binds, authenticated/protected-site
 automation, third-party service outages, social engineering, job-posting
 accuracy, and self-only effects without new authority are generally out of
 scope. A third-party dependency vulnerability is reportable when the supported
-Rolevane path is affected.
+Berufa path is affected.
 
 ## Incident handling
 

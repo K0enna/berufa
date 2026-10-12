@@ -1,6 +1,6 @@
 # Privacy
 
-Rolevane is local-first software. Its Python package has no hosted account, candidate-data
+Berufa is local-first software. Its Python package has no hosted account, candidate-data
 service, silent telemetry, advertising, or embedded model/provider connection. The supported core
 writes private state beneath a user-selected local instance root and serves its optional browser UI
 on literal IPv4 loopback only.
@@ -20,7 +20,7 @@ manual commands when no model-provider transfer is desired.
   details, compensation, applications, messages, database, export, backup, `.env`, token, or
   provider response to a public fork.
 - Protect the device and backups with appropriate operating-system access controls and encryption.
-  Rolevane does not encrypt the workspace or defend against malware running with the same user
+  Berufa does not encrypt the workspace or defend against malware running with the same user
   privileges.
 - Review every export and generated artifact before sharing it. Approved evidence can still be
   confidential or inappropriate for a particular recipient.

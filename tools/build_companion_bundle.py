@@ -92,6 +92,27 @@ SUPPLIED_MEMBERS = (
     *CREATION_SKILLS_MEMBERS,
     ("public_repo/docs/SUPPLIED_CONTENT_PROFILE.md", "references/supplied-content-profile.md"),
 )
+WORKFLOW_SKILLS = (
+    "rolevane-setup",
+    "career-evidence-onboarding",
+    "career-role-evaluation",
+    "career-application-preparation",
+    "career-interview-preparation",
+    "career-offer-comparison",
+    "career-outcome-review",
+)
+WORKFLOW_MEMBERS = (
+    ("public_repo/skills/manifest.toml", "workflow/skills/manifest.toml"),
+    ("public_repo/docs/INSTANCE_RECOVERY.md", "workflow/docs/INSTANCE_RECOVERY.md"),
+    *(
+        (f"public_repo/skills/{name}/{file}", f"workflow/skills/{name}/{file}")
+        for name in WORKFLOW_SKILLS
+        for file in ("SKILL.md", "agents/openai.yaml")
+    ),
+    ("public_repo/docs/BERUFA_SKILLS.md", "README.md"),
+    ("public_repo/LICENSE", "LICENSE"),
+    ("public_repo/NOTICE", "NOTICE"),
+)
 HOST_ONLY_PROFILES = {
     "creation_fictional_host_only",
     "creation_skills_fictional_only",
@@ -106,6 +127,7 @@ def build(
     python_executable: Path | None = None,
     profile: str = "content_free_status_only",
     instance_root: Path | None = None,
+    include_workflow_skills: bool = False,
 ) -> dict[str, object]:
     if profile not in {
         "content_free_status_only",
@@ -115,6 +137,8 @@ def build(
         SUPPLIED_PROFILE,
     }:
         raise ValueError("Unsupported companion profile")
+    if include_workflow_skills and profile != SUPPLIED_PROFILE:
+        raise ValueError("The complete Skills pack requires the supplied-text Skills-only profile")
     if profile in HOST_ONLY_PROFILES and python_executable is not None:
         raise ValueError("The host-only creation profile has no configured MCP interpreter")
     if instance_root is not None and (
@@ -133,7 +157,7 @@ def build(
         "creation_skills_fictional_only": CREATION_SKILLS_MEMBERS,
         SUPPLIED_PROFILE: SUPPLIED_MEMBERS,
     }[profile]
-    for source, destination in members:
+    for source, destination in (*members, *(WORKFLOW_MEMBERS if include_workflow_skills else ())):
         path = root / source
         # The private source owner and its sanitized public export are both supported callers.
         if (
@@ -166,14 +190,36 @@ def build(
                 server["env"]["ROLEVANE_FICTIONAL_INSTANCE"] = str(instance_root)
             data = (json.dumps(declaration, indent=2) + "\n").encode()
         inputs.append((destination, data))
+    creation_inputs = inputs[: len(members)]
     identity = {
         "format": 1,
         "profile": profile,
         "files": [
-            {"path": name, "sha256": hashlib.sha256(data).hexdigest()} for name, data in inputs
+            {"path": name, "sha256": hashlib.sha256(data).hexdigest()}
+            for name, data in creation_inputs
         ],
     }
-    inputs.append(("BUNDLE-MANIFEST.json", (json.dumps(identity, indent=2) + "\n").encode()))
+    bundle_manifest = (json.dumps(identity, indent=2) + "\n").encode()
+    if include_workflow_skills:
+        # Keep the creation profile adjacent to its readers and the seven-Skill
+        # manifest adjacent to its validator. Composition grants no new data access.
+        inputs = [(f"creation/{name}", data) for name, data in creation_inputs] + inputs[
+            len(members) :
+        ]
+        inputs.append(("creation/BUNDLE-MANIFEST.json", bundle_manifest))
+        package_manifest = {
+            "format": 1,
+            "profile": profile,
+            "workflow_contract": "workflow/skills/manifest.toml",
+            "files": [
+                {"path": name, "sha256": hashlib.sha256(data).hexdigest()} for name, data in inputs
+            ],
+        }
+        inputs.append(
+            ("PACKAGE-MANIFEST.json", (json.dumps(package_manifest, indent=2) + "\n").encode())
+        )
+    else:
+        inputs.append(("BUNDLE-MANIFEST.json", bundle_manifest))
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("xb") as stream, zipfile.ZipFile(stream, "w", zipfile.ZIP_STORED) as archive:
         for name, data in sorted(inputs):
@@ -208,6 +254,11 @@ def main() -> int:
         type=Path,
         help="Absolute isolated Python for a machine-local bundle; omitted for portable distribution",
     )
+    parser.add_argument(
+        "--include-workflow-skills",
+        action="store_true",
+        help="Include all seven bounded workflow Skills alongside the two creation Skills",
+    )
     args = parser.parse_args()
     try:
         print(
@@ -218,6 +269,7 @@ def main() -> int:
                     python_executable=args.python_executable,
                     profile=args.profile,
                     instance_root=args.instance_root,
+                    include_workflow_skills=args.include_workflow_skills,
                 )
             )
         )

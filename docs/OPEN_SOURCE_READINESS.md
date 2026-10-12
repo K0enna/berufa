@@ -1,4 +1,26 @@
-# Open-Source Readiness Record
+# Berufa Open-Source Readiness
+
+## Current Release Position
+
+Berufa is the owner-selected product name as of 11 October 2026. The intended destination is
+`K0enna/berufa`. Public go-live follows the Berufa.com launch sequence and still requires explicit
+approval at the designated step. The repository remains private; no date, domain ownership,
+trademark clearance or public availability is inferred from the name.
+
+The selected Skills release includes all nine existing public Skills. Two support selected
+pasted text after disclosure and individual sharing agreement under
+`supplied_content_host_only_v1`, accepted by the owner on 11 October. Seven retain their
+separate public-contract/fictional-demo profile. Connected access stays disabled. Product
+copy must distinguish these routes without implying all nine process real career data.
+Installation, actual host use, exact source/member checks and release readback remain required.
+
+Legacy `rolevane-*` commands, package metadata and internal directory identifiers are retained
+for compatibility. They do not define the current public brand. The historical name screen and
+risk dispositions below are dated evidence, not clearance of Berufa or current launch approval.
+The validator alone does not attest an arbitrary copied or modified pack.
+
+<details>
+<summary>Historical engineering baseline and dated naming-risk evidence</summary>
 
 Original engineering review: 2026-09-07. Owner dispositions reconciled: 2026-10-03.
 This is an engineering and provenance record, not legal advice. Owner risk acceptance does not
@@ -6,13 +28,14 @@ establish professional trademark clearance, provider permission, or legal compli
 
 ## Release decision summary
 
-Current Stage 1 preparation adds the two existing advice/creation Skills through an explicit
-Skills-only export. The prepared `supplied_content_host_only_v1` candidate permits selected
-pasted text after host/provider disclosure and explicit agreement; its owner activation decision
-is pending. The older `creation_skills_fictional_only` profile remains fictional-only.
+At the historical pre-approval preparation step, the two advice/creation Skills were added
+through an explicit Skills-only export. Owner activation of the prepared selected-text candidate
+was pending then. The current release position above supersedes that pending state for the
+owner-approved `supplied_content_host_only_v1` package; individual sharing agreement remains required.
+The older `creation_skills_fictional_only` profile remains fictional-only.
 Ordinary editable Markdown needs only the Codex host model. See
 [CREATION_SKILLS.md](CREATION_SKILLS.md) for installation and
-[SUPPLIED_CONTENT_PROFILE.md](SUPPLIED_CONTENT_PROFILE.md) for the exact inactive candidate
+[SUPPLIED_CONTENT_PROFILE.md](SUPPLIED_CONTENT_PROFILE.md) for the exact selected-text
 contract. Connected access stays disabled; the seven-Skill row retains its legacy boundary.
 Neither historical acceptance nor fresh discovery completes the general-use/publication gate.
 
@@ -301,3 +324,5 @@ disclosures and final candidate approval remain separate release requirements.
 Public release approval requires every blocking row to be resolved or explicitly accepted by the
 named human authority, no unresolved high/critical security finding, an exact fresh export, green
 quality/privacy/secret/package/skill checks, one final review, and no private publication history.
+
+</details>

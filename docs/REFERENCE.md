@@ -1,8 +1,10 @@
-# Public reference
+# Berufa Technical Reference
 
-This page is the short route map for the public package. The [README quick start](../README.md)
-is the primary synthetic path; this page records where each audience should go, what the shipped
-commands are, and which states do or do not establish authority.
+For a first useful experience, start with [Get Started](GET_STARTED.md) or
+[advice and drafting](CREATION_SKILLS.md). This technical page covers the independent local
+toolkit, its commands and its decision boundaries. The complete Skills set contains nine;
+the local core is a separate installation. Its retained `rolevane-*` commands are compatibility
+identifiers, not the current product name.
 
 ## Local management commands
 
@@ -24,12 +26,13 @@ Full task and document histories are included in [instance recovery](INSTANCE_RE
 
 ## Advice and creation Skills
 
-The default [two-Skill installation](CREATION_SKILLS.md) accepts supplied fictional content for
-advice, role assessment, complete editable drafts, revision and interview preparation. It uses
-the Codex host model and has no canonical connection. Real candidate use requires the separate
-inactive [profile decision](SUPPLIED_CONTENT_PROFILE.md).
+The complete [nine-Skill installation](GET_STARTED.md) includes two direct advice/creation
+Skills for selected pasted text after disclosure and explicit individual sharing agreement.
+They support advice, role assessment, complete editable drafts, revision and interview
+preparation. They use the Codex host model and have no canonical connection. The owner
+accepted [the selected-text profile](SUPPLIED_CONTENT_PROFILE.md); this is not individual consent.
 
-## Optional legacy preview boundary
+## Seven Workflow Skills: Separate Preview Boundary
 
 The seven skills use a no-untrusted-source conversational profile. They may receive only text/config
 from the exact reviewed package/repository revision (`reviewed_package_source`), wholly fictional
@@ -48,9 +51,9 @@ remains release-blocked.
 
 | Audience | Start here | What it covers |
 | --- | --- | --- |
-| New user or evaluator | [README](../README.md) | One offline, fictional smoke path and the package boundary |
+| New user or evaluator | [Get Started](GET_STARTED.md) | Install all nine Skills and try a useful fictional first workflow |
 | User with local career data | [Private workspace lifecycle](INSTANCE_RECOVERY.md) | Init/doctor, complete backup and restore, filtered export, and selected-workspace deletion |
-| Skill or agent user | [Advice/creation Skills](CREATION_SKILLS.md) and [data/model policy](DATA_AND_MODEL_POLICY.md) | Two fictional-content entry points; seven legacy contract explainers are an optional separate installation |
+| Skill or agent user | [Advice/creation Skills](CREATION_SKILLS.md) and [workflow Skills](SKILL_PACK.md) | Two selected-text entry points and seven separately bounded workflow guides, all included |
 | Role, application, interview, offer, or outcome work | [Skill pack](SKILL_PACK.md) and its linked manual workflows | Supplied-role preparation, exact preview, local decisions, artifacts, comparisons, and confirmed events |
 | Contributor or maintainer | [Contributing](../CONTRIBUTING.md) and [open-source readiness](OPEN_SOURCE_READINESS.md) | Synthetic-only contributions, release gates, provenance, and unresolved human decisions |
 | Release maintainer | [Release instructions](RELEASE.md) and [open-source readiness](OPEN_SOURCE_READINESS.md) | Deterministic local bundles, dormant manual attested RC workflow, exact readback, and human gates |
@@ -58,7 +61,22 @@ remains release-blocked.
 
 ## Primary synthetic quick-start
 
-After installing the package in a Python 3.11+ environment, run:
+The local core is optional and separate from the Skills. To run its commands, use a FULL
+reviewed Berufa source checkout, not the selected Skills-source ZIP. On Windows with Python
+3.11 or newer, run from that checkout:
+
+```powershell
+python -m venv C:\Berufa-Core-Demo-env
+if ($LASTEXITCODE -ne 0) { throw 'Environment creation failed.' }
+C:\Berufa-Core-Demo-env\Scripts\python.exe -m pip install .
+if ($LASTEXITCODE -ne 0) { throw 'Core installation failed.' }
+C:\Berufa-Core-Demo-env\Scripts\rolevane-product-smoke.exe
+```
+
+Choose a new environment directory; do not overwrite an existing environment. Installation
+downloads the declared dependencies unless they are already available in a local package cache.
+It does not install a model client or connect a career workspace. Keep private data outside the
+checkout and environment. After activating that environment, the equivalent smoke command is:
 
 ```bash
 rolevane-product-smoke
@@ -66,7 +84,7 @@ rolevane-product-smoke
 
 This creates two isolated fictional product runtimes in temporary local storage and reports
 bounded proof metadata. It makes no model calls, network requests, uploads, submissions, messages,
-or other external actions. Use the [README](../README.md) for installation and the
+or other external actions. Use the installation steps above and the
 [skill-pack synthetic demonstration](SKILL_PACK.md#synthetic-demonstration) for the optional
 interactive demo. Keep that demo separate from a real initialized workspace.
 

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Career drafts"
-  short_description: "Complete drafts within the installed content boundary"
+  display_name: "Berufa Career Drafts"
+  short_description: "Turn selected experience into clear, editable career drafts"
   default_prompt: "Use $career-create-content to draft a complete CV and the requested application answer from these fictional facts."

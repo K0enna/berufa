@@ -4,7 +4,7 @@ Status: Gate D founding-cohort contract for issue #34.
 
 ## Boundary
 
-Rolevane evaluates a role through three independently versioned inputs:
+Berufa evaluates a role through three independently versioned inputs:
 
 1. the generic engine decides how structural signals, requirement levels, evidence outcomes,
    confidence caps, explanations, and rescore fingerprints behave;

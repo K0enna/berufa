@@ -1,6 +1,6 @@
 # Product Runtime Boundary
 
-`ProductRuntime` is the participant-facing composition root for Rolevane. It binds one explicit
+`ProductRuntime` is the participant-facing composition root for Berufa. It binds one explicit
 `InstancePaths` root to candidate evidence, career-event, opportunity, workspace, provider, model,
 evaluation, and read-only projection ports. Constructing the runtime is deliberately inert: it does
 not read authority files, create directories, open databases, start processes, bind listeners,

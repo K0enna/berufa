@@ -123,3 +123,49 @@ def test_host_only_profile_rejects_connected_configuration_before_output(tmp_pat
     with pytest.raises(ValueError):
         build(ROOT, output, profile=profile, **{option: value})
     assert not output.exists()
+
+
+def test_complete_skills_distribution_preserves_separate_contracts(tmp_path):
+    import hashlib
+
+    from career_os.skill_validation import validate_skill_pack
+
+    output = tmp_path / "all-skills.zip"
+    build(ROOT, output, profile="supplied_content_host_only_v1", include_workflow_skills=True)
+    extracted = tmp_path / "installed"
+    with zipfile.ZipFile(output) as archive:
+        manifest = json.loads(archive.read("PACKAGE-MANIFEST.json"))
+        assert manifest["profile"] == "supplied_content_host_only_v1"
+        for member in manifest["files"]:
+            assert hashlib.sha256(archive.read(member["path"])).hexdigest() == member["sha256"]
+        assert set(archive.namelist()) == {item["path"] for item in manifest["files"]} | {
+            "PACKAGE-MANIFEST.json"
+        }
+        assert not any(
+            Path(name).name in {"plugin.json", "mcp.json"} for name in archive.namelist()
+        )
+        archive.extractall(extracted)
+    assert len(list(extracted.rglob("SKILL.md"))) == 9
+    lifecycle = extracted / "workflow/docs/INSTANCE_RECOVERY.md"
+    assert lifecycle.is_file()
+    assert "rolevane-instance" in lifecycle.read_text(encoding="utf-8")
+    creation = extracted / "creation"
+    assert (
+        json.loads((creation / "BUNDLE-MANIFEST.json").read_text())["profile"]
+        == manifest["profile"]
+    )
+    test_extracted_host_bundle_keeps_shared_resources(creation)
+    assert validate_skill_pack(extracted / "workflow/skills") == []
+    assert (extracted / "workflow/skills/manifest.toml").read_bytes() == (
+        (ROOT / "public_repo" if (ROOT / "public_repo").is_dir() else ROOT) / "skills/manifest.toml"
+    ).read_bytes().replace(b"\r\n", b"\n")
+    second = tmp_path / "reproduced.zip"
+    build(ROOT, second, profile=manifest["profile"], include_workflow_skills=True)
+    assert output.read_bytes() == second.read_bytes()
+
+
+def test_complete_skills_distribution_rejects_plugin_composition(tmp_path):
+    output = tmp_path / "rejected.zip"
+    with pytest.raises(ValueError):
+        build(ROOT, output, profile=PROFILE, include_workflow_skills=True)
+    assert not output.exists()

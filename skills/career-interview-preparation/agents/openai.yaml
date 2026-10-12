@@ -1,7 +1,7 @@
 {
   "interface": {
-    "display_name": "Career Interview Preparation",
-    "short_description": "Explain the reviewed public package contract and fictional demo",
+    "display_name": "Berufa Interview Preparation",
+    "short_description": "Explore interview stories with fictional examples",
     "default_prompt": "Use $career-interview-preparation for reviewed public package contract explanation, a fictional bundled demo, or content-free validation."
   }
 }

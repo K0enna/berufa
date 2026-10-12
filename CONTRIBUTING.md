@@ -1,6 +1,6 @@
 # Contributing
 
-Rolevane accepts focused fixes and improvements that preserve the local privacy, evidence, and
+Berufa accepts focused fixes and improvements that preserve the local privacy, evidence, and
 human-authority contracts. Open a design issue before adding a dependency, provider, model client,
 storage/schema change, external-action surface, or security/privacy boundary.
 
