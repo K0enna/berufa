@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Application Preparation"
+  short_description: "Prepare a role brief and complete requested drafts"
+  default_prompt: "Use $career-application-preparation to explain the sharing boundary, then prepare the application material I request from selected facts."

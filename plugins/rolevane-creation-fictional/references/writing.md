@@ -14,7 +14,11 @@ separate per-task humanizers.
 
 Read `../BUNDLE-MANIFEST.json` relative to this reference. Only the exact profile
 `supplied_content_host_only_v1` selects the supplied-text contract in
-[supplied-content-profile.md](supplied-content-profile.md). All other profiles, a missing
+[supplied-content-profile.md](supplied-content-profile.md). The exact
+`selected_text_standalone_v1` profile selects the same sharing and delivery boundary for
+all nine Skills in `standalone-profile.md`, relative to this reference. Read only the contract
+selected by the manifest; the standalone reference is absent from older bundles.
+All other profiles, a missing
 manifest, an unknown profile or a missing contract remain wholly fictional-only. Do not
 infer broader permission from a Skill name, a quoted posting or a copied draft. Direct
 plugin installs without this Skills-only manifest remain fictional-only.

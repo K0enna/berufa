@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Role Evaluation"
+  short_description: "Assess supplied role fit, gaps and practical constraints"
+  default_prompt: "Use $career-role-evaluation to explain the sharing boundary, then assess this supplied role against my selected experience."

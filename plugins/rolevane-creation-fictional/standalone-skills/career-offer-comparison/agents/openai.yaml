@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Offer Comparison"
+  short_description: "Compare supplied terms, tradeoffs and missing details"
+  default_prompt: "Use $career-offer-comparison to explain the sharing boundary, then compare my selected options while keeping unknown terms visible."

@@ -113,10 +113,28 @@ WORKFLOW_MEMBERS = (
     ("public_repo/LICENSE", "LICENSE"),
     ("public_repo/NOTICE", "NOTICE"),
 )
+STANDALONE_PROFILE = "selected_text_standalone_v1"
+# Useful conversational counterparts; never replace the core's legacy Skills/manifest.
+STANDALONE_MEMBERS = (
+    *(item for item in SUPPLIED_MEMBERS if item[1] != "README.md"),
+    ("public_repo/docs/STANDALONE_SKILLS.md", "README.md"),
+    ("public_repo/docs/STANDALONE_PROFILE.md", "references/standalone-profile.md"),
+    *(
+        (f"{CREATION_PLUGIN}/standalone-skills/{name}/{file}", f"skills/{name}/{file}")
+        for name in WORKFLOW_SKILLS
+        for file in ("SKILL.md", "agents/openai.yaml")
+    ),
+    (f"{CREATION_PLUGIN}/examples/standalone-workflows.md", "examples/standalone-workflows.md"),
+    (
+        f"{CREATION_PLUGIN}/examples/standalone-runtime-scenarios.json",
+        "examples/standalone-runtime-scenarios.json",
+    ),
+)
 HOST_ONLY_PROFILES = {
     "creation_fictional_host_only",
     "creation_skills_fictional_only",
     SUPPLIED_PROFILE,
+    STANDALONE_PROFILE,
 }
 
 
@@ -135,6 +153,7 @@ def build(
         "creation_fictional_host_only",
         "creation_skills_fictional_only",
         SUPPLIED_PROFILE,
+        STANDALONE_PROFILE,
     }:
         raise ValueError("Unsupported companion profile")
     if include_workflow_skills and profile != SUPPLIED_PROFILE:
@@ -156,12 +175,13 @@ def build(
         "creation_fictional_host_only": CREATION_MEMBERS,
         "creation_skills_fictional_only": CREATION_SKILLS_MEMBERS,
         SUPPLIED_PROFILE: SUPPLIED_MEMBERS,
+        STANDALONE_PROFILE: STANDALONE_MEMBERS,
     }[profile]
     for source, destination in (*members, *(WORKFLOW_MEMBERS if include_workflow_skills else ())):
         path = root / source
         # The private source owner and its sanitized public export are both supported callers.
         if (
-            profile in {"creation_skills_fictional_only", SUPPLIED_PROFILE}
+            profile in {"creation_skills_fictional_only", SUPPLIED_PROFILE, STANDALONE_PROFILE}
             and source.startswith("public_repo/")
             and not ((root / "public_repo").exists() or (root / "public_repo").is_symlink())
         ):
@@ -199,6 +219,14 @@ def build(
             for name, data in creation_inputs
         ],
     }
+    if profile == STANDALONE_PROFILE:
+        identity["standalone"] = {
+            "product": "Berufa",
+            "version": "0.2.0",
+            "content_boundary": "references/standalone-profile.md",
+            "skills": ["career-advice", "career-create-content", *WORKFLOW_SKILLS],
+            "acceptance_report": "See the accompanying release acceptance report.",
+        }
     bundle_manifest = (json.dumps(identity, indent=2) + "\n").encode()
     if include_workflow_skills:
         # Keep the creation profile adjacent to its readers and the seven-Skill
@@ -241,6 +269,7 @@ def main() -> int:
             "creation_fictional_host_only",
             "creation_skills_fictional_only",
             SUPPLIED_PROFILE,
+            STANDALONE_PROFILE,
         ),
         default="content_free_status_only",
     )

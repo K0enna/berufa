@@ -3,6 +3,21 @@
 This is a maintainer reference. For the product introduction, use the [README](../README.md).
 For installation and a useful first task, use [Get Started](GET_STARTED.md).
 
+## Unpublished standalone candidate
+
+The separate `selected_text_standalone_v1` profile adapts the seven existing workflows for
+useful selected-text work and reuses the two creation Skills. Build it with
+`python tools/build_companion_bundle.py NEW_CANDIDATE.zip --profile selected_text_standalone_v1`.
+It has a flat `skills/` inventory and standalone metadata inside `BUNDLE-MANIFEST.json`,
+not the legacy `workflow/skills/manifest.toml` contract. See
+[candidate installation and limits](STANDALONE_SKILLS.md) and
+[the selected-text boundary](STANDALONE_PROFILE.md).
+
+The proposed `0.2.0` candidate is unpublished. Reproducible archive and installation structure
+do not prove actual host discovery or useful model behavior. Fresh-input runtime trials,
+independent review, exact-source checks and explicit owner release approval remain required.
+The profiles and historical distribution described below remain separate and intact.
+
 ## Launch Gate And Release Order
 
 **Public go-live follows the Berufa.com launch sequence.** The owner identifies the appropriate
