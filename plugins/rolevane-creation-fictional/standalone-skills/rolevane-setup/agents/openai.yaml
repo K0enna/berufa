@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Career Setup"
+  short_description: "Build a career brief and practical next-step plan"
+  default_prompt: "Use $rolevane-setup to explain the sharing boundary, then build a career brief from my selected goals and constraints."

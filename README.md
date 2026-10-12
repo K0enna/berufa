@@ -24,27 +24,28 @@ messages grounded in what you actually know. Missing facts stay open rather than
 
 ### All nine Skills, one career toolkit
 
+The [standalone Skills pack](docs/STANDALONE_SKILLS.md) supports all nine workflows with
+selected pasted text, including practical briefs, assessments and complete requested drafts.
+It shares the existing advice and writing methods. The legacy contract distribution remains
+separate for core callers.
+
 | Skill | Your starting point |
 | --- | --- |
 | Career advice | A role to consider or a career question to work through. |
 | Career content | A CV, application answer, message or interview answer to draft and refine. |
-| Setup and recovery | A guided introduction to the independent local toolkit. |
-| Evidence onboarding | A way to understand how source material becomes reviewable evidence. |
-| Role evaluation | A structured approach to fit, transferable experience and genuine gaps. |
-| Application preparation | The route from an assessed opportunity to an application brief. |
-| Interview preparation | An approach to evidence-linked stories and employer questions. |
-| Offer comparison | A framework for understanding upside, downside and missing terms. |
-| Outcome review | A way to learn from confirmed events in your career campaign. |
-
-Career advice and Career content work directly with selected pasted text after disclosure and
-your explicit agreement. The other seven Skills guide you through public workflow contracts
-and fictional demonstrations; their real-data commands remain in your local terminal. All nine
-are included, with those permissions kept separate.
+| Find your direction | A career brief with your goals, constraints and first practical steps. |
+| Career evidence | An organized experience summary, supplied sources and details to clarify. |
+| Role evaluation | A fit assessment with relevant experience, genuine gaps and employer questions. |
+| Application preparation | A focused brief and the complete application wording you request. |
+| Interview preparation | A clear opening, speakable examples, honest gap answers and a call sheet. |
+| Offer comparison | A comparison of supplied terms, valid pay calculations and unresolved conditions. |
+| Search review | A review of confirmed events and a practical plan for your next week. |
 
 ## Try Berufa
 
-Start with the [getting-started guide](docs/GET_STARTED.md). It shows how to install all nine
-Skills from a reviewed source checkout and try a fictional candidate before sharing your own text.
+Start with the [standalone setup guide](docs/STANDALONE_SKILLS.md). Keep the complete package
+and its shared resources together. Use your assistant's documented installation and invocation
+route; the guide covers Codex, Cursor and a resource-preserving Claude Code adaptation.
 
 In Codex, begin with:
 
@@ -52,23 +53,23 @@ In Codex, begin with:
 $career-advice: Explain your sharing boundary before I paste selected text.
 ```
 
-After the disclosure and your agreement, paste a short fictional CV and role, then ask:
+After the disclosure and your agreement, paste selected experience notes and role text, then ask:
 
 ```text
-$career-advice: Should this candidate explore the role? What fits, what is missing,
-and which three questions should they ask the employer?
+$career-advice: Should I explore this role? What fits, what is missing,
+and which three questions should I ask the employer?
 
 $career-create-content: Draft a complete English CV and a concise application answer
 from this selected text. Keep the facts accurate and return editable Markdown.
 ```
 
-Read [the advice and drafting guide](docs/CREATION_SKILLS.md) for examples, file delivery
-and a targeted edit. Explore [the workflow Skills](docs/SKILL_PACK.md) for the rest of the set.
+See the [completed workflow examples](plugins/rolevane-creation-fictional/examples/standalone-workflows.md)
+and [acceptance report](docs/STANDALONE_ACCEPTANCE.md) for the tested scope and its limits.
 
 Public distribution follows the **Berufa.com launch sequence**. Use the checksums and
 installation guide supplied with the approved tagged release.
-No Berufa account or paid Berufa plugin is required for the Skills. Your own Codex plan supplies
-the model and may incur usage charges.
+No Berufa account or paid Berufa plugin is required for the Skills. Your chosen AI assistant
+supplies the model and may charge for usage.
 
 ## Your facts. Your choices.
 
@@ -79,12 +80,15 @@ documents or send applications for you. The separate local core can retrieve one
 Greenhouse posting after your local confirmation. Editable Markdown is the supported supplied-content file format.
 The pack supplies no privacy sandbox or provider-retention control.
 
-See [privacy](PRIVACY.md) and [the sharing profile](docs/SUPPLIED_CONTENT_PROFILE.md) for details.
+See [privacy](PRIVACY.md) and [the sharing profile](docs/STANDALONE_PROFILE.md) for details.
 Never put personal career records in GitHub issues.
 
 ## For Builders And Contributors
 
 The independent local core and its command names remain compatible with existing installations.
+The [legacy contract distribution](docs/SKILL_PACK.md) preserves the earlier two selected-text
+Skills and seven fictional contract guides for existing core callers; it is separate from the
+nine useful standalone Skills described above.
 The [technical reference](docs/REFERENCE.md) covers local setup and command contracts;
 [contributing](CONTRIBUTING.md), [security](SECURITY.md) and [release instructions](docs/RELEASE.md)
 cover engineering and release requirements. A technical reference is not a product launch promise.

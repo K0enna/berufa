@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Career Outcome Review"
+  short_description: "Review supplied results and choose practical next steps"
+  default_prompt: "Use $career-outcome-review to explain the sharing boundary, then review my selected events and suggest next steps."

@@ -169,3 +169,137 @@ def test_complete_skills_distribution_rejects_plugin_composition(tmp_path):
     with pytest.raises(ValueError):
         build(ROOT, output, profile=PROFILE, include_workflow_skills=True)
     assert not output.exists()
+
+
+def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path):
+    """Exercise the public CLI, extracted discovery and exact bytes from disjoint roots."""
+    import hashlib
+    import re
+
+    profile = "selected_text_standalone_v1"
+    outputs, third = tmp_path / "outputs", tmp_path / "unrelated-cwd"
+    outputs.mkdir()
+    third.mkdir()
+    first, second = outputs / "candidate.zip", outputs / "rebuilt.zip"
+    command = [sys.executable, str(ROOT / "tools/build_companion_bundle.py")]
+    for cwd, destination in [(ROOT, first), (third, second)]:
+        result = subprocess.run(
+            [*command, str(destination), "--profile", profile],
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert result.returncode == 0, result.stderr
+        assert (
+            json.loads(result.stdout)["sha256"]
+            == hashlib.sha256(destination.read_bytes()).hexdigest()
+        )
+    assert first.read_bytes() == second.read_bytes()
+    original = first.read_bytes()
+    refused = subprocess.run(
+        [*command, str(first), "--profile", profile],
+        cwd=third,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert refused.returncode == 1
+    assert first.read_bytes() == original
+    assert list(third.iterdir()) == []
+
+    # Independent public identifiers, not a copy of the producer's member inventory.
+    expected = {
+        "career-advice",
+        "career-create-content",
+        "rolevane-setup",
+        "career-evidence-onboarding",
+        "career-role-evaluation",
+        "career-application-preparation",
+        "career-interview-preparation",
+        "career-offer-comparison",
+        "career-outcome-review",
+    }
+    installation = tmp_path / "project/.agents/skills/berufa"
+    with zipfile.ZipFile(first) as archive:
+        names = archive.namelist()
+        assert len(names) == len(set(names))
+        manifest = json.loads(archive.read("BUNDLE-MANIFEST.json"))
+        assert manifest["profile"] == profile
+        assert set(manifest["standalone"]) == {
+            "product",
+            "version",
+            "content_boundary",
+            "skills",
+            "acceptance_report",
+        }
+        assert manifest["standalone"]["version"] == "0.2.0"
+        assert set(manifest["standalone"]["skills"]) == expected
+        assert manifest["standalone"]["content_boundary"] in names
+        assert isinstance(manifest["standalone"]["acceptance_report"], str)
+        assert manifest["standalone"]["acceptance_report"].strip()
+        assert set(names) == {item["path"] for item in manifest["files"]} | {"BUNDLE-MANIFEST.json"}
+        for member in manifest["files"]:
+            assert hashlib.sha256(archive.read(member["path"])).hexdigest() == member["sha256"]
+        # No connected/core entry points or the incompatible legacy contract can ship here.
+        assert not any(
+            Path(name).name in {"plugin.json", "mcp.json", "manifest.toml"}
+            or name.startswith(("src/", "workflow/", "config/"))
+            for name in names
+        )
+        archive.extractall(installation)
+
+    skills = list((installation / "skills").glob("*/SKILL.md"))
+    assert {path.parent.name for path in skills} == expected
+    for skill in skills:
+        frontmatter = skill.read_text(encoding="utf-8").split("---", 2)
+        assert len(frontmatter) == 3 and not frontmatter[0].strip()
+        fields = dict(line.split(":", 1) for line in frontmatter[1].strip().splitlines())
+        assert fields["name"].strip() == skill.parent.name
+        assert fields["description"].strip()
+        interface = (skill.parent / "agents/openai.yaml").read_text(encoding="utf-8")
+        assert f"${skill.parent.name}" in interface
+
+    # Inspect every local Markdown resource reference in the delivered archive, not source
+    # filenames or prose length. Broken progressive references fail at the consumer boundary.
+    for document in installation.rglob("*.md"):
+        for link in re.findall(r"\]\(([^)]+)\)", document.read_text(encoding="utf-8")):
+            if "://" in link or link.startswith("#"):
+                continue
+            relative = link.split("#", 1)[0]
+            resource = (document.parent / relative).resolve()
+            assert resource.is_relative_to(installation.resolve()), (document, link)
+            assert resource.is_file(), (document, link)
+
+
+@pytest.mark.parametrize(
+    "options",
+    [
+        {"instance_root": ROOT},
+        {"python_executable": Path(sys.executable)},
+        {"include_workflow_skills": True},
+    ],
+)
+def test_standalone_profile_refuses_connected_or_legacy_composition_before_output(
+    tmp_path, options
+):
+    output = tmp_path / "rejected.zip"
+    with pytest.raises(ValueError):
+        build(ROOT, output, profile="selected_text_standalone_v1", **options)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_standalone_missing_resource_refuses_partial_archive(tmp_path):
+    import shutil
+
+    public = tmp_path / "public-source"
+    # Copy only actual package owners, leaving private records and the core out of the fixture.
+    for directory in ("plugins/rolevane-creation-fictional", "docs"):
+        shutil.copytree(ROOT / directory, public / directory)
+    for name in ("LICENSE", "NOTICE"):
+        shutil.copyfile(ROOT / name, public / name)
+    (public / "docs/STANDALONE_PROFILE.md").unlink()
+    output = tmp_path / "must-not-exist.zip"
+    with pytest.raises(ValueError):
+        build(public, output, profile="selected_text_standalone_v1")
+    assert not output.exists()

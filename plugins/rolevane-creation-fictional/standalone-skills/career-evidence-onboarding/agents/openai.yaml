@@ -1,0 +1,4 @@
+interface:
+  display_name: "Berufa Career Evidence"
+  short_description: "Organize selected notes with sources and uncertainties"
+  default_prompt: "Use $career-evidence-onboarding to organize my selected notes after explaining the sharing boundary."
