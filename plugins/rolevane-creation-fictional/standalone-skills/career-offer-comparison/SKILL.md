@@ -27,12 +27,19 @@ verified employer commitments. Preserve conditions and whether a value is an ass
    variable values to show target total, explicitly not expected or guaranteed income.
    Show a zero-variable scenario as an assumption, not a fact about likely payout. Use an
    expected payout only when the user supplies a justified probability/scenario and requests it.
+   A higher headline OTE can contain lower guaranteed cash. When compatible baseline and
+   option amounts are supplied, show the fixed-to-fixed difference first and, if useful,
+   the variable payout needed merely to match baseline cash. That break-even calculation
+   is not expected attainment and does not replace unvalued benefits or mobility.
 4. Unknown amounts are unknown, never zero. Do not add equity face value to spendable cash,
    value a company car by guessing, or subtract unquantified travel costs. Retain vesting,
    liquidity, payout conditions and missing benefit valuations as open terms.
 5. Compare travel, office days, relocation, working hours, stability and opportunity cost
    against constraints. Avoid company reputation or funding claims not supplied. Highlight
    where a practical burden could outweigh the known pay difference.
+   Keep the benefit's purchase price, the employee's personal contribution and replacement
+   cost distinct. Do not use a car's sticker price as annual pay. Compare working-time
+   differences when supplied; do not invent paid periods, overtime or an hourly-pay promise.
 6. Show the arithmetic and assumptions beside each total/delta. Rank options only on the
    user's priorities and known terms; use a conditional recommendation if unknowns matter.
    Do not invent a weighted score or definitive total-economic winner from incomplete terms.

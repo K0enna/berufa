@@ -222,7 +222,7 @@ def build(
     if profile == STANDALONE_PROFILE:
         identity["standalone"] = {
             "product": "Berufa",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "content_boundary": "references/standalone-profile.md",
             "skills": ["career-advice", "career-create-content", *WORKFLOW_SKILLS],
             "acceptance_report": "See the accompanying release acceptance report.",
