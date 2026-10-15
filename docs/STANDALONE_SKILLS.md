@@ -9,11 +9,11 @@ conversational use. It installs no core application, database, plugin or model c
 | --- | --- |
 | `rolevane-setup` | A career brief, practical constraints and a next-step plan. |
 | `career-evidence-onboarding` | An experience summary with source associations, conflicts and questions. |
-| `career-role-evaluation` | A supplied-role fit assessment with support, gaps and employer questions. |
-| `career-application-preparation` | A role-specific brief and the complete editable material requested. |
+| `career-role-evaluation` | Separate judgments on fit and whether a move is worthwhile, with support, gates and decisive questions. |
+| `career-application-preparation` | A role-specific brief and complete requested material, reusing supplied evidence and effective wording. |
 | `career-interview-preparation` | A tailored opening, grounded answers and a concise call sheet. |
-| `career-offer-comparison` | Comparable terms, valid arithmetic, unknowns and decision questions. |
-| `career-outcome-review` | A supplied-event review and a practical next-step plan. |
+| `career-offer-comparison` | Comparable terms, guaranteed-cash downside, valid arithmetic, unknowns and decision questions. |
+| `career-outcome-review` | A confirmed-event chronology, status conflicts, bounded feedback lessons and practical next steps. |
 | `career-advice` | Advice on a career question with tradeoffs and next questions. |
 | `career-create-content` | Complete drafts, selected edits or a read-only critique. |
 
@@ -56,7 +56,7 @@ remains fictional-only. Read the [profile boundary](references/standalone-profil
 
 ## Acceptance and host support
 
-Version `0.2.0` uses the selected-text functionality described above. Consult the accompanying
+Version `0.2.1` uses the selected-text functionality described above. Consult the accompanying
 release acceptance report for the exact package hash, tested hosts, outputs and boundary checks.
 Structural checks alone do not establish host discovery or useful runtime behavior. The
 [fresh-input trials](examples/standalone-runtime-scenarios.json) describe the acceptance cases.

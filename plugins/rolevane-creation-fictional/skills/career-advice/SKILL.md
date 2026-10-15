@@ -29,6 +29,11 @@ label employer statements and posting currentness as unverified supplied content
    or decline. It is advice for the user, never a stored decision or approval.
 2. Compare the actual mandate, decision rights, team, learning, trajectory, work burden and
    downside with the user's goals. A larger title alone is not progression.
+   State functional fit separately from the value of changing jobs. Distinguish current
+   authority from a promised future team, and existing-customer ownership from hunting
+   or quota-carrying Sales leadership. An explicit lack of interest or unacceptable commute
+   can decide against a strong match. A deliberate IC move can be worthwhile on the user's
+   priorities; do not assume either a title upgrade or downgrade settles the decision.
 3. Map requirements to direct supplied support, transferable support, a genuine gap, or
    missing information. "Supplied support" is not independently verified evidence. Explain
    how a transferable example helps without claiming the missing experience.
@@ -38,6 +43,9 @@ label employer statements and posting currentness as unverified supplied content
    supplied values, with its assumptions; avoid a second scoring engine.
 5. Give one concrete next step and the few questions that could reverse the recommendation.
    Do not bury the answer in disclaimers or demand a full dossier for a narrow question.
+   Use the decisions, feedback and completed work already supplied. When those facts are
+   sufficient, finish the requested advice rather than making additional evidence collection
+   a prerequisite. Identify any decisive missing fact while completing the analysis possible.
 
 For a choice between options, use a small comparison only when it helps. For an unsupported
 mandatory qualification, identify the gate and suggest asking whether equivalent experience

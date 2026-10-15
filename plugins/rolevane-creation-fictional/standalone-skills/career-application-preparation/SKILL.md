@@ -20,6 +20,12 @@ message or application form without a request. A prior role assessment helps but
 record, CLI or canonical decision is required for this standalone route. If fit is unsettled,
 retain the unresolved gates in the brief instead of calling the application approved.
 
+Reuse the relevant facts, prior assessment and accepted wording already shared within the
+agreed scope. Ask only for a missing fact that changes this deliverable. Where a supplied
+decision explicitly declines the role, do not generate an application unless the user has
+reopened preparation. A supplied closed outcome is historical context, not a new invitation
+to apply. Do not infer either state from a saved draft alone.
+
 1. Identify the role's most consequential needs and map them to specific supplied experience.
    Separate direct and transferable support from gaps. Do not convert employer requirements
    into candidate qualifications or claim unsupported methods, products, credentials or scope.
@@ -27,6 +33,9 @@ retain the unresolved gates in the brief instead of calling the application appr
    dates, shared attribution, approximation, units, currency and incomplete qualifications.
    Flag conflicting required facts in internal notes; omit an optional uncertain claim or
    use a clear placeholder for an essential missing field.
+   Preserve strong specific results and the supplied narrative voice. Tailor the selection
+   and emphasis before replacing effective wording. Do not turn the whole CV into generic
+   leadership summaries or put internal gap/confidentiality notes into employer-facing prose.
 3. Create a short application brief: target need, selected support, claim limits, genuine
    gaps, unknowns and the intended emphasis. Keep these editorial notes separate from the
    employer-facing text, especially confidentiality and unresolved qualifications.
@@ -37,6 +46,9 @@ retain the unresolved gates in the brief instead of calling the application appr
 5. Check each resulting claim against its selected basis, answer the actual question and
    enforce supplied length limits. Apply the shared writing pass. Keep natural voice and
    effective accepted wording; write requested languages independently.
+   If the user supplies a previous document and later factual corrections, apply those
+   corrections to the affected claims without declaring the entire historic package current
+   or revalidated. State any remaining material source conflict in the brief.
 
 ## Deliver and stop
 
