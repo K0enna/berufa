@@ -1,7 +1,7 @@
 # Skills 0.2.2 acceptance
 
 This source candidate extends the existing nine-Skill pack and fictional formatter. It
-adds no dependency, provider, database, Skill identifier or broader content permission.
+adds no core runtime dependency, provider, database, Skill identifier or broader content permission.
 Source merge and installed acceptance are separate from publishing a tagged release.
 
 The verified local `berufa-skills-0.2.2-reviewed.zip` has 43 members and SHA-256
