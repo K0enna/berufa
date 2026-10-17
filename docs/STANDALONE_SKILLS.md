@@ -87,8 +87,11 @@ as discovery. A listed identifier alone does not prove that the method loaded. A
 read leaves that host unverified; preserve its error before changing settings.
 
 Unreleased candidate `0.2.2` adds simpler onboarding, a supplied-assessment skill-gap report
-and layout diagnostics for the existing fictional PDF renderer. Consult the accompanying
-release acceptance report for the exact package hash, tested hosts, outputs and boundary checks.
+and layout diagnostics for the existing fictional PDF renderer. The repository's
+[0.2.2 acceptance report](https://github.com/K0enna/berufa/blob/main/docs/SKILLS_0_2_2_ACCEPTANCE.md)
+records the exact local candidate hash, tested host, outputs and boundary checks. A source
+candidate is separate from a published release asset. For a fresh local build, the builder
+prints its ZIP SHA-256; the archive also contains per-member digests.
 Structural checks alone do not establish host discovery or useful runtime behavior. The
 [fresh-input trials](examples/standalone-runtime-scenarios.json) describe the acceptance cases.
 No hard-coded minimum Codex build or universal runtime support is claimed. Cursor and Claude

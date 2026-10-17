@@ -65,7 +65,7 @@ from this selected text. Keep the facts accurate and return editable Markdown.
 ```
 
 See the [completed workflow examples](plugins/rolevane-creation-fictional/examples/standalone-workflows.md)
-and [acceptance report](docs/STANDALONE_ACCEPTANCE.md) for the tested scope and its limits.
+and [0.2.2 acceptance report](docs/SKILLS_0_2_2_ACCEPTANCE.md) for the tested scope and its limits.
 
 Public distribution follows the **Berufa.com launch sequence**. Use the checksums and
 installation guide supplied with the approved tagged release.
