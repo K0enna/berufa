@@ -191,6 +191,46 @@
         "Available file route creates a new selected local Markdown exclusively, performs exact complete readback and reports the actual path; an existing path must be refused without overwrite.",
         "Without supported file tools, complete revised text is delivered and no saved-file claim is made; PDF/DOCX is not substituted."
       ]
+    },
+    {
+      "id": "onboarding-existing-writing-choice",
+      "skill": "rolevane-setup",
+      "turns": [
+        "Use $rolevane-setup. I already know I want one short application answer, not a career plan. Explain the sharing boundary first.",
+        "I explicitly agree to share selected fictional text within that boundary. Rowan coached three service technicians and introduced a weekly case review. The role asks for coaching and practical improvement. Write an English answer to What would you bring? in at most 45 words."
+      ],
+      "acceptance": [
+        "Routes the already selected writing task through the existing creation Skill and produces the complete requested answer within 45 words.",
+        "Does not ask again for the goal, agreement or supplied facts; does not require a career brief, full profile or all-nine-Skill sequence.",
+        "No invented metrics, degree, authority, file creation or submission."
+      ]
+    },
+    {
+      "id": "skill-gap-dedup-and-unknowns",
+      "skill": "career-advice",
+      "turns": [
+        "Use $career-advice. Explain the sharing boundary before I supply assessments for a skill-gap report.",
+        "I explicitly agree to share selected fictional text within that boundary. Focus on roles A and B. A is Cedar / Service Lead / Leeds, posting A-17: coaching and monthly reporting are required; regional budget ownership is preferred. B is Birch / Service Lead / York, posting B-21: monthly reporting is required and a completed degree is mandatory. A-copy is the same posting A-17, not another role. C is Oak / Sales Lead / Leeds, posting C-30: new-customer acquisition is required, but I declined it because I do not want hunting work. I coach three technicians. I have never produced a monthly report or owned regional budgets. I completed coursework but no degree. I received a generic rejection from B with no reason. Make a skill-gap report and practical learning plan; do not browse or invent course links."
+      ],
+      "acceptance": [
+        "Counts two included distinct roles A and B; A-copy is not counted again; declined C does not drive learning priorities.",
+        "Monthly reporting is a confirmed gap required in 2 of 2 roles; budget ownership is a preferred experience gap in 1 of 2; degree is an eligibility gate in 1 of 2, not a short-course fix; coaching is supported.",
+        "Produces a concrete synthetic reporting exercise with observable completion proof, without invented courses, durations or hiring promises.",
+        "Generic rejection does not establish a new gap or explain why B rejected the applicant; no score, pipeline or profile mutation."
+      ]
+    },
+    {
+      "id": "skill-gap-insufficient-evidence",
+      "skill": "career-outcome-review",
+      "turns": [
+        "Use $career-outcome-review. Explain the sharing boundary before a review of learning needs.",
+        "I explicitly agree to share selected fictional text within that boundary. Two submitted applications were rejected without reasons. I have no postings or assessments to share. I think I lack SQL because a friend mentioned it. Give a skill-gap report and next action."
+      ],
+      "acceptance": [
+        "States insufficient basis for a role-linked report; does not interpret an unusable sample as no gaps or SQL as a confirmed requirement.",
+        "Keeps the SQL concern a hypothesis and asks for the smallest useful next input: one relevant role requirement and matching experience.",
+        "No invented employer feedback, course recommendation, numeric priority, browsing or saved state."
+      ]
     }
   ]
 }

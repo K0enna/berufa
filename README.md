@@ -47,10 +47,11 @@ Start with the [standalone setup guide](docs/STANDALONE_SKILLS.md). Keep the com
 and its shared resources together. Use your assistant's documented installation and invocation
 route; the guide covers Codex, Cursor and a resource-preserving Claude Code adaptation.
 
-In Codex, begin with:
+In Codex, begin with one result you want:
 
 ```text
-$career-advice: Explain your sharing boundary before I paste selected text.
+$rolevane-setup: Explain the sharing boundary, then help me choose a direction,
+assess a role, or write something using only the text I share.
 ```
 
 After the disclosure and your agreement, paste selected experience notes and role text, then ask:

@@ -49,6 +49,11 @@ contact, interviews or offers. Silence after a date is not automatically a rejec
 
 ## Deliver the review
 
+If the user requests recurring skill gaps or a learning plan, reuse the selected assessments
+and attributed feedback through the [shared skill-gap method](../../references/skill-gaps.md).
+Do not turn a rejection without a stated reason into a gap. Outcomes alone may support a
+process lesson while providing no basis for a skill-gap report; state that distinction.
+
 Return the supplied event/status summary, factual observations with sample limits, separately
 labeled hypotheses, and a practical action plan. For each action name its purpose, necessary
 input and suggested timing if useful; distinguish suggested dates from existing commitments.
