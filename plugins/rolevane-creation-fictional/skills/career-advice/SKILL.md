@@ -1,6 +1,6 @@
 ---
 name: career-advice
-description: Advise on a career question or supplied role within the installed pack's content boundary. Compare mandate, constraints, economics, gaps and next questions using supplied facts, without fetching sources, connecting records or taking career actions.
+description: Advise on a career question or supplied role, or produce a skill-gap report and development priorities from supplied assessments. Compare mandate, constraints and economics without fetching sources, connecting records or taking career actions.
 ---
 
 # Career Advice
@@ -50,6 +50,14 @@ label employer statements and posting currentness as unverified supplied content
 For a choice between options, use a small comparison only when it helps. For an unsupported
 mandatory qualification, identify the gate and suggest asking whether equivalent experience
 is acceptable; never erase the gap to make the candidate sound eligible.
+
+## Report skill gaps when requested
+
+For a requested skill-gap report or learning plan, use the
+[shared skill-gap method](../../references/skill-gaps.md). Reuse already supplied assessments,
+deduplicate identified roles, separate unknown evidence from confirmed gaps, and return
+priorities with concrete practice and completion evidence. This is an advice mode, not a
+new Skill or scoring engine. Do not append it to every ordinary career question.
 
 ## Review preferences without promoting them
 

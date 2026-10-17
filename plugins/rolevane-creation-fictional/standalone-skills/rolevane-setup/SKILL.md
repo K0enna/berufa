@@ -19,6 +19,21 @@ what the user wants to decide or produce now. A short initial brief does not nee
 When the user asks about installing Skills, explain ordinary folder installation from the
 packaged README; do not require a core CLI, database, private workspace or account connection.
 
+Start with the outcome the user wants now: **choose a direction**, **assess a role**, or
+**write something**. Reuse a choice already present in the request; otherwise ask this one
+short question before asking for detailed career history. Accept the smallest useful input:
+goals and constraints, one posting with relevant experience, or the selected writing brief.
+Do not present all nine Skills as a required sequence or request a full profile up front.
+
+For direction, complete the brief below. For an already requested assessment or writing
+task, route to the existing `$career-role-evaluation` or `$career-create-content` Skill and
+reuse the current sharing agreement and selected facts. Do not require setup first or ask
+the user to paste the same facts again. When giving installation guidance rather than doing
+the work, supply only the matching next prompt. A route suggestion alone does not authorize
+an unsolicited application, interview pack or other lifecycle stage.
+
+For a direction request:
+
 1. Separate present experience from desired direction. Keep aspirations out of the experience
    summary. State what successful progress would look like in the user's own terms.
 2. Separate firm constraints from negotiable preferences: location, travel, work model,
@@ -32,9 +47,9 @@ packaged README; do not require a core CLI, database, private workspace or accou
 5. Ask only the few questions that could change the direction. Do useful work with available
    facts rather than turning setup into a long questionnaire.
 
-## Deliver the brief
+## Deliver the requested result
 
-Return a concise brief containing the current starting point, desired direction, firm
+For direction, return a concise brief containing the current starting point, desired direction, firm
 constraints, flexible preferences, plausible role directions, unresolved decisions and a
 short ordered next-step plan. Use actual supplied facts in the brief rather than a blank
 template. Identify each next action and the selected material needed; do not invent deadlines
@@ -45,4 +60,5 @@ no-overwrite and exact-readback contract. Nothing is stored automatically. A lat
 needs the selected brief and fresh sharing agreement; there is no connected profile to resume.
 
 The [setup example](../../examples/standalone-workflows.md#setup) shows a completed brief from
-a small fictional input. Stop at the requested brief or installation explanation.
+a small fictional input. Stop at the requested brief, installation explanation, or the
+explicitly requested result delivered through the matching Skill.

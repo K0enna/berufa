@@ -61,6 +61,7 @@ CREATION_MEMBERS = (
             "scripts/render_documents.py",
             "references/writing.md",
             "references/documents.md",
+            "references/skill-gaps.md",
             "skills/career-advice/SKILL.md",
             "skills/career-advice/agents/openai.yaml",
             "skills/career-create-content/SKILL.md",
@@ -222,7 +223,7 @@ def build(
     if profile == STANDALONE_PROFILE:
         identity["standalone"] = {
             "product": "Berufa",
-            "version": "0.2.1",
+            "version": "0.2.2",
             "content_boundary": "references/standalone-profile.md",
             "skills": ["career-advice", "career-create-content", *WORKFLOW_SKILLS],
             "acceptance_report": "See the accompanying release acceptance report.",

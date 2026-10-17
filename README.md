@@ -47,10 +47,11 @@ Start with the [standalone setup guide](docs/STANDALONE_SKILLS.md). Keep the com
 and its shared resources together. Use your assistant's documented installation and invocation
 route; the guide covers Codex, Cursor and a resource-preserving Claude Code adaptation.
 
-In Codex, begin with:
+In Codex, begin with one result you want:
 
 ```text
-$career-advice: Explain your sharing boundary before I paste selected text.
+$rolevane-setup: Explain the sharing boundary, then help me choose a direction,
+assess a role, or write something using only the text I share.
 ```
 
 After the disclosure and your agreement, paste selected experience notes and role text, then ask:
@@ -64,7 +65,7 @@ from this selected text. Keep the facts accurate and return editable Markdown.
 ```
 
 See the [completed workflow examples](plugins/rolevane-creation-fictional/examples/standalone-workflows.md)
-and [acceptance report](docs/STANDALONE_ACCEPTANCE.md) for the tested scope and its limits.
+and [0.2.2 acceptance report](docs/SKILLS_0_2_2_ACCEPTANCE.md) for the tested scope and its limits.
 
 Public distribution follows the **Berufa.com launch sequence**. Use the checksums and
 installation guide supplied with the approved tagged release.

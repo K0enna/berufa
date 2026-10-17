@@ -17,6 +17,25 @@ conversational use. It installs no core application, database, plugin or model c
 | `career-advice` | Advice on a career question with tradeoffs and next questions. |
 | `career-create-content` | Complete drafts, selected edits or a read-only critique. |
 
+## Start with one useful result
+
+After installation, begin with the outcome you want:
+
+```text
+$rolevane-setup: Help me get started. Explain the sharing boundary, then help me
+choose a direction, assess a role, or write something using only the text I share.
+```
+
+Agree to the disclosed sharing boundary before supplying career content. Bring only what
+that task needs: a few goals and constraints, one posting plus relevant experience, or a
+writing brief. If you already know the task, go straight to `$career-role-evaluation` or
+`$career-create-content`; setup is optional. In the same conversation, the Skills reuse your
+agreement and selected facts. You do not need a database, account connection or full dossier.
+
+For a learning plan after assessing roles, ask `$career-advice: Use the assessments I supplied
+to make a skill-gap report. Separate confirmed gaps from unknowns and suggest practical next
+steps.` This reuses an existing Skill and does not search job boards or save a profile.
+
 ## Build and install
 
 From the sanitized source checkout, choose an unused output path:
@@ -40,9 +59,7 @@ existing host configuration or user material. Do not install a legacy
 pack with the same identifiers alongside it. Preserve user drafts and local edits; extraction
 is an installation step, not permission to overwrite an existing installation.
 
-Start with `$rolevane-setup: Explain the sharing boundary before I paste selected text.`
-After the disclosure, explicitly agree within your host/provider terms, then paste your goals
-and constraints. Ask for a brief and next steps. A later session needs selected text and fresh
+Use the starting path above after installation. A later session needs selected text and fresh
 agreement again. [Workflow examples](examples/standalone-workflows.md) show completed outputs
 for the seven adapted workflows; the [fictional basis](examples/fictional-input.md) and
 [advice example](examples/advice.md) cover the reused advice/drafting route.
@@ -56,8 +73,25 @@ remains fictional-only. Read the [profile boundary](references/standalone-profil
 
 ## Acceptance and host support
 
-Version `0.2.1` uses the selected-text functionality described above. Consult the accompanying
-release acceptance report for the exact package hash, tested hosts, outputs and boundary checks.
+On native Windows, keep the configured Windows sandbox implementation when testing a
+Skill. An isolated CLI run with `--ignore-user-config` also omits that setting. On an
+already provisioned machine that uses the `elevated` implementation, select it explicitly
+with `-c 'windows.sandbox="elevated"'` while retaining `--sandbox read-only` and approval
+policy `never`. This selects the Windows sandbox backend; it does not grant full access.
+Use only an implementation permitted and provisioned on that machine. See the
+[Windows sandbox documentation](https://learn.chatgpt.com/docs/windows/windows-sandbox).
+Do not disable sandboxing to make a Skill load.
+
+After installation, start a fresh turn and check actual Skill and reference reads as well
+as discovery. A listed identifier alone does not prove that the method loaded. A failed
+read leaves that host unverified; preserve its error before changing settings.
+
+Unreleased candidate `0.2.2` adds simpler onboarding, a supplied-assessment skill-gap report
+and layout diagnostics for the existing fictional PDF renderer. The repository's
+[0.2.2 acceptance report](https://github.com/K0enna/berufa/blob/main/docs/SKILLS_0_2_2_ACCEPTANCE.md)
+records the exact local candidate hash, tested host, outputs and boundary checks. A source
+candidate is separate from a published release asset. For a fresh local build, the builder
+prints its ZIP SHA-256; the archive also contains per-member digests.
 Structural checks alone do not establish host discovery or useful runtime behavior. The
 [fresh-input trials](examples/standalone-runtime-scenarios.json) describe the acceptance cases.
 No hard-coded minimum Codex build or universal runtime support is claimed. Cursor and Claude

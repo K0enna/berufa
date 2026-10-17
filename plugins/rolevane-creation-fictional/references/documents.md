@@ -51,6 +51,22 @@ basis, supply revised complete prose and choose a new directory; retain the earl
 draft until the user decides what to keep. Review or critique alone does not invoke
 this command or create files.
 
+For PDF output, the same receipt includes `pdf_layout`: page count, per-page block
+extents and diagnostic warnings from the ReportLab paragraphs actually drawn, including
+split fragments. It uses the existing renderer, with no additional PDF engine. Diagnostics
+flag a block outside the 48-point content margins, a page ending in a title/heading, an
+internal gap above 96 points, a non-final page ending more than 144 points above the bottom
+margin, or a multi-page final page with less than 108 points of occupied height. A short
+single-page letter is not flagged for being sparse. Positions use PDF points from the
+bottom left; a 0.5-point tolerance applies to the content box.
+
+These are review prompts for the fixed neutral layout, not automatic failures or permission
+to remove content. `no_warnings` means only that these block checks found nothing. They do
+not inspect arbitrary PDFs, individual glyph overlap, text extraction, ATS behavior or DOCX
+pagination. The renderer has no footer; margin checks can flag intrusion into the reserved
+bottom area but do not verify a future footer's geometry. No source text is copied into
+diagnostics. The draft stays unreviewed and every page still needs visual inspection.
+
 Before delivering either format, reopen the files, check selected content and link
 targets, render every page with the host's supported PDF/DOCX tooling, and inspect
 for missing glyphs, overlap and overflow. DOCX ZIP/XML checks are not visual proof.

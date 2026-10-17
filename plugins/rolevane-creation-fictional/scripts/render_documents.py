@@ -120,13 +120,92 @@ def read_blocks(path: Path) -> tuple[bytes, list[tuple[str, str]]]:
     return raw, blocks
 
 
-def render_pdf(path: Path, blocks: list[tuple[str, str]]) -> None:
+def pdf_layout(placements: list[dict], page_count: int) -> dict:
+    """Diagnose this renderer's drawn blocks; this is not arbitrary PDF inspection."""
+    pages, warnings = [], []
+    for page_number in range(1, page_count + 1):
+        items = [item for item in placements if item["page"] == page_number]
+        codes = []
+        if not items:
+            pages.append({"page": page_number, "fragments": 0})
+            warnings.append({"page": page_number, "code": "empty_page"})
+            continue
+        top = max(item["y"] + item["height"] for item in items)
+        bottom = min(item["y"] for item in items)
+        largest_gap = max(
+            (a["y"] - b["y"] - b["height"] for a, b in zip(items, items[1:], strict=False)),
+            default=0,
+        )
+        if any(
+            item["x"] < 47.5
+            or item["x"] + item["width"] > 564.5
+            or item["y"] < 47.5
+            or item["y"] + item["height"] > 744.5
+            for item in items
+        ):
+            codes.append("outside_content_box")
+        if items[-1]["kind"] in {"title", "heading"}:
+            codes.append("orphan_heading")
+        if largest_gap > 96:
+            codes.append("large_internal_gap")
+        if page_number < page_count and bottom - 48 > 144:
+            codes.append("early_page_end")
+        # A short single-page letter is valid; only a spill onto a sparse last page
+        # warrants a warning. These thresholds belong to the fixed neutral layout.
+        if page_count > 1 and page_number == page_count and top - bottom < 108:
+            codes.append("thin_last_page")
+        pages.append(
+            {
+                "page": page_number,
+                "fragments": len(items),
+                "top_pt": round(top, 2),
+                "bottom_pt": round(bottom, 2),
+                "largest_gap_pt": round(max(0, largest_gap), 2),
+            }
+        )
+        warnings.extend({"page": page_number, "code": code} for code in codes)
+    return {
+        "status": "warnings" if warnings else "no_warnings",
+        "basis": "renderer_drawn_blocks",
+        "page_count": page_count,
+        "content_box_pt": [48, 48, 564, 744],
+        "pages": pages,
+        "warnings": warnings,
+    }
+
+
+def render_pdf(path: Path, blocks: list[tuple[str, str]]) -> dict:
     import reportlab
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.platypus import Paragraph, SimpleDocTemplate
     from reportlab.platypus.flowables import KeepTogetherSplitAtTop
+
+    placements = []
+
+    class TrackedParagraph(Paragraph):
+        kind = "paragraph"
+
+        def split(self, availWidth, availHeight):
+            fragments = super().split(availWidth, availHeight)
+            for fragment in fragments:
+                fragment.kind = self.kind
+            return fragments
+
+        def drawOn(self, canvas, x, y, _sW=0):
+            super().drawOn(canvas, x, y, _sW)
+            # wrap/split may run several times; only actual drawing is evidence.
+            placements.append(
+                {
+                    "page": canvas.getPageNumber(),
+                    "kind": self.kind,
+                    "x": self._hAlignAdjust(x, _sW),
+                    "y": y,
+                    "width": self.width,
+                    "height": self.height,
+                }
+            )
 
     fonts = Path(reportlab.__file__).parent / "fonts"
     for name, filename in (("DraftVera", "Vera.ttf"), ("DraftVeraBold", "VeraBd.ttf")):
@@ -178,7 +257,9 @@ def render_pdf(path: Path, blocks: list[tuple[str, str]]) -> None:
             else html.escape(label)
             for label, url in inline(text)
         )
-        paragraphs.append(Paragraph(("• " if kind == "bullet" else "") + content, styles[kind]))
+        paragraph = TrackedParagraph(("• " if kind == "bullet" else "") + content, styles[kind])
+        paragraph.kind = kind
+        paragraphs.append(paragraph)
     story = []
     index = 0
     while index < len(blocks):
@@ -196,7 +277,7 @@ def render_pdf(path: Path, blocks: list[tuple[str, str]]) -> None:
                 continue
         story.append(paragraphs[index])
         index += 1
-    SimpleDocTemplate(
+    document = SimpleDocTemplate(
         str(path),
         # Uncompressed page streams are supported by the bounded Documents intake.
         # ReportLab's default ASCII85 compression is deliberately not accepted there.
@@ -209,7 +290,9 @@ def render_pdf(path: Path, blocks: list[tuple[str, str]]) -> None:
         title=blocks[0][1],
         author="",
         subject="Local unreviewed draft",
-    ).build(story)
+    )
+    document.build(story)
+    return pdf_layout(placements, document.page)
 
 
 def render_docx(path: Path, blocks: list[tuple[str, str]]) -> None:
@@ -310,16 +393,21 @@ def create(
         __import__("reportlab" if name == "pdf" else "docx")
     destination.mkdir(exist_ok=False)
     owned: list[Path] = []
+    layout = None
     try:
         for name in formats:
             path = destination / f"draft.{name}"
             owned.append(path)
-            (render_pdf if name == "pdf" else render_docx)(path, blocks)
+            if name == "pdf":
+                layout = render_pdf(path, blocks)
+            else:
+                render_docx(path, blocks)
         return {
             "status": "local_unreviewed_draft",
             "source_sha256": hashlib.sha256(raw).hexdigest(),
             "files": [str(p) for p in owned],
             "visual_review": "required",
+            **({"pdf_layout": layout} if layout is not None else {}),
         }
     except Exception:
         for path in owned:
