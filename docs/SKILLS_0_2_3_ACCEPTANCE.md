@@ -1,7 +1,7 @@
 # Standalone Skills 0.2.3 acceptance
 
 Candidate status: implemented and locally installed; structural and bounded actual-host checks passed.
-Correctness review is pending. No tagged release or universal host-support claim is created.
+The local P0–P2 correctness review passed. No tagged release or universal host-support claim is created.
 
 The existing `career-interview-preparation` Skill adds likely interviewer questions with supplied
 source reasons, optional checks against deliberately supplied submitted wording and requested mock
@@ -63,5 +63,12 @@ scenario in the package. No real candidate transcript enters the repository.
 
 ## Review and delivery
 
-One local P0–P2 review and the required hosted Codex review will be recorded before closeout.
-User-authorized planning and implementation do not constitute a tagged release or publication.
+One primary local P0–P2 review completed with no actionable findings, using the existing helper,
+secret scanner, explicit `gpt-6.1-sol/high` route and disabled access fallback. One preparation
+attempt stopped before model invocation because the prompt path was absolute; the packet was
+placed at a repository-relative path and the same primary review then completed. No remediation
+batch or additional local review pass was needed. The subsequent change only records this result.
+
+Required hosted Codex review and repository CI have their own durable results on the task's pull
+request; they are distinct from the local structural and installed-host observations above.
+User-authorized planning and implementation do not constitute a merge or tagged release.
