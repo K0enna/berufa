@@ -1,6 +1,7 @@
 """Service-boundary proof of retained-document authority and artifact safety."""
 
 import sqlite3
+import tracemalloc
 from dataclasses import replace
 from pathlib import Path
 
@@ -127,6 +128,25 @@ def test_targeted_edit_preview_conflict_retry_and_selected_history(instance):
     for selected in ("missing text", "", "\n"):
         with pytest.raises(ValueError):
             service.edit(replace(edit, request_id="bad-edit", selected_text=selected))
+
+
+def test_repetitive_ambiguous_selection_rejects_with_bounded_memory(instance):
+    from career_os.application.documents import DocumentEditRequest
+
+    root, _, service = instance
+    base = service.import_version(
+        replace(request(), artifacts={"md": b"a" * 65536}), actor="local_user"
+    ).ref
+    tracemalloc.start()
+    try:
+        with pytest.raises(ValueError, match="ambiguous"):
+            service.edit(DocumentEditRequest("ambiguous-edit", base, "md", "a" * 1024, "new"))
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    assert peak < 32 * 1024 * 1024
+    assert len(inspect_document_archive(root).versions) == 1
+    assert service.inspect(base).artifacts["md"]["text"] == "a" * 65536
 
 
 def test_targeted_windows_multiline_preserves_line_endings_and_rejects_mixed_ambiguity(instance):
@@ -411,6 +431,11 @@ def test_live_requires_initialized_consented_complete_root_archive_does_not(inst
     vault.record_consent(accepted=False)
     with pytest.raises(PermissionError, match="consent"):
         service.list()
+    for artifacts in ({"md": b"Fictional text"}, {"pdf": b"Malformed fictional PDF"}):
+        with pytest.raises(PermissionError, match="consent"):
+            service.import_version(
+                replace(request("without-consent"), artifacts=artifacts), actor="local_user"
+            )
     assert inspect_document_archive(root).versions[0].ref == receipt.ref
     vault.record_consent(accepted=True)
     (root / ".career-os-recovery-incomplete").write_text("incomplete")

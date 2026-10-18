@@ -290,6 +290,13 @@ def test_review_form_edit_creates_a_new_unapproved_revision(tmp_path: Path) -> N
             "publication_boundary": "private",
             "action": "save",
         }
+        original = server.application.journey.evidence.latest(fields["evidence_id"])
+        status, _, response = _request(
+            server, "POST", "/review", fields={**fields, "action": "approve"}
+        )
+        assert status == 400
+        assert b"Save your edits" in response
+        assert server.application.journey.evidence.latest(fields["evidence_id"]) == original
         status, _, _ = _request(server, "POST", "/review", fields=fields)
         assert status == 303
         revised = server.application.journey.evidence.latest(fields["evidence_id"])

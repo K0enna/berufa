@@ -77,7 +77,28 @@ def _frontmatter(path: Path) -> tuple[dict[str, str], str]:
         key, separator, value = line.partition(":")
         if not separator or not key.strip() or not value.strip():
             raise ValueError("SKILL.md frontmatter must use one-line key/value fields")
-        fields[key.strip()] = value.strip()
+        key, value = key.strip(), value.strip()
+        if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_-]*", key) or key in fields:
+            raise ValueError("SKILL.md frontmatter keys must be unique identifiers")
+        # Accept a bounded YAML string subset without adding a runtime YAML dependency.
+        # Quoted values use JSON double quotes or YAML's doubled single-quote escape.
+        if value.startswith('"'):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError as exc:
+                raise ValueError("SKILL.md frontmatter has an invalid quoted string") from exc
+        elif value.startswith("'"):
+            if len(value) < 2 or not value.endswith("'") or "'" in value[1:-1].replace("''", ""):
+                raise ValueError("SKILL.md frontmatter has an invalid quoted string")
+            value = value[1:-1].replace("''", "'")
+        elif (
+            value[0] in "+-?.:,[]{}#&*!|>%@`"
+            or value[0].isdigit()
+            or re.search(r":(?:\s|$)|\s#", value)
+            or value.casefold() in {"null", "true", "false", "yes", "no", "on", "off", "~"}
+        ):
+            raise ValueError("SKILL.md frontmatter requires plain or quoted string values")
+        fields[key] = value
     return fields, body
 
 

@@ -319,7 +319,8 @@ def render_docx(path: Path, blocks: list[tuple[str, str]]) -> None:
                 border.getparent().remove(border)
             style.font.underline = False
     doc.styles["Normal"].paragraph_format.line_spacing = 1.15
-    doc.core_properties.title = blocks[0][1]
+    # The metadata field has a 255-character limit; retain the full visible heading below.
+    doc.core_properties.title = blocks[0][1][:255]
     doc.core_properties.author = ""
     doc.core_properties.last_modified_by = ""
     doc.core_properties.subject = "Local unreviewed draft"

@@ -14,7 +14,9 @@ from career_os.evidence_contract import (
     EvidenceContractMetadata,
     EvidenceRelationship,
     PublicationRequest,
+    TimelineItem,
     evidence_contract_schema,
+    validate_timeline,
 )
 from career_os.evidence_vault import EvidenceVault
 from career_os.infrastructure.evidence import create_evidence_service
@@ -353,6 +355,22 @@ def test_reversed_duplicate_superseded_and_missing_conflicts_use_current_records
 
     with pytest.raises(ValueError, match="unknown evidence identity"):
         _relate(vault, "synthetic-role-timeline", "missing-evidence")
+
+
+@pytest.mark.parametrize("end", ["2024-06", "2024", "2024-06-30"])
+def test_partial_timeline_end_period_includes_exact_start(end):
+    item = TimelineItem("fictional-role", "2024-06-15", end)
+    assert validate_timeline((item,)) == ()
+
+
+def test_partial_timeline_overlap_requires_clarification_without_claiming_exact_dates():
+    items = (
+        TimelineItem("earlier", "2023-01-01", "2024-06", "primary", True),
+        TimelineItem("later", "2024-06-15", "2024-12-31", "primary", True),
+    )
+    issues = validate_timeline(items)
+    assert [issue.code for issue in issues] == ["mutually_exclusive_overlap"]
+    assert "partial dates require clarification" in issues[0].message
 
 
 def test_only_explicitly_mutually_exclusive_timeline_overlap_is_blocked(

@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from career_os.application_records import ApplicationPlan
 from career_os.application_workflow import main
 from career_os.evidence_contract import (
     EvidenceContractMetadata,
@@ -137,6 +138,21 @@ def _filesystem_snapshot(root: Path) -> dict[Path, tuple[object, ...]]:
         )
         for path in root.rglob("*")
     }
+
+
+@pytest.mark.parametrize(
+    "job_key,opportunity_id",
+    [("fictional-role", None), (" fictional-role ", None), ("fictional-role", " opportunity-1 ")],
+)
+def test_plan_record_identity_roundtrip_preserves_hash(job_key, opportunity_id):
+    plan = ApplicationPlan(job_key, "a" * 64, {}, opportunity_id=opportunity_id)
+    serialized = plan.to_dict()
+    restored = ApplicationPlan.from_dict(serialized)
+    assert restored.job_key == job_key.strip()
+    assert restored.opportunity_id == (opportunity_id or job_key).strip()
+    assert restored.to_dict() == serialized
+    with pytest.raises(ValueError, match="hash"):
+        ApplicationPlan.from_dict({**serialized, "job_key": "different-role"})
 
 
 def test_real_plan_confirmation_and_immutable_roundtrip(prepared_context, tmp_path, capsys):

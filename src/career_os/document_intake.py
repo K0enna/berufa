@@ -103,6 +103,7 @@ _PDF_ACTIVE_KEYS = frozenset(
 _PDF_ACTIVE_ACTION_TYPES = frozenset(
     {
         "/GoToR",
+        "/GoToE",
         "/ImportData",
         "/JavaScript",
         "/Launch",

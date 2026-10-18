@@ -65,11 +65,13 @@ over the CV. Preserve limits through accurate wording and separate internal note
   newline. Include both in the full-text readback check; do not trim the draft. If paste
   transport has lost those bytes, state that limit instead of claiming byte preservation.
   If the section is ambiguous, ask only for that selection. Do not choose the newest file.
-  For separately authorized local persistence, use the existing Documents targeted-edit
+  This host-only profile returns the requested replacement or a separately requested new
+  Markdown draft. It cannot invoke Documents or persist a canonical edit. If the user later
+  chooses the separate local Documents workflow, that workflow requires its own targeted-edit
   preview and confirmation, not a complete import presented as an atomic targeted edit.
-  A changed/concurrent basis requires a fresh preview. Saving produces an unreviewed text
-  version; PDF/DOCX are rendered and imported explicitly and may reflow. Restoring older
-  wording also needs a new review. A host-only response has no canonical receipt.
+  A changed/concurrent basis requires a fresh local preview. Its saved text remains unreviewed;
+  PDF/DOCX are rendered and imported separately and may reflow. Restored wording also needs
+  review. A host-only response has no canonical receipt.
 - **Correction/resumption:** prefer the latest explicit correction, preserve approximation
   and shared attribution, and revise only the affected claims. Identify which older supplied
   drafts are now superseded; do not overwrite or activate a canonical fact. If prior text is

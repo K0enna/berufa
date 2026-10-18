@@ -3,7 +3,7 @@
 Berufa is local-first, not "always offline." The installed Python commands make no embedded
 model call or telemetry request. Exact Greenhouse lookup is a separate, per-request user-confirmed
 network transfer; no network request occurs during import, evidence review, source preview, or the
-synthetic demo. The seven conversational skills run inside the user's chosen agent environment, but
+synthetic demo. The seven legacy conversational skills run inside the user's chosen agent environment, but
 the experimental public preview gives them only reviewed package source, wholly fictional bundled
 fixtures/demos, and content-free validation. Real workflow data and command output stay in the local
 terminal. The manual CLI workflows are the supported no-model path.
@@ -39,6 +39,18 @@ but no credential field (`src/career_os/evidence_vault.py:1217`,
 
 ## Skill access policy
 
+The recommended `selected_text_standalone_v1` nine-Skill pack uses the route described in
+`STANDALONE_SKILLS.md`. After provider disclosure and explicit sharing agreement, it may process
+only the facts, role text and drafts the user deliberately pastes and is entitled to share.
+That text reaches the user's configured agent/model provider and follows that host's retention
+rules. It remains unverified input; results are provisional advice or drafts. This route grants
+no access to files, attachments, stored evidence, connected records or credentials, and cannot
+approve evidence, record career events, send or submit anything. The default model denials in
+the inventory above describe unselected private data and the legacy preview; they do not negate
+this separate selected-text route. Denied sharing stops the request. No host sandbox or
+provider-retention guarantee is claimed. Agreement and selected facts may be reused within the
+same conversation as that profile documents; revocation stops further processing.
+
 The two creation Skills described in `CREATION_SKILLS.md` have distinct package profiles.
 `creation_skills_fictional_only` remains fictional-only. The owner-approved selected Stage 1
 package uses `supplied_content_host_only_v1`: only deliberately pasted selected facts, role
@@ -53,7 +65,7 @@ uses only fictional prose through the neutral adapter and its declared existing-
 for the seven workflow Skills. Real-content tests remain prohibited. This does not
 change the seven legacy Skills' ceiling below.
 
-All seven skills share one hard preview ceiling. `skills/manifest.toml` records the exact ordered
+All seven legacy skills in `skills/` share one hard preview ceiling. `skills/manifest.toml` records the exact ordered
 classes `[reviewed_package_source, synthetic_demo, content_free_validation]`; the list is a ceiling,
 not consent or authority.
 
@@ -78,7 +90,7 @@ classification. Deterministic code plus an explicit local-user action may approv
 confirm a lifecycle event (`src/career_os/evidence_vault.py:689`,
 `src/career_os/product_runtime.py:236`); no skill or model output is authority.
 
-## Seven Workflow Skills: Agent-Hosted Requirements
+## Seven Legacy Workflow Skills: Agent-Hosted Requirements
 
 Invoking a skill uses the configured agent/model provider, but it is not consent to send real career
 data. The skill must refuse real or supplied postings and URLs, candidate documents or extracted
