@@ -19,7 +19,7 @@ selected text you choose to share. Refine the wording without inflating your qua
 **Look beyond the job title.** Discuss how a supplied role fits your experience, where it
 stretches you and what you need to ask the employer before investing more time.
 
-**Prepare answers you can stand behind.** Work on interview examples, questions and recruiter
+**Prepare answers you can stand behind.** Work on likely interview questions, practice and recruiter
 messages grounded in what you actually know. Missing facts stay open rather than becoming claims.
 
 ### All nine Skills, one career toolkit
@@ -65,7 +65,7 @@ from this selected text. Keep the facts accurate and return editable Markdown.
 ```
 
 See the [completed workflow examples](plugins/rolevane-creation-fictional/examples/standalone-workflows.md)
-and [0.2.2 acceptance report](docs/SKILLS_0_2_2_ACCEPTANCE.md) for the tested scope and its limits.
+and [current Skills acceptance report](docs/SKILLS_0_2_3_ACCEPTANCE.md) for the tested scope and its limits.
 
 Public distribution follows the **Berufa.com launch sequence**. Use the checksums and
 installation guide supplied with the approved tagged release.
