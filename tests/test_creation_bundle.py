@@ -233,7 +233,7 @@ def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path)
             "skills",
             "acceptance_report",
         }
-        assert manifest["standalone"]["version"] == "0.2.2"
+        assert manifest["standalone"]["version"] == "0.2.3"
         assert set(manifest["standalone"]["skills"]) == expected
         assert manifest["standalone"]["content_boundary"] in names
         assert isinstance(manifest["standalone"]["acceptance_report"], str)

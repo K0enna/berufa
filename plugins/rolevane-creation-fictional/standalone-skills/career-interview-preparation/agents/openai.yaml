@@ -1,4 +1,4 @@
 interface:
   display_name: "Berufa Interview Preparation"
-  short_description: "Prepare grounded answers, questions and a call sheet"
-  default_prompt: "Use $career-interview-preparation to explain the sharing boundary, then prepare an opening and grounded stories for my supplied role."
+  short_description: "Prepare likely questions and practice grounded answers"
+  default_prompt: "Use $career-interview-preparation to explain the sharing boundary, then prepare likely questions for my supplied role or run a mock interview one question at a time."

@@ -11,7 +11,7 @@ conversational use. It installs no core application, database, plugin or model c
 | `career-evidence-onboarding` | An experience summary with source associations, conflicts and questions. |
 | `career-role-evaluation` | Separate judgments on fit and whether a move is worthwhile, with support, gates and decisive questions. |
 | `career-application-preparation` | A role-specific brief and complete requested material, reusing supplied evidence and effective wording. |
-| `career-interview-preparation` | A tailored opening, grounded answers and a concise call sheet. |
+| `career-interview-preparation` | Likely questions, supplied submitted-claim checks, optional turn-by-turn practice and a call sheet. |
 | `career-offer-comparison` | Comparable terms, guaranteed-cash downside, valid arithmetic, unknowns and decision questions. |
 | `career-outcome-review` | A confirmed-event chronology, status conflicts, bounded feedback lessons and practical next steps. |
 | `career-advice` | Advice on a career question with tradeoffs and next questions. |
@@ -86,10 +86,12 @@ After installation, start a fresh turn and check actual Skill and reference read
 as discovery. A listed identifier alone does not prove that the method loaded. A failed
 read leaves that host unverified; preserve its error before changing settings.
 
-Unreleased candidate `0.2.2` adds simpler onboarding, a supplied-assessment skill-gap report
-and layout diagnostics for the existing fictional PDF renderer. The repository's
-[0.2.2 acceptance report](https://github.com/K0enna/berufa/blob/main/docs/SKILLS_0_2_2_ACCEPTANCE.md)
-records the exact local candidate hash, tested host, outputs and boundary checks. A source
+Unreleased candidate `0.2.3` adds ranked interview probes, checks against deliberately supplied
+submitted wording and requested mock interviews with one question at a time. Submitted documents
+are optional; missing documents limit that comparison without blocking role-based practice.
+Sharing and file boundaries remain unchanged. See the repository's
+[0.2.3 candidate review](https://github.com/K0enna/berufa/pull/9)
+for its acceptance report, candidate identity, tested host, outputs and boundary checks. A source
 candidate is separate from a published release asset. For a fresh local build, the builder
 prints its ZIP SHA-256; the archive also contains per-member digests.
 Structural checks alone do not establish host discovery or useful runtime behavior. The

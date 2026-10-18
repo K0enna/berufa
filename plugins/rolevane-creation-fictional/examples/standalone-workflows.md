@@ -99,6 +99,33 @@ coaching. Story cues—case review, common questions, shared approximate 9%. Que
 time is protected for coaching; who owns process changes; how is success measured? Logistics
 and panel are unknown; scheduling is not asserted.
 
+### Likely questions and submitted wording
+
+Additional fictional input: "The functional round follows feedback asking for my personal
+contribution. Regional budget ownership is required; monthly reporting is preferred. My submitted
+CV says, 'Personally reduced repeat contacts 9% in 2024.' My current draft correctly describes
+the shared approximate result. Prioritize likely questions and check the submitted wording."
+
+| Priority | Question you may be asked | Supplied reason and answer basis |
+| --- | --- | --- |
+| First | What did you personally change, and how was the result measured? | Prior-round feedback and the submitted result claim. Nora can discuss case review, weekly coaching and common questions; the result is shared and approximate, with baseline unresolved. |
+| Next | What budget responsibility have you held? | An essential requirement; budget experience was not supplied. Clarify it rather than label it a confirmed gap. |
+| Later | How would you approach monthly reporting? | A preferred need. Reporting experience remains unknown. |
+
+These are preparation priorities, not certain predictions. The exact submitted claim is
+contradicted on sole contribution and unsupported on numerical precision. The current draft
+is not substituted for what the employer received. Ask which personal actions Nora can support;
+continue the unaffected coaching preparation. Accurate additional detail is permitted when
+supplied; the submitted CV is not rewritten. Employer questions remain a separate list.
+
+### Requested mock practice
+
+If Nora asks for practice, agree a small scope and ask one question, then wait. After her actual
+answer, give specific feedback on what it supports and what needs sharpening before one follow-up
+or next question. A hint supplies a cue, retry keeps the active question, and skip is not success.
+Stop ends questions and recaps only what was practiced. Withdrawing sharing stops processing
+without a content recap. No conversation is a scheduled interview or a saved progress record.
+
 ## Offers
 
 Input: "Compare fictional A: EUR 72,000 annual gross fixed + EUR 8,000 annual gross target
