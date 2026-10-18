@@ -102,7 +102,9 @@ def test_bytes_intake_enforces_its_own_size_and_basename_limits():
         extract_document_bytes(b"Fictional", filename="../draft.txt")
 
 
-@pytest.mark.parametrize("key,value", [("/S", "/GoToR"), ("/Subtype", "/RichMedia")])
+@pytest.mark.parametrize(
+    "key,value", [("/S", "/GoToR"), ("/S", "/GoToE"), ("/Subtype", "/RichMedia")]
+)
 def test_pdf_active_content_resolves_indirect_action_and_annotation_names(key, value) -> None:
     writer = PdfWriter()
     writer.add_blank_page(width=612, height=792)

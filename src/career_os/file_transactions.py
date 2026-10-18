@@ -446,7 +446,11 @@ def _atomic_replace_windows_anchored(
             stream.write(replacement)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, target)
+        if target.exists():
+            _safe_regular_file_path(target)
+            _replace_windows(target, temporary, None)
+        else:
+            os.replace(temporary, target)
         temporary = None
     except OSError as exc:
         raise ValueError("Anchored replacement could not be published safely") from exc

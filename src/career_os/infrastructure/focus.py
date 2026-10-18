@@ -106,12 +106,15 @@ class LocalFocusRepository:
                 )
             )
         except (ValueError, OSError) as exc:
-            legacy_without_tasks = (
-                not _safe_regular_file_path(self.root / ".career-os-instance.json").exists()
-                and not _safe_regular_file_path(
-                    self.root / "data/runtime/planned-tasks.json"
-                ).exists()
-            )
+            try:
+                legacy_without_tasks = (
+                    not _safe_regular_file_path(self.root / ".career-os-instance.json").exists()
+                    and not _safe_regular_file_path(
+                        self.root / "data/runtime/planned-tasks.json"
+                    ).exists()
+                )
+            except (ValueError, OSError):
+                legacy_without_tasks = False
             statuses.append(
                 FocusInputStatus(
                     "planned_actions",

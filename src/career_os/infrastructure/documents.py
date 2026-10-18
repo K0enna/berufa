@@ -467,6 +467,10 @@ class LocalDocumentRepository:
             request.basis,
             request.document_id,
         )
+        # Admission precedes format parsing. The write transaction rechecks it
+        # before retaining anything, including if consent changes during parsing.
+        with self._vault.read_transaction():
+            self._guard()
         incoming_extracted_size = 0
         for f, raw in request.artifacts.items():
             extracted = extract_document_bytes(
@@ -568,17 +572,13 @@ class LocalDocumentRepository:
                 boundaries.append(offset)
             displayed = "".join(displayed)
             selection = request.selected_text.replace("\r\n", "\n").replace("\r", "\n")
-            matches = []
             position = displayed.find(selection)
-            while position != -1:
-                start, end = boundaries[position], boundaries[position + len(selection)]
-                matches.append((start, text[start:end]))
-                position = displayed.find(selection, position + 1)
-            if len(matches) != 1:
+            if position == -1 or displayed.find(selection, position + 1) != -1:
                 raise ValueError(
                     "Selected passage is missing or ambiguous; select exact unique text"
                 )
-            position, passage = matches[0]
+            start, end = boundaries[position], boundaries[position + len(selection)]
+            position, passage = start, text[start:end]
             replacement = request.replacement_text
             if "\r" not in replacement:
                 # New lines inside the edited span use its first source break.

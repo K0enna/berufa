@@ -544,6 +544,57 @@ def test_wheel_raw_budgets_reject_before_zipfile_parser(
         )
 
 
+def test_wheel_max_comment_cannot_hide_zip64_locator_from_preflight(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    metadata_name = (
+        f"{build_backend._distribution_name(use_public_template=True)}-0.1.0.dist-info/METADATA"
+    )
+    wheel = tmp_path / "hidden-zip64.whl"
+    member = zipfile.ZipInfo(metadata_name)
+    member.comment = b"x" * 76
+    with zipfile.ZipFile(wheel, "w") as archive:
+        archive.writestr(member, b"Name: rolevane\nVersion: 0.1.0\nRequires-Python: >=3.11\n")
+        archive.comment = b"x" * 65_535
+    payload = bytearray(wheel.read_bytes())
+    central = payload.index(release_artifacts._ZIP_CENTRAL_DIRECTORY_SIGNATURE)
+    eocd = payload.rindex(release_artifacts._ZIP_EOCD_SIGNATURE)
+    # The legacy directory regards these records as the member's comment. ZipFile
+    # instead recognizes ZIP64 records immediately before the legacy EOCD.
+    zip64 = struct.pack(
+        "<4sQ2H2L4Q",
+        b"PK\x06\x06",
+        44,
+        45,
+        45,
+        0,
+        0,
+        1,
+        1,
+        eocd - central - 76,
+        central,
+    )
+    locator = struct.pack("<4sLQL", b"PK\x06\x07", 0, eocd - 76, 1)
+    payload[eocd - 76 : eocd] = zip64 + locator
+    wheel.write_bytes(payload)
+    # Prove this bounded fixture reaches Python's ZIP64 interpretation.
+    with zipfile.ZipFile(wheel) as archive:
+        assert archive.read(metadata_name).startswith(b"Name: rolevane")
+    monkeypatch.setattr(
+        release_artifacts.zipfile,
+        "ZipFile",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("ZIP64 must be rejected before ZipFile")
+        ),
+    )
+    with pytest.raises(ValueError, match="ZIP64 wheels are not supported"):
+        release_artifacts._verify_wheel_metadata(
+            wheel,
+            {"name": "rolevane", "version": "0.1.0", "requires_python": ">=3.11"},
+            [],
+        )
+
+
 def test_wheel_rejects_bzip2_metadata_before_zipfile_parser(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

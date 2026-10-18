@@ -323,7 +323,8 @@ def _wheel_metadata_record(path: Path, metadata_name: str) -> tuple[int, int]:
     with path.open("rb") as stream:
         stream.seek(0, 2)
         file_size = stream.tell()
-        tail_size = min(file_size, _ZIP_EOCD_SIZE + 65_535)
+        # Retain the preceding ZIP64 locator even with a maximum-length comment.
+        tail_size = min(file_size, _ZIP_EOCD_SIZE + 65_535 + 20)
         stream.seek(file_size - tail_size)
         tail = stream.read(tail_size)
         eocd_in_tail = tail.rfind(_ZIP_EOCD_SIGNATURE)

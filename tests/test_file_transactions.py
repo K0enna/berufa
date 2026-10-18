@@ -22,6 +22,44 @@ from career_os.file_transactions import (
 from career_os.infrastructure import content_artifacts
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows replacement DACL contract")
+def test_anchored_windows_replacement_preserves_restricted_dacl(tmp_path):
+    target = tmp_path / "fictional-report.json"
+    target.write_bytes(b"before")
+    sid = subprocess.run(
+        [
+            "powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            "[Security.Principal.WindowsIdentity]::GetCurrent().User.Value",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    assert sid.startswith("S-1-")
+
+    def acl(*args):
+        subprocess.run(["icacls.exe", *map(str, args)], check=True, capture_output=True)
+
+    try:
+        acl(tmp_path, "/grant", "*S-1-5-32-545:(OI)(CI)(R)")
+        acl(target, "/inheritance:r", "/grant:r", f"*{sid}:(F)", "*S-1-5-18:(F)")
+        before, after = tmp_path / "before.acl", tmp_path / "after.acl"
+        acl(target, "/save", before)
+        parent = tmp_path.stat()
+        file_transactions.atomic_replace_anchored(
+            target, b"after", expected_parent_identity=(parent.st_dev, parent.st_ino)
+        )
+        acl(target, "/save", after)
+        assert target.read_bytes() == b"after"
+        assert after.read_bytes() == before.read_bytes()
+    finally:
+        # Only this new fictional fixture directory was granted the Users rule.
+        acl(tmp_path, "/remove:g", "*S-1-5-32-545")
+
+
 @pytest.mark.skipif(os.name == "nt", reason="POSIX FIFO semantics")
 def test_anchored_open_checks_fifo_type_without_waiting_for_a_writer(
     tmp_path: Path,

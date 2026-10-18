@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from calendar import monthrange
 from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
@@ -449,15 +450,17 @@ def validate_statement_precision(statement: str, approximation: Approximation) -
         raise ValueError("Approximate evidence cannot use an exact formulation")
 
 
-def _date_floor(value: str) -> date:
+def _date_bound(value: str, *, end: bool = False) -> date:
     normalized = value.strip().casefold()
     if normalized in {"present", "current", "ongoing"}:
         return date.max
-    for pattern, suffix in ((r"\d{4}", "-01-01"), (r"\d{4}-\d{2}", "-01")):
-        if re.fullmatch(pattern, value):
-            value += suffix
-            break
     try:
+        if re.fullmatch(r"\d{4}", value):
+            value += "-12-31" if end else "-01-01"
+        elif re.fullmatch(r"\d{4}-\d{2}", value):
+            year, month = map(int, value.split("-"))
+            day = monthrange(year, month)[1] if end else 1
+            value += f"-{day:02d}"
         return date.fromisoformat(value)
     except ValueError as exc:
         raise ValueError(f"timeline date is not ISO-compatible: {value}") from exc
@@ -468,8 +471,8 @@ def validate_timeline(items: tuple[TimelineItem, ...]) -> tuple[ValidationIssue,
     parsed: list[tuple[TimelineItem, date, date]] = []
     for item in items:
         try:
-            start = _date_floor(item.start_date)
-            end = _date_floor(item.end_date)
+            start = _date_bound(item.start_date)
+            end = _date_bound(item.end_date, end=True)
         except ValueError as exc:
             issues.append(
                 ValidationIssue(
@@ -498,12 +501,21 @@ def validate_timeline(items: tuple[TimelineItem, ...]) -> tuple[ValidationIssue,
             ):
                 continue
             if max(left_start, right_start) <= min(left_end, right_end):
+                partial = any(
+                    re.fullmatch(r"\d{4}(?:-\d{2})?", value)
+                    for value in (left.start_date, left.end_date, right.start_date, right.end_date)
+                )
                 issues.append(
                     ValidationIssue(
                         code="mutually_exclusive_overlap",
                         message=(
-                            f"Mutually exclusive timeline records overlap: "
-                            f"{left.evidence_id}, {right.evidence_id}"
+                            (
+                                "Mutually exclusive timeline records may overlap; "
+                                "partial dates require clarification: "
+                                if partial
+                                else "Mutually exclusive timeline records overlap: "
+                            )
+                            + f"{left.evidence_id}, {right.evidence_id}"
                         ),
                     )
                 )

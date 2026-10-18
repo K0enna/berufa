@@ -4,14 +4,22 @@ import hashlib
 import json
 import socket
 import ssl
+import subprocess
+import sys
 from dataclasses import replace
 from datetime import UTC, datetime
 from email.message import Message
+from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import ProxyHandler
 
 import pytest
 
+from career_os.ats_urls import (
+    canonical_board_url,
+    parse_supported_board_url,
+    parse_supported_job_url,
+)
 from career_os.infrastructure import provider_http as transport
 from career_os.infrastructure.greenhouse import GreenhousePostingAdapter
 from career_os.official_posting import main
@@ -24,6 +32,38 @@ from career_os.public_api import (
 URL = "https://job-boards.greenhouse.io/example/jobs/42"
 ENDPOINT = "https://boards-api.greenhouse.io/v1/boards/example/jobs/42"
 NOW = datetime(2026, 9, 4, tzinfo=UTC)
+
+
+@pytest.mark.parametrize("host", ["job-boards.eu.greenhouse.io", "job-boards.greenhouse.io"])
+def test_greenhouse_canonical_identity_preserves_board_region(host: str) -> None:
+    board_url = f"https://{host}/example"
+    job_url = f"{board_url}/jobs/42"
+    board = parse_supported_board_url(board_url)
+    job = parse_supported_job_url(job_url)
+    assert canonical_board_url(board) == board_url
+    assert job.canonical_url == job_url
+    assert job.region == board.region == ("eu" if ".eu." in host else None)
+
+
+def test_empty_html_headings_have_bounded_parse_work() -> None:
+    # Accepted byte/token bounds must also bound parser work. The subprocess
+    # deadline contains this deliberately repetitive fixture on a regressed parser.
+    subprocess.run(
+        [
+            sys.executable,
+            "-I",
+            "-B",
+            "-c",
+            "import sys; sys.path.insert(0, sys.argv[1]); "
+            "from career_os.infrastructure.provider_http import strip_html; "
+            "assert strip_html('<h1></h1>' * 50_000) == ':'; "
+            "assert strip_html('<h2>Role</h2><p>Fictional work.</p>') == 'Role:\\nFictional work.'",
+            str(Path(__file__).resolve().parents[1] / "src"),
+        ],
+        check=True,
+        capture_output=True,
+        timeout=10,
+    )
 
 
 def payload() -> dict[str, object]:

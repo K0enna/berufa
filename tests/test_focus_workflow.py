@@ -380,6 +380,15 @@ def test_links_are_not_followed(tmp_path: Path) -> None:
     assert not list(target.iterdir())
 
 
+def test_invalid_task_marker_preserves_other_focus_component_statuses(tmp_path):
+    root = tmp_path / "fictional"
+    (root / ".career-os-instance.json").mkdir(parents=True)
+    result = require_focus_result(create_focus_service(root).project())
+    statuses = {status.name: status.state for status in result.inputs}
+    assert statuses["planned_actions"] == "invalid"
+    assert "confirmed_events" in statuses
+
+
 def test_search_inbox_preserves_decision_and_source_boundaries() -> None:
     base = {
         "company": "Example Systems",

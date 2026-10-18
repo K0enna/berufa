@@ -154,7 +154,10 @@ def canonical_board_url(identity: AtsBoardIdentity) -> str:
     if identity.provider == "ashby":
         return f"https://jobs.ashbyhq.com/{slug}"
     if identity.provider == "greenhouse":
-        return f"https://job-boards.greenhouse.io/{slug}"
+        host = (
+            "job-boards.eu.greenhouse.io" if identity.region == "eu" else "job-boards.greenhouse.io"
+        )
+        return f"https://{host}/{slug}"
     if identity.provider == "jobvite":
         return f"https://jobs.jobvite.com/{slug}/jobs"
     if identity.provider == "jobylon":
@@ -199,7 +202,11 @@ def parse_supported_board_url(url: str) -> AtsBoardIdentity:
     if host == "jobs.ashbyhq.com" and len(parts) == 1:
         return AtsBoardIdentity("ashby", _safe_component(parts[0], "Ashby tenant"))
     if host in _GREENHOUSE_BOARD_HOSTS and len(parts) == 1:
-        return AtsBoardIdentity("greenhouse", _safe_component(parts[0], "Greenhouse tenant"))
+        return AtsBoardIdentity(
+            "greenhouse",
+            _safe_component(parts[0], "Greenhouse tenant"),
+            region="eu" if host == "job-boards.eu.greenhouse.io" else None,
+        )
     if host == "jobs.jobvite.com" and len(parts) == 2 and parts[1] == "jobs":
         return AtsBoardIdentity("jobvite", _safe_component(parts[0], "Jobvite tenant"))
     if host == "emp.jobylon.com" and len(parts) == 2 and parts[0] == "companies":
@@ -274,7 +281,11 @@ def parse_supported_job_url(url: str) -> AtsJobIdentity:
         board = AtsBoardIdentity("ashby", _safe_component(parts[0], "Ashby tenant"))
         external_id = _safe_component(parts[1], "Ashby job id")
     elif host in _GREENHOUSE_BOARD_HOSTS and len(parts) == 3 and parts[1] == "jobs":
-        board = AtsBoardIdentity("greenhouse", _safe_component(parts[0], "Greenhouse tenant"))
+        board = AtsBoardIdentity(
+            "greenhouse",
+            _safe_component(parts[0], "Greenhouse tenant"),
+            region="eu" if host == "job-boards.eu.greenhouse.io" else None,
+        )
         external_id = _safe_component(parts[2], "Greenhouse job id")
     elif host == "jobs.jobvite.com" and (
         len(parts) == 3 or (len(parts) == 4 and parts[3] == "apply")

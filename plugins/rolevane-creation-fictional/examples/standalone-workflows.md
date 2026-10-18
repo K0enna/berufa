@@ -64,13 +64,14 @@ Input: "Posting: Support Lead, coach a team and improve repeat-contact handling.
 coursework in business studies without a degree. Do not use the disputed team count."
 
 Output brief: Emphasize weekly coaching and shared process improvement. Omit disputed
-headcount. Retain the approximate team result. The degree is not required in this supplied
-posting and need not be inserted into this answer; it must remain incomplete if later used.
+headcount. Retain the approximate team result and the explicitly requested business-studies
+coursework. State that the degree was not completed.
 
-Complete answer (41 words):
+Complete answer (53 words):
 
 "I bring hands-on team coaching and experience improving recurring support issues. In 2024,
-I ran weekly case coaching, while our team helped reduce repeat contacts by about 9%. I would
+I ran weekly case coaching, while our team helped reduce repeat contacts by about 9%.
+I completed coursework in business studies but did not complete the degree. I would
 bring that practical focus to developing specialists and improving day-to-day support."
 
 No letter, CV, file or submission is produced.

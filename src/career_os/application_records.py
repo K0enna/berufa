@@ -117,6 +117,9 @@ class ApplicationPlan:
             not isinstance(self.opportunity_id, str) or not self.opportunity_id.strip()
         ):
             raise ValueError("ApplicationPlan opportunity_id must be a non-empty string")
+        object.__setattr__(self, "job_key", self.job_key.strip())
+        if self.opportunity_id is not None:
+            object.__setattr__(self, "opportunity_id", self.opportunity_id.strip())
         if self.artifact_route not in ROUTE_ARTIFACTS:
             raise ValueError(f"Unsupported application artifact route: {self.artifact_route}")
         if self.investment_tier not in {item.value for item in ApplicationInvestment}:

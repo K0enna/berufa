@@ -12,7 +12,14 @@ demonstrations are synthetic, offline, model-disabled, and unable to submit appl
 messages (`src/career_os/synthetic_runtime.py:279`, `src/career_os/synthetic_runtime.py:321`,
 `src/career_os/synthetic_runtime.py:332`).
 
-The conversational Skill layer uses the user's configured agent/model provider. For the seven
+The recommended `selected_text_standalone_v1` nine-Skill pack uses the user's configured agent/model
+provider for explicitly selected pasted text, after disclosure and explicit sharing agreement.
+That provider receives the selected text and controls its conversation retention. No attachment
+or file extraction, stored-data connection, canonical approval, persistence, sending or lifecycle
+change is authorized. The input remains unverified and lower-authority; no host sandbox or
+prompt-injection immunity is claimed. `STANDALONE_SKILLS.md` owns this separate profile.
+
+The legacy conversational Skill layer also uses the user's configured agent/model provider. For the seven
 workflow Skills, the experimental preview context is limited to
 text and configuration from the exact reviewed package/repository revision, wholly fictional
 bundled fixtures/demos, and content-free validation. Arbitrary public source, web pages, issues,
@@ -60,9 +67,11 @@ flowchart LR
     R -->|local only| X[User export / backup]
     U --> B[Loopback browser]
     B --> R
-    U -->|invokes seven-Skill preview| A[Configured conversational agent/model]
+    U -->|invokes legacy seven-Skill preview| A[Configured conversational agent/model]
     E -->|reviewed package source| A
-    A -->|seven-Skill generic guidance| U
+    A -->|legacy seven-Skill generic guidance| U
+    U -->|selected text after disclosure and agreement| N[Nine selected-text standalone Skills]
+    N -->|unapproved advice or requested new Markdown| U
     U -->|selected pasted text after disclosure and agreement| H[Two host-only creation Skills]
     H -->|unapproved advice or requested new Markdown| U
     M[Exact Greenhouse lookup] -. explicit per-request confirmation .-> R
@@ -165,10 +174,11 @@ The concrete malicious-input cases and regressions are maintained in
 5. Parser, form, archive, XML, PDF, output, and reset work is bounded and fails closed on ambiguity.
 6. The supported Python commands perform no embedded model call, remote telemetry, authenticated
    job-board access, application submission, or external messaging. Invoking a conversational
-   Skill uses the configured provider. The seven workflow Skills permit only reviewed package
+   Skill uses the configured provider. The seven legacy workflow Skills permit only reviewed package
    source, bundled fictional data and content-free validation. The two creation Skills permit
    only the separately selected pasted-text contract after disclosure and individual agreement;
-   none of these paths grants canonical approval, connected access or external-action authority.
+   The recommended nine-Skill standalone pack has the selected pasted-text boundary described
+   above. None of these paths grants canonical approval, connected access or external-action authority.
 7. Public source comes from the reviewed export allowlist, never from publishing the private Git
    history. Public CI, issues, and releases contain synthetic data only.
 8. Credentials are references, not literal values in source or runtime contracts

@@ -82,13 +82,17 @@ def test_long_paragraph_records_actual_split_pages(tmp_path, renderer):
     assert "case0" in extracted and "case209" in extracted
 
 
-def test_docx_only_receipt_has_no_pdf_verification_claim(tmp_path, renderer):
+@pytest.mark.parametrize("title", ["Fictional letter", "A" * 255, "A" * 256])
+def test_docx_only_receipt_has_no_pdf_verification_claim(tmp_path, renderer, title):
     pytest.importorskip("docx")
     from docx import Document
 
     source = tmp_path / "source.md"
-    source.write_text("# Fictional letter\n\nCoached colleagues.", encoding="utf-8")
+    source.write_text(f"# {title}\n\nCoached colleagues.", encoding="utf-8")
     result = renderer.create(tmp_path, source, tmp_path, tmp_path / "draft", ["docx"])
     assert "pdf_layout" not in result
     assert result["visual_review"] == "required"
-    assert "Coached colleagues." in [p.text for p in Document(result["files"][0]).paragraphs]
+    document = Document(result["files"][0])
+    assert "Coached colleagues." in [p.text for p in document.paragraphs]
+    assert document.paragraphs[0].text == title
+    assert document.core_properties.title == title[:255]

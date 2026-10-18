@@ -223,6 +223,18 @@ class ParticipantApplication:
             if current.revision != revision or current.content_hash != content_hash:
                 raise ValueError("This evidence card changed. Reload it before reviewing.")
             if action in {"approve", "reject", "defer"}:
+                displayed = {
+                    "statement": current.statement,
+                    "ownership": current.ownership,
+                    "confidence": current.confidence,
+                    "approximation": current.approximation,
+                    "publication_boundary": current.publication_boundary,
+                }
+                if any(
+                    key in fields.values and fields.one(key) != value
+                    for key, value in displayed.items()
+                ):
+                    raise ValueError("Save your edits as a new revision before reviewing it.")
                 self.journey.review(
                     evidence_id,
                     revision,

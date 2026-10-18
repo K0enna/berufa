@@ -179,6 +179,44 @@ def test_public_skill_validator_rejects_broadened_public_profile(tmp_path: Path)
     ]
 
 
+@pytest.mark.parametrize(
+    "header",
+    [
+        "description: [unterminated",
+        'description: "unterminated',
+        "description: a mapping: value",
+        "description: *missing_anchor",
+        "description: false",
+        "description: First description\ndescription: Second description",
+    ],
+)
+def test_public_skill_validator_rejects_invalid_string_frontmatter(tmp_path, header) -> None:
+    pack = tmp_path / "skills"
+    shutil.copytree(SKILLS, pack)
+    path = pack / "rolevane-setup" / "SKILL.md"
+    content = path.read_text(encoding="utf-8")
+    content = re.sub(r"(?m)^description:.*$", lambda _: header, content, count=1)
+    path.write_text(content, encoding="utf-8")
+    assert validate_skill_pack(pack)
+
+
+@pytest.mark.parametrize(
+    "description", ['"Clear: quoted description"', "'A user''s clear description'"]
+)
+def test_public_skill_validator_accepts_quoted_string_frontmatter(tmp_path, description):
+    pack = tmp_path / "skills"
+    shutil.copytree(SKILLS, pack)
+    path = pack / "rolevane-setup" / "SKILL.md"
+    content = re.sub(
+        r"(?m)^description:.*$",
+        lambda _: f"description: {description}",
+        path.read_text(encoding="utf-8"),
+        count=1,
+    )
+    path.write_text(content, encoding="utf-8")
+    assert validate_skill_pack(pack) == []
+
+
 def test_public_skill_validator_requires_standalone_frontmatter_close(tmp_path: Path) -> None:
     pack = tmp_path / "skills"
     shutil.copytree(SKILLS, pack)
