@@ -19,14 +19,14 @@ supplied inline writing guidance was used. Local implementation retains the exis
 ## Package and structural checks
 
 The final local Skills ZIP has 43 members and the same nine identifiers. SHA-256:
-`dfb4f03a829086292535e8b8ebdad3311e7e9acc596799e74398858493fe7dcf`.
+`101b75ed253354ef54ec19af496aaf247ef43b5c777799cfb18320a7d46beb95`.
 Its member digests were verified, and every installed member was read back against the ZIP.
 The prior accepted installed package was preserved before replacement; no concurrent local edits
 were found. Already merged public-main renderer/creation fixes remain included.
 
 Sixty focused tests passed: `test_creation_bundle.py`, `test_creation_layout.py`,
 `test_public_skill_pack.py` and `test_public_source_hygiene.py`. Targeted Ruff check and format
-checks passed. The 15 bundle checks passed again after the final observer-criterion clarification,
+checks passed. The 15 bundle checks passed again after the observer and candidate-link corrections,
 including version, nine-Skill discovery metadata, reference closure, digests, reproducible builds
 and third-working-directory use. No new test framework or implementation-mirroring test was added;
 the existing extracted-manifest version assertion changed to `0.2.3`.
@@ -51,7 +51,8 @@ Two observer expectations were narrowed to the useful contract after reading the
 mock-only request need not repeat a warning about a comparison it does not request or claim;
 an explicitly stated unknown-version limit can resolve correctness without an extra mandatory
 question. This did not change the Skill, shared methods, discovery metadata or fictional user
-turns. Only acceptance-list wording and its manifest digest differ from the trial ZIP, whose
+turns. Only acceptance-list wording, the candidate README's working review link and the manifest
+digest differ from the trial ZIP, whose
 SHA-256 was `88783364f19bf94f1b15a7f10a1b3f957165f2de39891b223896c192d8382998`.
 Member-by-member comparison verified that the behavior-bearing sources and user inputs are
 unchanged. Scenario JSON remains an observer specification; these observations are separate proof.
@@ -67,7 +68,8 @@ One primary local P0–P2 review completed with no actionable findings, using th
 secret scanner, explicit `gpt-6.1-sol/high` route and disabled access fallback. One preparation
 attempt stopped before model invocation because the prompt path was absolute; the packet was
 placed at a repository-relative path and the same primary review then completed. No remediation
-batch or additional local review pass was needed. The subsequent change only records this result.
+batch or additional local review pass was needed. Subsequent changes record this result and point
+the unreleased candidate at its working PR rather than a report not yet present on main.
 
 Required hosted Codex review and repository CI have their own durable results on the task's pull
 request; they are distinct from the local structural and installed-host observations above.

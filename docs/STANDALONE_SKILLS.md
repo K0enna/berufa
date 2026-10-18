@@ -90,8 +90,8 @@ Unreleased candidate `0.2.3` adds ranked interview probes, checks against delibe
 submitted wording and requested mock interviews with one question at a time. Submitted documents
 are optional; missing documents limit that comparison without blocking role-based practice.
 Sharing and file boundaries remain unchanged. See the repository's
-[0.2.3 acceptance report](https://github.com/K0enna/berufa/blob/main/docs/SKILLS_0_2_3_ACCEPTANCE.md)
-for candidate identity, tested host, outputs and boundary checks. A source
+[0.2.3 candidate review](https://github.com/K0enna/berufa/pull/9)
+for its acceptance report, candidate identity, tested host, outputs and boundary checks. A source
 candidate is separate from a published release asset. For a fresh local build, the builder
 prints its ZIP SHA-256; the archive also contains per-member digests.
 Structural checks alone do not establish host discovery or useful runtime behavior. The
