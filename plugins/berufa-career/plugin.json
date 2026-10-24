@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Career advice, role and offer comparisons, interview practice, and CV/application drafts from selected text.",
   "author": {
-    "name": "David Sterz",
+    "name": "Berufa",
     "email": "hello@berufa.com",
     "url": "https://berufa.com/en"
   },
@@ -20,7 +20,7 @@
         "displayName": "Berufa Career",
         "shortDescription": "Career advice and writing",
         "longDescription": "Work through your next career move with nine free Skills: choose a direction, organize experience, assess supplied roles, draft a CV or application answer, prepare and practice for interviews, compare supplied offers, and review confirmed search outcomes. Uses selected pasted text after a sharing explanation and your agreement. Your assistant and model provider process the text under your account terms. Desktop only. No connected career workspace, browsing, attachment extraction, application submission or automatic memory. Real-content file delivery is editable Markdown; PDF/Word rendering is fictional-only. Review every output and make your own career decisions.",
-        "developerName": "David Sterz",
+        "developerName": "Berufa",
         "category": "Productivity",
         "capabilities": [],
         "websiteURL": "https://berufa.com/en",
