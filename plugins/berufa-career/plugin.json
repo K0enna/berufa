@@ -1,0 +1,43 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "berufa-career",
+  "version": "0.1.0",
+  "description": "Career advice, role and offer comparisons, interview practice, and CV/application drafts from selected text.",
+  "author": {
+    "name": "David Sterz",
+    "email": "hello@berufa.com",
+    "url": "https://berufa.com/en"
+  },
+  "homepage": "https://berufa.com/en",
+  "repository": "https://github.com/K0enna/berufa",
+  "license": "Apache-2.0",
+  "keywords": ["career", "cv", "interview", "job", "offer"],
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "onboardingSkill": "./skills/rolevane-setup/SKILL.md",
+      "interface": {
+        "displayName": "Berufa Career",
+        "shortDescription": "Career advice and writing",
+        "longDescription": "Work through your next career move with nine free Skills: choose a direction, organize experience, assess supplied roles, draft a CV or application answer, prepare and practice for interviews, compare supplied offers, and review confirmed search outcomes. Uses selected pasted text after a sharing explanation and your agreement. Your assistant and model provider process the text under your account terms. Desktop only. No connected career workspace, browsing, attachment extraction, application submission or automatic memory. Real-content file delivery is editable Markdown; PDF/Word rendering is fictional-only. Review every output and make your own career decisions.",
+        "developerName": "David Sterz",
+        "category": "Productivity",
+        "capabilities": [],
+        "websiteURL": "https://berufa.com/en",
+        "supportURL": "https://berufa.com/en/contact",
+        "privacyPolicyURL": "https://berufa.com/en/privacy",
+        "defaultPrompt": [
+          "Explain the sharing boundary, then help me choose my next career step.",
+          "Assess a role against the selected experience notes I provide.",
+          "Help me draft a factual CV or practice for an interview."
+        ],
+        "brandColor": "#263f5e",
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg"
+      },
+      "publication": {
+        "release_notes": "Initial desktop Skills-only plugin, packaging the nine selected-text Berufa Skills 0.2.3. No MCP connection or account requirement."
+      }
+    }
+  }
+}

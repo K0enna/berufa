@@ -171,7 +171,8 @@ def test_complete_skills_distribution_rejects_plugin_composition(tmp_path):
     assert not output.exists()
 
 
-def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path):
+@pytest.mark.parametrize("as_plugin", [False, True])
+def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path, as_plugin):
     """Exercise the public CLI, extracted discovery and exact bytes from disjoint roots."""
     import hashlib
     import re
@@ -182,6 +183,8 @@ def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path)
     third.mkdir()
     first, second = outputs / "candidate.zip", outputs / "rebuilt.zip"
     command = [sys.executable, str(ROOT / "tools/build_companion_bundle.py")]
+    if as_plugin:
+        command.append("--as-plugin")
     for cwd, destination in [(ROOT, first), (third, second)]:
         result = subprocess.run(
             [*command, str(destination), "--profile", profile],
@@ -242,8 +245,25 @@ def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path)
         for member in manifest["files"]:
             assert hashlib.sha256(archive.read(member["path"])).hexdigest() == member["sha256"]
         # No connected/core entry points or the incompatible legacy contract can ship here.
+        assert ("plugin.json" in names) == as_plugin
+        if as_plugin:
+            plugin = json.loads(archive.read("plugin.json"))
+            assert plugin["name"] == "berufa-career"
+            assert plugin["version"] == "0.1.0"
+            assert plugin["$schema"] == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+            extension = plugin["extensions"]["com.openai"]
+            assert extension["requires_local_executor"] is True
+            assert extension["onboardingSkill"].removeprefix("./") in names
+            interface = extension["interface"]
+            assert 0 < len(interface["displayName"]) <= 30
+            assert 0 < len(interface["shortDescription"]) <= 30
+            assert 0 < len(interface["longDescription"]) <= 4000
+            for field in ("logo", "composerIcon"):
+                assert interface[field].removeprefix("./") in names
+            assert all(len(prompt) <= 128 for prompt in interface["defaultPrompt"])
+            assert not any(name.startswith(("hooks/", ".codex-plugin/")) for name in names)
         assert not any(
-            Path(name).name in {"plugin.json", "mcp.json", "manifest.toml"}
+            Path(name).name in {"mcp.json", "manifest.toml", ".app.json"}
             or name.startswith(("src/", "workflow/", "config/"))
             for name in names
         )
@@ -252,6 +272,19 @@ def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path)
     skills = list((installation / "skills").glob("*/SKILL.md"))
     assert {path.parent.name for path in skills} == expected
     for skill in skills:
+        source_dir = (
+            "skills"
+            if skill.parent.name in {"career-advice", "career-create-content"}
+            else "standalone-skills"
+        )
+        source = (
+            ROOT
+            / "plugins/rolevane-creation-fictional"
+            / source_dir
+            / skill.parent.name
+            / "SKILL.md"
+        )
+        assert skill.read_bytes() == source.read_bytes().replace(b"\r\n", b"\n")
         frontmatter = skill.read_text(encoding="utf-8").split("---", 2)
         assert len(frontmatter) == 3 and not frontmatter[0].strip()
         fields = dict(line.split(":", 1) for line in frontmatter[1].strip().splitlines())
@@ -270,6 +303,16 @@ def test_standalone_cli_archive_is_installable_closed_and_reproducible(tmp_path)
             resource = (document.parent / relative).resolve()
             assert resource.is_relative_to(installation.resolve()), (document, link)
             assert resource.is_file(), (document, link)
+
+
+@pytest.mark.parametrize(
+    "profile", [PROFILE, "supplied_content_host_only_v1", "sealed_fictional_only"]
+)
+def test_plugin_wrapper_refuses_other_content_profiles_before_output(tmp_path, profile):
+    output = tmp_path / "unsupported.zip"
+    with pytest.raises(ValueError):
+        build(ROOT, output, profile=profile, as_plugin=True)
+    assert not output.exists()
 
 
 @pytest.mark.parametrize(
