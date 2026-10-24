@@ -131,6 +131,12 @@ STANDALONE_MEMBERS = (
         "examples/standalone-runtime-scenarios.json",
     ),
 )
+STANDALONE_PLUGIN_MEMBERS = (
+    *(item for item in STANDALONE_MEMBERS if item[1] != "README.md"),
+    ("plugins/berufa-career/README.md", "README.md"),
+    ("plugins/berufa-career/plugin.json", "plugin.json"),
+    ("plugins/berufa-career/assets/icon.svg", "assets/icon.svg"),
+)
 HOST_ONLY_PROFILES = {
     "creation_fictional_host_only",
     "creation_skills_fictional_only",
@@ -147,7 +153,10 @@ def build(
     profile: str = "content_free_status_only",
     instance_root: Path | None = None,
     include_workflow_skills: bool = False,
+    as_plugin: bool = False,
 ) -> dict[str, object]:
+    if as_plugin and profile != STANDALONE_PROFILE:
+        raise ValueError("The plugin wrapper requires the selected-text standalone profile")
     if profile not in {
         "content_free_status_only",
         "sealed_fictional_only",
@@ -178,6 +187,8 @@ def build(
         SUPPLIED_PROFILE: SUPPLIED_MEMBERS,
         STANDALONE_PROFILE: STANDALONE_MEMBERS,
     }[profile]
+    if as_plugin:
+        members = STANDALONE_PLUGIN_MEMBERS
     for source, destination in (*members, *(WORKFLOW_MEMBERS if include_workflow_skills else ())):
         path = root / source
         # The private source owner and its sanitized public export are both supported callers.
@@ -285,6 +296,11 @@ def main() -> int:
         help="Absolute isolated Python for a machine-local bundle; omitted for portable distribution",
     )
     parser.add_argument(
+        "--as-plugin",
+        action="store_true",
+        help="Wrap the selected-text standalone Skills as the Berufa Career desktop plugin",
+    )
+    parser.add_argument(
         "--include-workflow-skills",
         action="store_true",
         help="Include all seven bounded workflow Skills alongside the two creation Skills",
@@ -300,6 +316,7 @@ def main() -> int:
                     profile=args.profile,
                     instance_root=args.instance_root,
                     include_workflow_skills=args.include_workflow_skills,
+                    as_plugin=args.as_plugin,
                 )
             )
         )
