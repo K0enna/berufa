@@ -171,7 +171,11 @@ def validate_skill_pack(root: str | Path) -> list[str]:
         payload = tomllib.loads(manifest_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, tomllib.TOMLDecodeError) as exc:
         return [f"manifest.toml is invalid: {exc}"]
-    if set(payload) != {"version", "skills"} or payload.get("version") != 1:
+    if (
+        set(payload) != {"version", "skills"}
+        or type(payload.get("version")) is not int
+        or payload["version"] != 1
+    ):
         return ["manifest.toml must contain version 1 and skills"]
     entries = payload.get("skills")
     if not isinstance(entries, list) or not entries:
@@ -197,7 +201,7 @@ def validate_skill_pack(root: str | Path) -> list[str]:
             errors.append(f"{label}.name must be a string")
             continue
         names.append(name)
-        if entry.get("contract_version") != 1:
+        if type(entry.get("contract_version")) is not int or entry["contract_version"] != 1:
             errors.append(f"{name}: contract_version must be 1")
         try:
             _validate_compatibility(entry.get("package_compatibility"), package_version)

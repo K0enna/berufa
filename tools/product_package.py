@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import re
 import subprocess
 import tomllib
 from dataclasses import dataclass
@@ -110,9 +111,9 @@ def _internal_imports(path: str, text: str, available: set[str]) -> set[str]:
         else module_name.split(".")[:-1]
     )
     for node in ast.walk(tree):
-        modules: list[str] = []
+        modules: list[tuple[str, bool]] = []
         if isinstance(node, ast.Import):
-            modules.extend(alias.name for alias in node.names)
+            modules.extend((alias.name, True) for alias in node.names)
         elif isinstance(node, ast.ImportFrom):
             if node.level:
                 keep = max(0, len(package_parts) - (node.level - 1))
@@ -123,14 +124,18 @@ def _internal_imports(path: str, text: str, available: set[str]) -> set[str]:
             else:
                 base = node.module or ""
             if base:
-                modules.append(base)
-                modules.extend(f"{base}.{alias.name}" for alias in node.names)
-        for module in modules:
-            if not module.startswith("career_os"):
+                modules.append((base, True))
+                modules.extend((f"{base}.{alias.name}", False) for alias in node.names)
+        for module, required in modules:
+            if module != "career_os" and not module.startswith("career_os."):
                 continue
             dependency = _module_path(module, available)
             if dependency is not None:
                 dependencies.add(dependency)
+            elif required:
+                raise ValueError(
+                    f"Product package module has unpackaged internal imports: {path} -> {module}"
+                )
     dependencies.discard(path)
     return dependencies
 
@@ -179,7 +184,13 @@ def load_product_package(root: str | Path, *, require_tracked: bool = True) -> P
         not isinstance(scripts, dict)
         or not scripts
         or any(
-            not isinstance(key, str) or not key or not isinstance(value, str) or ":" not in value
+            not isinstance(key, str)
+            or not key
+            or not isinstance(value, str)
+            or re.fullmatch(
+                r"[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*:[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*", value
+            )
+            is None
             for key, value in scripts.items()
         )
     ):

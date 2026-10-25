@@ -1053,3 +1053,19 @@ def test_confirmed_decision_and_interview_prepare_match_public_services_and_curr
     monkeypatch.setattr(companion_storage.time, "time", lambda: now + 30 * 86400)
     human.lifecycle_confirm(human.lifecycle_preview("retire", (decision_pending, pending)))
     assert human.recover(decision_pending) == choice_receipt and human.recover(pending) == receipt
+
+
+def test_active_pending_retirement_field_returns_controlled_denial(connected):
+    _, _, _, human, service = connected
+    pending = staged_assessment(connected)
+    ref, _ = human.inspect("pending", pending)
+    human.grant(ref, ("retired_at",), "receipt_lookup")
+    assert service.call(
+        "read",
+        {
+            "ref": ref.to_dict(),
+            "fields": ["retired_at"],
+            "purpose": "receipt_lookup",
+            "historical": False,
+        },
+    ) == {"error": "not_found_or_denied"}

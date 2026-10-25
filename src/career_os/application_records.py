@@ -179,7 +179,18 @@ class ApplicationPlan:
     def from_dict(cls, payload: dict[str, Any]) -> ApplicationPlan:
         if not isinstance(payload, dict) or payload.get("schema_version") != 2:
             raise ValueError("Application plan requires schema_version 2")
-        raw_items = payload.get("evidence_items") or ()
+        raw_items = payload.get("evidence_items", [])
+        if not isinstance(raw_items, list) or any(not isinstance(item, dict) for item in raw_items):
+            raise ValueError("application_plan.evidence_items must be an array of objects")
+        for item in raw_items:
+            for field in ("evidence_ids", "artifact_use"):
+                values = item.get(field, [])
+                if not isinstance(values, list) or any(
+                    not isinstance(value, str) for value in values
+                ):
+                    raise ValueError(
+                        f"application_plan.evidence_items.{field} must be an array of strings"
+                    )
         items = tuple(
             ApplicationEvidenceItem(
                 need_id=str(item.get("need_id") or ""),

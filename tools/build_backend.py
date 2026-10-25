@@ -153,10 +153,14 @@ def _metadata_text(package: ProductPackage, *, editable: bool = False) -> str:
     if editable:
         for extra, extra_dependencies in project.get("optional-dependencies", {}).items():
             lines.append(f"Provides-Extra: {extra}")
-            lines.extend(
-                f'Requires-Dist: {dependency}; extra == "{extra}"'
-                for dependency in extra_dependencies
-            )
+            for dependency in extra_dependencies:
+                requirement, separator, marker = dependency.partition(";")
+                condition = (
+                    f'({marker.strip()}) and extra == "{extra}"'
+                    if separator
+                    else f'extra == "{extra}"'
+                )
+                lines.append(f"Requires-Dist: {requirement.strip()}; {condition}")
     return "\n".join(lines) + "\n"
 
 
@@ -303,6 +307,8 @@ def _sdist_files(package: ProductPackage) -> dict[str, bytes]:
             use_public_template=relative in {"pyproject.toml", "README.md", "LICENSE", "NOTICE"},
         )
         files[relative] = path.read_bytes()
+    for relative in _license_files(use_public_template=True):
+        files[relative] = _regular_source(relative, use_public_template=True).read_bytes()
     files["PKG-INFO"] = _metadata_bytes(package)
     for relative in (*package.files, *package.resources):
         path = _regular_source(relative)

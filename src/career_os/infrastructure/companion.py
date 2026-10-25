@@ -291,6 +291,8 @@ class LocalCompanionRepository:
             )
             if companion_digest(payload) != ref.revision:
                 raise CompanionError("stale_basis")
+            if not set(fields) <= payload.keys():
+                raise CompanionError("not_found_or_denied")
             return {
                 "ref": ref.to_dict(),
                 "historical": historical,

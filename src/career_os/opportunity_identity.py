@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
@@ -13,6 +14,8 @@ from typing import Any
 MAX_IDENTITY_FILE_BYTES = 256 * 1024
 MAX_WORKSPACE_MANIFEST_BYTES = 128 * 1024
 MAX_BINDINGS = 1_000
+MAX_WORKSPACE_DIRECTORIES = 2_000
+MAX_WORKSPACE_MANIFESTS = 200
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 IDENTITY_BINDING_FIELDS = frozenset(
     {
@@ -51,6 +54,141 @@ class OpportunityIdentityRegistry:
             return ""
         aliases = {binding.alias_id: binding.canonical_opportunity_id for binding in self.bindings}
         return aliases.get(identity, identity)
+
+
+def _is_indirect(path: Path) -> bool:
+    try:
+        if path.is_symlink():
+            return True
+        is_junction = getattr(path, "is_junction", None)
+        if callable(is_junction) and is_junction():
+            return True
+        isjunction = getattr(os.path, "isjunction", None)
+        if callable(isjunction) and isjunction(path):
+            return True
+        attributes = getattr(path.lstat(), "st_file_attributes", 0)
+    except FileNotFoundError:
+        return False
+    except OSError:
+        return True
+    return bool(attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0))
+
+
+def _workspace_root(
+    entry: object,
+    *,
+    project_root: Path,
+    application_root: Path,
+) -> Path:
+    source = Path(_entry_value(entry, "workspace_path"))
+    lexical = source if source.is_absolute() else project_root / source
+    lexical = Path(os.path.abspath(lexical))
+    try:
+        relative = lexical.relative_to(application_root)
+    except ValueError as exc:
+        raise ValueError("Pipeline workspace is outside the configured application root") from exc
+    current = application_root
+    for part in relative.parts:
+        current /= part
+        if _is_indirect(current):
+            raise ValueError("Pipeline workspace traverses a link or reparse point")
+    if not lexical.is_dir():
+        raise ValueError("Pipeline workspace is unavailable")
+    return lexical.resolve(strict=True)
+
+
+def _workspace_manifests(workspace: Path, application_root: Path) -> list[dict[str, Any]]:
+    manifests: list[dict[str, Any]] = []
+    directories = 0
+
+    def fail_inventory(error: OSError) -> None:
+        raise error
+
+    for directory, names, files in os.walk(
+        workspace,
+        topdown=True,
+        onerror=fail_inventory,
+        followlinks=False,
+    ):
+        directories += 1
+        if directories > MAX_WORKSPACE_DIRECTORIES:
+            raise ValueError("Pipeline workspace exceeds the bounded directory inventory")
+        current = Path(directory)
+        if current != workspace and _is_indirect(current):
+            raise ValueError("Pipeline workspace inventory encountered directory indirection")
+        for name in tuple(names):
+            if _is_indirect(current / name):
+                raise ValueError("Pipeline workspace inventory encountered directory indirection")
+        if "workspace.json" not in files:
+            continue
+        candidate = current / "workspace.json"
+        relative = candidate.relative_to(application_root).as_posix()
+        safe = _safe_manifest(application_root, relative)
+        encoded = _read_bounded_bytes(
+            safe,
+            maximum_bytes=MAX_WORKSPACE_MANIFEST_BYTES,
+            artifact="Identity binding workspace manifest",
+        )
+        try:
+            payload = json.loads(encoded.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError(f"Workspace manifest is invalid JSON: {relative}") from exc
+        if not isinstance(payload, dict):
+            raise ValueError(f"Workspace manifest must be an object: {relative}")
+        schema_version = payload.get("schema_version")
+        opportunity_id = payload.get("opportunity_id")
+        job_key = payload.get("job_key")
+        if (
+            type(schema_version) is not int
+            or schema_version not in {1, 2}
+            or not isinstance(opportunity_id, str)
+            or not opportunity_id.strip()
+            or not isinstance(job_key, str)
+            or not job_key.strip()
+        ):
+            raise ValueError(f"Workspace manifest identity contract is invalid: {relative}")
+        manifests.append(
+            {
+                "workspace_manifest": relative,
+                "workspace_manifest_sha256": hashlib.sha256(encoded).hexdigest(),
+                "manifest_opportunity_id": opportunity_id.strip(),
+                "manifest_job_key": job_key.strip(),
+            }
+        )
+        if len(manifests) > MAX_WORKSPACE_MANIFESTS:
+            raise ValueError("Pipeline workspace exceeds the bounded manifest inventory")
+    return sorted(manifests, key=lambda item: item["workspace_manifest"])
+
+
+def _inventory_workspace_identities(
+    entries: tuple[object, ...],
+    *,
+    project_root: Path,
+    application_root: Path,
+) -> tuple[dict[int, list[dict[str, Any]]], dict[int, str], dict[str, list[str]]]:
+    evidence_by_line: dict[int, list[dict[str, Any]]] = {}
+    errors_by_line: dict[int, str] = {}
+    alias_claims: dict[str, list[str]] = {}
+    for index, entry in enumerate(entries):
+        source_line = int(_entry_value(entry, "source_line") or index)
+        if not _entry_value(entry, "workspace_path"):
+            continue
+        try:
+            workspace = _workspace_root(
+                entry,
+                project_root=project_root,
+                application_root=application_root,
+            )
+            manifests = _workspace_manifests(workspace, application_root)
+        except (OSError, UnicodeError, ValueError) as exc:
+            errors_by_line[source_line] = str(exc)
+            continue
+        evidence_by_line[source_line] = manifests
+        for evidence in manifests:
+            alias_id = evidence["manifest_opportunity_id"]
+            if alias_id != _entry_value(entry, "opportunity_id"):
+                alias_claims.setdefault(alias_id, []).append(_entry_value(entry, "opportunity_id"))
+    return evidence_by_line, errors_by_line, alias_claims
 
 
 def _timestamp(value: object) -> datetime:
@@ -116,6 +254,7 @@ def load_opportunity_identity_registry(
     project_root: str | Path = ".",
     as_of: datetime | None = None,
     _payload: object = _IDENTITY_PAYLOAD_UNSET,
+    _check_alias_ownership: bool = True,
 ) -> OpportunityIdentityRegistry:
     """Load exact, evidence-bound aliases without changing any source authority."""
 
@@ -157,6 +296,7 @@ def load_opportunity_identity_registry(
 
     root = Path(application_root)
     pipeline_by_id: dict[str, list[object]] | None = None
+    alias_claims: dict[str, list[str]] = {}
     bindings: list[OpportunityIdentityBinding] = []
     seen_aliases: set[str] = set()
     for index, raw in enumerate(raw_bindings):
@@ -201,7 +341,7 @@ def load_opportunity_identity_registry(
             if root.is_symlink() or not root.is_dir():
                 raise ValueError("Application root is unavailable for identity binding validation")
             pipeline_by_id = {}
-            pipeline_entries = pipeline() if callable(pipeline) else pipeline
+            pipeline_entries = tuple(pipeline() if callable(pipeline) else pipeline)
             for entry in pipeline_entries:
                 identity = _entry_value(entry, "opportunity_id") or _entry_value(
                     entry, "pipeline_key"
@@ -290,6 +430,17 @@ def load_opportunity_identity_registry(
     chained = canonical_ids & {binding.alias_id for binding in bindings}
     if chained:
         raise ValueError("Opportunity identity bindings must not contain chains or cycles")
+    if bindings and _check_alias_ownership:
+        _evidence, errors, alias_claims = _inventory_workspace_identities(
+            pipeline_entries,
+            project_root=Path(project_root).resolve(),
+            application_root=root.resolve(),
+        )
+        if errors:
+            raise ValueError("Workspace identity inventory is incomplete")
+        for binding in bindings:
+            if alias_claims.get(binding.alias_id, []) != [binding.canonical_opportunity_id]:
+                raise ValueError(f"Active alias ownership is ambiguous for {binding.alias_id}")
     return OpportunityIdentityRegistry(tuple(bindings))
 
 
@@ -300,6 +451,7 @@ def validate_opportunity_identity_payload(
     application_root: str | Path,
     project_root: str | Path = ".",
     as_of: datetime | None = None,
+    _check_alias_ownership: bool = True,
 ) -> OpportunityIdentityRegistry:
     """Validate an in-memory binding document through the canonical read-side contract."""
 
@@ -310,6 +462,7 @@ def validate_opportunity_identity_payload(
         project_root=project_root,
         as_of=as_of,
         _payload=payload,
+        _check_alias_ownership=_check_alias_ownership,
     )
 
 

@@ -647,7 +647,7 @@ def test_pdf_work_budgets_reject_before_text_extraction(
 
 
 def test_pdf_cmap_range_parser_preserves_multiple_bfchar_mappings() -> None:
-    cmap = b"3 beginbfchar\n<01> <0041>\n<02> <0042>\n<03> <0043>\nendbfchar\n"
+    cmap = b"% Valid comment <0>\n3 beginbfchar\n<01> <0041>\n<02> <0042>\n<03> <0043>\nendbfchar\n"
 
     assert document_intake._pdf_cmap_stats(
         cmap,

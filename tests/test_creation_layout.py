@@ -1,6 +1,7 @@
 """Protect layout feedback at the real renderer boundary, with actual PDF readback."""
 
 import importlib.util
+import re
 import textwrap
 from pathlib import Path
 
@@ -79,7 +80,7 @@ def test_long_paragraph_records_actual_split_pages(tmp_path, renderer):
         warning["code"] for warning in layout["warnings"]
     }
     extracted = " ".join(page.extract_text() for page in pdf.pages)
-    assert "case0" in extracted and "case209" in extracted
+    assert re.findall(r"\bcase(\d+)\b", extracted) == [str(index) for index in range(210)]
 
 
 @pytest.mark.parametrize("title", ["Fictional letter", "A" * 255, "A" * 256])

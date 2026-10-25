@@ -42,6 +42,7 @@ from career_os.infrastructure.evidence_storage import (
     validate_current_storage,
 )
 from career_os.outcome_records import _timestamp_instant
+from career_os.process_control import locked_process_handle
 
 NAMESPACE = "data/runtime/content-documents"
 REVIEW_PATH = "data/runtime/document-reviews.json"
@@ -254,7 +255,10 @@ def _version(root, ref, *, artifact_remaining, extracted_remaining):
 
 
 def _inspect_document_archive(
-    root: str | Path, *, review_lock_held: bool = False
+    root: str | Path,
+    *,
+    review_lock_held: bool = False,
+    legacy_lock_identity: tuple[int, int] | None = None,
 ) -> DocumentArchive:
     """Pure bounded retained-data validation; no consent, DB, locks or currentness checks.
 
@@ -312,7 +316,14 @@ def _inspect_document_archive(
         with open_anchored_binary(
             root, file_identity(root), lock.relative_to(root), label="Document review lock"
         ) as stream:
-            if not 1 <= os.fstat(stream.fileno()).st_size <= 32:
+            metadata = os.fstat(stream.fileno())
+            maximum = 4096 if legacy_lock_identity is not None else 32
+            if (
+                legacy_lock_identity is not None
+                and (metadata.st_dev, metadata.st_ino) != legacy_lock_identity
+            ):
+                raise ValueError("Document review lock identity changed")
+            if not 1 <= metadata.st_size <= maximum:
                 raise ValueError("Document review lock exceeds its bound")
             # The Windows byte-range lock prohibits reading its first byte while held.
             # The CAS owns that lock; archival callers validate its retained PID bytes.
@@ -381,6 +392,53 @@ class LocalDocumentRepository:
             raise ValueError("Private workspace recovery is incomplete")
         if not self._vault.has_consent():
             raise PermissionError("Local-processing consent required")
+
+    def recover_review_lock(self):
+        # This is deliberately separate from pure reads and normal PID-writing locks.
+        with self._vault.read_transaction():
+            self._guard()
+            root_identity = file_identity(self.root)
+            lock = (self.root / REVIEW_PATH).with_name(".document-reviews.json.lock")
+            from career_os.file_transactions import _safe_regular_file_path
+
+            if not _safe_regular_file_path(lock).exists():
+                return False
+            opened = open_anchored_binary(
+                self.root,
+                root_identity,
+                lock.relative_to(self.root),
+                label="Document review lock",
+                writable=True,
+            )
+            with opened as stream:
+                observed = stream.read(4097)
+                if not 1 <= len(observed) <= 4096 or not observed.isdigit():
+                    raise ValueError("Document review lock is not bounded ASCII digits")
+                metadata = os.fstat(stream.fileno())
+                identity = (metadata.st_dev, metadata.st_ino)
+                with locked_process_handle(stream, label=str(lock)):
+                    stream.seek(0)
+                    if stream.read(4097) != observed or file_identity(lock) != identity:
+                        raise ValueError("Document review lock changed before recovery")
+                    if len(observed) <= 32:
+                        return False
+                    _inspect_document_archive(
+                        self.root, review_lock_held=True, legacy_lock_identity=identity
+                    )
+                    self._guard()
+                    stream.seek(0)
+                    if (
+                        stream.read(4097) != observed
+                        or file_identity(lock) != identity
+                        or file_identity(self.root) != root_identity
+                    ):
+                        raise ValueError("Document review lock changed during recovery")
+                    stream.seek(0)
+                    stream.write(str(os.getpid()).encode("ascii"))
+                    stream.truncate()
+                    stream.flush()
+                    os.fsync(stream.fileno())
+                    return True
 
     def _current(self, basis):
         if not basis:
@@ -684,6 +742,10 @@ class LocalDocumentRepository:
         receipt = None
         with self._vault.existing_transaction():
             self._guard()
+
+            # A saved preview must not normalize malformed retained lock bytes as a
+            # side effect of the normal PID-writing CAS lock. Recovery is explicit.
+            inspect_document_archive(self.root)
 
             def append(raw):
                 nonlocal receipt

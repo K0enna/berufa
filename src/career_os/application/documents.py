@@ -271,6 +271,8 @@ class DocumentExportReceipt(Serializable):
 
 
 class DocumentRepository(Protocol):
+    def recover_review_lock(self) -> bool: ...
+
     def import_version(self, request: DocumentImportRequest) -> DocumentReceipt: ...
     def edit(
         self, request: DocumentEditRequest, fingerprint: str | None
@@ -291,6 +293,11 @@ class DocumentService:
     def _actor(actor: str | None) -> None:
         if actor != "local_user":
             raise PermissionError("Only the local user may change local documents")
+
+    def recover_review_lock(self, *, actor: str) -> bool:
+        """Explicitly normalize a validated legacy numeric sidecar before reopening the UI."""
+        self._actor(actor)
+        return self._repository.recover_review_lock()
 
     def import_version(self, request: DocumentImportRequest, *, actor: str) -> DocumentReceipt:
         self._actor(actor)

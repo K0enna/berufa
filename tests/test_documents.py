@@ -668,3 +668,160 @@ def test_committed_review_replay_survives_stale_basis_and_later_review(instance)
         with pytest.raises(PermissionError):
             service.review(changed_req, confirmation_fingerprint=fingerprint, actor="local_user")
     assert (root / REVIEW_PATH).read_bytes() == before
+
+
+def test_explicit_legacy_review_lock_recovery_and_repeated_reviews(instance):
+    import os
+
+    from career_os.application.documents import DocumentEditRequest
+
+    root, _, service = instance
+    original = "# Fictional — café 日本語\n\nOriginal wording.\n"
+    ref = service.import_version(
+        replace(request(), artifacts={"md": original.encode()}), actor="local_user"
+    ).ref
+    accepted(service, ref)
+    lock = root / "data/runtime/.document-reviews.json.lock"
+    lock.write_bytes(b"123456" * 6)
+    identity = (lock.stat().st_dev, lock.stat().st_ino)
+    preserved = {
+        p.relative_to(root): (p.read_bytes(), p.stat().st_mtime_ns)
+        for p in root.rglob("*")
+        if p.is_file() and p != lock
+    }
+    with pytest.raises(ValueError, match="lock exceeds"):
+        inspect_document_archive(root)
+    with pytest.raises(PermissionError):
+        service.recover_review_lock(actor="agent")
+    assert lock.read_bytes() == b"123456" * 6
+    assert service.recover_review_lock(actor="local_user") is True
+    assert lock.read_bytes() == str(os.getpid()).encode("ascii")
+    assert (lock.stat().st_dev, lock.stat().st_ino) == identity
+    assert {
+        p.relative_to(root): (p.read_bytes(), p.stat().st_mtime_ns)
+        for p in root.rglob("*")
+        if p.is_file() and p != lock
+    } == preserved
+    assert service.recover_review_lock(actor="local_user") is False
+    for index in range(24):
+        accepted(service, ref, note=f"Exact fictional review {index}")
+        assert service.inspect(ref).review_state == "accepted"
+        assert len(lock.read_bytes()) <= 32
+    edit = DocumentEditRequest(
+        "lock-repair-edit", ref, "md", "Original wording.", "Revised wording — 日本語."
+    )
+    preview = service.edit(edit)
+    edited = service.edit(
+        edit, confirmation_fingerprint=preview.confirmation_fingerprint, actor="local_user"
+    ).ref
+    review = accepted(service, edited)
+    service = create_document_service(root)
+    exported = service.export(
+        DocumentExportRequest(edited, ("md",), review.review_id), actor="local_user"
+    )
+    assert (Path(exported.path) / "draft.md").read_bytes() == original.replace(
+        edit.selected_text, edit.replacement_text
+    ).encode()
+    assert service.inspect(ref).artifacts["md"]["text"] == original
+    assert len(inspect_document_archive(root).reviews) == 26
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        b"",
+        b"x" * 36,
+        b"1" * 33 + b"\n",
+        b"+" + b"1" * 35,
+        b"1" * 33 + b"\0",
+        "１".encode() * 12,
+        b"1" * 4097,
+    ],
+)
+def test_review_lock_recovery_refuses_malformed_without_writes(instance, payload):
+    root, _, service = instance
+    ref = service.import_version(request(), actor="local_user").ref
+    req = DocumentReviewRequest(ref, "accepted", basis_unknown_ack=True)
+    preview = service.review(req)
+    lock = root / "data/runtime/.document-reviews.json.lock"
+    lock.write_bytes(payload)
+    before = {p.relative_to(root): p.read_bytes() for p in root.rglob("*") if p.is_file()}
+    with pytest.raises(ValueError):
+        service.recover_review_lock(actor="local_user")
+    with pytest.raises(ValueError):
+        service.review(
+            req, confirmation_fingerprint=preview.confirmation_fingerprint, actor="local_user"
+        )
+    assert {p.relative_to(root): p.read_bytes() for p in root.rglob("*") if p.is_file()} == before
+
+
+def test_review_lock_recovery_requires_consent_and_valid_archive(instance):
+    root, vault, service = instance
+    ref = service.import_version(request(), actor="local_user").ref
+    lock = root / "data/runtime/.document-reviews.json.lock"
+    lock.write_bytes(b"1" * 36)
+    vault.record_consent(accepted=False)
+    with pytest.raises(PermissionError, match="consent"):
+        service.recover_review_lock(actor="local_user")
+    vault.record_consent(accepted=True)
+    artifact = root / NAMESPACE / ref.document_id / ref.fingerprint / "draft.md"
+    artifact.write_bytes(b"tampered")
+    with pytest.raises(ValueError):
+        service.recover_review_lock(actor="local_user")
+    assert lock.read_bytes() == b"1" * 36
+
+
+@pytest.mark.parametrize("size", [1, 32, 33, 4096])
+def test_review_lock_recovery_exact_numeric_boundaries_and_missing(instance, size):
+    root, _, service = instance
+    lock = root / "data/runtime/.document-reviews.json.lock"
+    assert service.recover_review_lock(actor="local_user") is False
+    assert not lock.exists()
+    lock.write_bytes(b"2" * size)
+    assert service.recover_review_lock(actor="local_user") is (size > 32)
+    assert 1 <= len(lock.read_bytes()) <= 32
+    inspect_document_archive(root)
+
+
+def test_review_lock_recovery_refuses_busy_identity_redirect_and_incomplete(instance, monkeypatch):
+    import subprocess
+    import sys
+
+    import career_os.infrastructure.documents as documents
+
+    root, _, service = instance
+    lock = root / "data/runtime/.document-reviews.json.lock"
+    lock.write_bytes(b"3" * 36)
+    code = "from career_os.process_control import locked_process_handle; import sys; f=open(sys.argv[1], 'r+b'); c=locked_process_handle(f,label='fictional'); c.__enter__(); print('ready',flush=True); sys.stdin.read(1)"
+    process = subprocess.Popen(
+        [sys.executable, "-B", "-c", code, str(lock)],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    try:
+        assert process.stdout.readline().strip() == "ready"
+        with pytest.raises((OSError, ValueError)):
+            service.recover_review_lock(actor="local_user")
+    finally:
+        process.communicate("x", timeout=10)
+    assert process.returncode == 0 and lock.read_bytes() == b"3" * 36
+    identity = documents.file_identity
+    with monkeypatch.context() as patch:
+        patch.setattr(documents, "file_identity", lambda p: (-1, -1) if p == lock else identity(p))
+        with pytest.raises(ValueError, match="changed"):
+            service.recover_review_lock(actor="local_user")
+    assert lock.read_bytes() == b"3" * 36
+    incomplete = root / ".career-os-recovery-incomplete"
+    incomplete.write_text("pending")
+    with pytest.raises(ValueError, match="incomplete"):
+        service.recover_review_lock(actor="local_user")
+    incomplete.unlink()
+    # Existing house helper creates a real junction on Windows without symlink privilege.
+    runtime = root / "data/runtime"
+    retained = root / "data/retained-runtime"
+    runtime.rename(retained)
+    _link_directory(runtime, retained)
+    with pytest.raises(ValueError):
+        service.recover_review_lock(actor="local_user")
+    assert (retained / lock.name).read_bytes() == b"3" * 36

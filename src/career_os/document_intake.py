@@ -592,7 +592,8 @@ def _pdf_form_invocations(
 def _pdf_cmap_stats(data: bytes, *, work_limits: _PdfWorkLimits) -> tuple[int, int]:
     token_count = 0
     maximum_value_characters = 1
-    for match in _PDF_CMAP_HEX_TOKEN.finditer(data):
+    uncommented = b"\n".join(line.split(b"%", 1)[0] for line in data.splitlines())
+    for match in _PDF_CMAP_HEX_TOKEN.finditer(uncommented):
         token = b"".join(match.group(1).split())
         if not token:
             continue

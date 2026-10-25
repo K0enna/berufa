@@ -54,6 +54,7 @@ def open_anchored_binary(
     relative_path: Path,
     *,
     label: str,
+    writable: bool = False,
 ):
     """Open a file through pinned path components below an identity-bound root."""
 
@@ -66,8 +67,12 @@ def open_anchored_binary(
     ):
         raise ValueError(f"{label} is no longer safely contained")
     if os.name == "nt":
-        return _open_windows_anchored_binary(root, root_identity, relative_path, label=label)
-    return _open_posix_anchored_binary(root, root_identity, relative_path, label=label)
+        return _open_windows_anchored_binary(
+            root, root_identity, relative_path, label=label, writable=writable
+        )
+    return _open_posix_anchored_binary(
+        root, root_identity, relative_path, label=label, writable=writable
+    )
 
 
 def _open_posix_anchored_binary(
@@ -76,6 +81,7 @@ def _open_posix_anchored_binary(
     relative_path: Path,
     *,
     label: str,
+    writable: bool = False,
 ):
     @contextmanager
     def opened_file():
@@ -87,10 +93,14 @@ def _open_posix_anchored_binary(
             try:
                 file_descriptor = os.open(
                     relative_path.name,
-                    os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0),
+                    (os.O_RDWR if writable else os.O_RDONLY)
+                    | getattr(os, "O_NOFOLLOW", 0)
+                    | getattr(os, "O_NONBLOCK", 0),
                     dir_fd=parent_descriptor,
                 )
-                with os.fdopen(file_descriptor, "rb", closefd=False) as stream:
+                with os.fdopen(
+                    file_descriptor, "r+b" if writable else "rb", closefd=False
+                ) as stream:
                     yielded = True
                     yield stream
             except FileNotFoundError:
@@ -162,6 +172,7 @@ def _open_windows_anchored_binary(
     relative_path: Path,
     *,
     label: str,
+    writable: bool = False,
 ):
     import msvcrt
     from ctypes import wintypes
@@ -211,7 +222,7 @@ def _open_windows_anchored_binary(
     def open_component(path: Path, *, directory: bool) -> tuple[int, FileInformation]:
         handle = create_file(
             str(path),
-            generic_read,
+            generic_read | (0x40000000 if writable and not directory else 0),
             file_share_read | file_share_write,
             None,
             open_existing,
@@ -258,9 +269,11 @@ def _open_windows_anchored_binary(
                 current / relative_path.parts[-1], directory=False
             )
             handles.append(handle)
-            descriptor = msvcrt.open_osfhandle(handle, os.O_RDONLY | getattr(os, "O_BINARY", 0))
+            descriptor = msvcrt.open_osfhandle(
+                handle, (os.O_RDWR if writable else os.O_RDONLY) | getattr(os, "O_BINARY", 0)
+            )
             handles.pop()
-            with os.fdopen(descriptor, "rb", closefd=False) as stream:
+            with os.fdopen(descriptor, "r+b" if writable else "rb", closefd=False) as stream:
                 yielded = True
                 yield stream
         except FileNotFoundError:
