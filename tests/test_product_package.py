@@ -1968,3 +1968,57 @@ def test_clean_environment_installs_wheel_and_runs_offline_smoke(tmp_path: Path)
         env=clean_environment,
     )
     assert skill_result.stdout.strip() == "Validated 7 public Rolevane skills."
+
+
+@pytest.mark.parametrize(
+    "target", ["career_os.ready:", "career_os.ready:main:extra", "career_os.ready:bad-name"]
+)
+def test_product_package_rejects_invalid_script_callable(tmp_path, target):
+    package = tmp_path / "src/career_os"
+    package.mkdir(parents=True)
+    (package / "__init__.py").write_text("", encoding="utf-8")
+    (package / "ready.py").write_text("def main(): pass\n", encoding="utf-8")
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config/product_package.toml").write_text(
+        'version = 1\nname = "synthetic"\ndependencies = []\nfiles = ["src/career_os/__init__.py", "src/career_os/ready.py"]\nresources = []\n[scripts]\nsmoke = "'
+        + target
+        + '"\n',
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="module callables"):
+        load_product_package(tmp_path, require_tracked=False)
+
+
+def test_editable_extra_preserves_existing_environment_marker(monkeypatch):
+    original = build_backend._project
+
+    def project(**kwargs):
+        value = original(**kwargs)
+        value["optional-dependencies"] = {"synthetic": ["example>=1; sys_platform == 'win32'"]}
+        return value
+
+    monkeypatch.setattr(build_backend, "_project", project)
+    metadata = build_backend._metadata_text(_load_root_package(), editable=True)
+    line = next(
+        item for item in metadata.splitlines() if item.startswith("Requires-Dist: example>=")
+    )
+    assert line.count(";") == 1
+    assert "(sys_platform == 'win32') and extra ==" in line
+    assert line.endswith(chr(34) + "synthetic" + chr(34))
+
+
+def test_sdist_retains_every_configured_license_file(tmp_path, monkeypatch):
+    extra = tmp_path / "COPYING.synthetic"
+    extra.write_bytes(b"Synthetic license terms\n")
+    original = build_backend._regular_source
+    monkeypatch.setattr(
+        build_backend, "_license_files", lambda **kwargs: ("LICENSE", "NOTICE", "COPYING.synthetic")
+    )
+    monkeypatch.setattr(
+        build_backend,
+        "_regular_source",
+        lambda name, **kwargs: extra if name == "COPYING.synthetic" else original(name, **kwargs),
+    )
+    files = build_backend._sdist_files(_load_root_package())
+    assert files["COPYING.synthetic"] == b"Synthetic license terms\n"
+    assert b"License-File: COPYING.synthetic\n" in files["PKG-INFO"]

@@ -99,7 +99,7 @@ paths are user-selected private directories outside the checkout and Python envi
 | Doctor | `rolevane-instance --instance-root PATH doctor` is a local diagnostic with fixed checks and `ready`; it checks package/runtime/dependency, layout, inventory, and managed-storage health. It does not repair state, make model/network calls, or certify security. |
 | Backup, verify, restore | The offline route is a complete directory snapshot, not a filtered export, encrypted archive, synchronizer, or repair tool. Restore targets a new path and rebinds only the restored instance identity; stop all writers and review the exact inventory first. |
 | Filtered export | `export` writes a portable, inspectable user-data JSON containing managed career records and source material while excluding credential/configuration files, unimported inbox files, prior exports, temporary files, logs, bindings, and lock metadata. It is not a restore format and does not upload or create an external event. |
-| Selected-workspace deletion | `delete` first previews the complete current inventory, then removes only the exact confirmed initialized root after rechecking it. It does not touch installed code, outside documents, backups, exports, or provider copies; logical deletion is not guaranteed disk-sector erasure. |
+| Selected-workspace deletion | `delete` first previews the complete current inventory, then removes only the exact confirmed initialized root after rechecking it. It does not touch installed code, documents, backups, exports, or provider copies stored outside that root; logical deletion is not guaranteed disk-sector erasure. |
 
 ## Experimental exact-posting preview
 

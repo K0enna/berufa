@@ -296,8 +296,21 @@ def _http_request(
                     raw = b"".join(chunks)
                     if len(raw) > maximum_bytes:
                         raise ProviderError("Source response exceeds the byte limit")
+                    declared_length = response.headers.get("Content-Length")
+                    if declared_length is not None:
+                        try:
+                            expected_length = int(declared_length)
+                        except ValueError as exc:
+                            raise ProviderError("Invalid response Content-Length") from exc
+                        if expected_length != len(raw):
+                            raise ProviderError(
+                                "Incomplete response: truncated Content-Length body"
+                            )
                     charset = response.headers.get_content_charset() or "utf-8"
-                    value = raw.decode(charset, errors="strict" if public_only else "replace")
+                    try:
+                        value = raw.decode(charset, errors="strict" if public_only else "replace")
+                    except LookupError as exc:
+                        raise ProviderError("Unsupported response charset") from exc
                 attempt_queue.put((value, None))
             except Exception as exc:  # transfer the exact transport error to the caller
                 attempt_queue.put((None, exc))

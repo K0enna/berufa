@@ -19,52 +19,50 @@ class ProcessLockError(OSError):
 
 
 @contextmanager
+def locked_process_handle(handle, *, label: str) -> Iterator[None]:
+    """Hold OS exclusion on an open file without modifying its retained bytes."""
+    handle.seek(0)
+    try:
+        if os.name == "nt":
+            import msvcrt
+
+            msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError as exc:
+        raise ProcessLockError(f"Another Rolevane run is already active for {label}") from exc
+    try:
+        yield
+    finally:
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+
+            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
 def exclusive_process_lock(path: str | Path) -> Iterator[Path]:
-    """Hold an OS-backed non-blocking lock for one process-scoped operation.
-
-    The lock file deliberately remains on disk. The operating system releases the
-    actual lock if the process exits or is killed, so stale PID-file cleanup and PID
-    reuse cannot allow two writers into the same critical section.
-    """
-
+    """Retain one PID on the same OS-locked file; abnormal exit releases exclusion."""
     lock_path = Path(path).resolve()
     lock_path.parent.mkdir(parents=True, exist_ok=True)
-    with lock_path.open("a+b") as handle:
-        handle.seek(0, os.SEEK_END)
-        if handle.tell() == 0:
-            handle.write(b"0")
-            handle.flush()
+    # O_APPEND ignores seek for writes. Never truncate until OS exclusion is held.
+    descriptor = os.open(lock_path, os.O_RDWR | os.O_CREAT | getattr(os, "O_BINARY", 0), 0o600)
+    with (
+        os.fdopen(descriptor, "r+b") as handle,
+        locked_process_handle(handle, label=str(lock_path)),
+    ):
         handle.seek(0)
-        try:
-            if os.name == "nt":
-                import msvcrt
-
-                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
-            else:
-                import fcntl
-
-                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except OSError as exc:
-            raise ProcessLockError(
-                f"Another Rolevane run is already active for {lock_path}"
-            ) from exc
-
-        try:
-            handle.seek(0)
-            handle.write(str(os.getpid()).encode("ascii"))
-            handle.truncate()
-            handle.flush()
-            yield lock_path
-        finally:
-            handle.seek(0)
-            if os.name == "nt":
-                import msvcrt
-
-                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
-            else:
-                import fcntl
-
-                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+        handle.write(str(os.getpid()).encode("ascii"))
+        handle.truncate()
+        handle.flush()
+        yield lock_path
 
 
 def process_exists(pid: int) -> bool:
